@@ -190,6 +190,7 @@ Variables principales:
 - `WP_DOMAIN`: dominio local del proyecto
 - `WP_SITE_URL`: URL completa usada por WordPress
 - `WP_SITE_TITLE`: titulo inicial del sitio
+- `WP_CORE_VERSION`: version de WordPress a descargar en el primer arranque (`latest` por defecto)
 - `WP_ADMIN_USER`, `WP_ADMIN_PASSWORD`, `WP_ADMIN_EMAIL`: credenciales iniciales de admin
 - `WP_DB_HOST`, `WP_DB_NAME`, `WP_DB_USER`, `WP_DB_PASSWORD`, `WP_DB_ROOT_PASSWORD`: conexion a MariaDB
 - `WP_TABLE_PREFIX`: prefijo de tablas WordPress
@@ -225,14 +226,18 @@ Servicios incluidos:
 ### 6. Entender que hace `bootstrap-wp.sh`
 
 `./scripts/bootstrap-wp.sh` hace el arranque inicial del sitio:
-- espera a que existan archivos core de WordPress
-- si no existen, descarga core con WP-CLI
+- descarga el core de WordPress con WP-CLI si la carpeta compartida aun no lo tiene
+- usa `WP_CORE_VERSION=latest` por defecto para instalar la ultima estable en proyectos nuevos
 - crea `wp-config.php` si falta
 - espera a la base de datos
 - instala WordPress si todavia no esta instalado
 - ajusta `home` y `siteurl`
 
 El objetivo es que el stack pueda arrancar desde cero sin pasos manuales de instalacion web.
+
+Importante:
+- el servicio `wp-cli` prepara el core antes de que arranque Apache
+- eso evita que la imagen `wordpress:php8.2-apache` imponga la version inicial al primer arranque
 
 ### 7. Verificar que WordPress ha arrancado bien
 
