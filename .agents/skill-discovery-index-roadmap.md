@@ -9,7 +9,7 @@ Definir, validar, generar e integrar un `Skill Discovery Index` derivado para `.
 - Fase 1. Contrato: completada
 - Fase 2. Validación: completada
 - Fase 3. Generador: completada
-- Fase 4. Integración: pendiente
+- Fase 4. Integración: completada
 
 ## Fase 1. Contrato
 
@@ -74,7 +74,7 @@ Resultado:
 
 ## Fase 4. Integración
 
-Estado: pendiente
+Estado: completada
 
 Objetivo:
 
@@ -82,15 +82,15 @@ Objetivo:
 - impedir que el índice sustituya la decisión final de `multiagent.yaml`
 - consolidar su uso como artefacto auxiliar e inspeccionable
 
-Entregables previstos:
+Entregables completados:
 
-- reglas mínimas de consumo del índice
-- validación de no deriva entre índice y fuentes canónicas
-- documentación de uso dentro del flujo de agentes
+- reglas mínimas de consumo del índice en [multiagent.yaml](./multiagent.yaml)
+- integración de uso acotado en [planner.md](./prompts/planner.md)
+- documentación arquitectónica en [architecture.md](../docs/architecture.md)
 
-Criterios de cierre:
+Resultado:
 
-- el índice se usa solo como apoyo a discovery
+- el índice se usa solo como apoyo a discovery y shortlist
 - la decisión final sigue dependiendo de `multiagent.yaml`
 - no se duplica lógica de routing, guardrails ni policy
 

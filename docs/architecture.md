@@ -21,6 +21,8 @@ Este template empaqueta la configuracion reusable del repo para crear proyectos 
 - `required_gates` salen de `quality_contract.common_required_gates` + perfil
 - `required_checks` salen del perfil, del tooling detectado y de la intencion real de la tarea
 - `builder` ejecuta checks y `qa` decide sobre gates con esa evidencia
+- `skill-discovery-index` vive en `./.agents/generated/skill-discovery-index.json` como artefacto derivado para discovery y shortlist
+- `skill-discovery-index` no decide ejecucion, no selecciona perfil y no sustituye `multiagent.yaml`
 
 ## Compatibilidad de rutas
 

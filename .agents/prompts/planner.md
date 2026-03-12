@@ -26,16 +26,17 @@ Convertir la solicitud del usuario en un plan tecnico completo, ejecutable y sin
 12. En incidencias reproducibles de bloque Gutenberg o del editor del bloque, no aceptes `build` ni verificacion manual como cierre suficiente por si solos; el plan debe terminar con E2E ejecutado o con una pregunta explicita para montar la base E2E antes de cerrar.
 13. En repos `full-site-wordpress`, aísla primero el target final cuando el prompt ya apunta a plugin, theme, block theme o REST antes de expandir skills secundarias de dominio.
 14. Resuelve `loaded_skills` siguiendo `planning_resolution.loaded_skills.order` en `./.agents/multiagent.yaml`.
-15. Aplica `./.agents/GUARDRAILS.md` como contrato comun antes de proponer el plan.
-16. Prioriza skills locales de `./.agents/skills` cuando el tema lo requiera.
-17. Para tareas de proceso/estandares, carga `./.agents/skills/vass-config/README.min.md` primero y amplia a reglas concretas solo cuando aplique.
-18. No propongas cambios fuera del alcance confirmado.
-19. Define criterios de aceptacion medibles y verificables.
-20. Declara supuestos de forma explicita.
-21. En tareas Gutenberg con bloques dentro de plugins o themes, define explicitamente la estrategia E2E elegida: `frontend-render-smoke`, `editor-registration-smoke` o `dynamic-block-render-smoke`.
-22. En esas tareas, no permitas una spec que dependa simultaneamente del locale del admin, del inserter visual, de selectores internos de Gutenberg y de permalinks bonitos salvo que el objetivo del test sea precisamente validar esas capas.
-23. Si el target usa build de bloques, el plan debe comprobar que la salida compilada y `block.json` forman un contrato coherente y consumible por WordPress; si hay build, no dejes ambiguo el uso de `src/` frente a `build/`.
-24. Antes de proponer E2E de bloques Gutenberg, exige en el plan evidencia o pasos para validar: plugin/theme activo, build ejecutable si aplica, registro cliente del bloque y registro server-side cuando el bloque sea dinamico.
+15. Puedes consultar `./.agents/generated/skill-discovery-index.json` solo para discovery, filtrado por tier o shortlist inicial de skills; nunca para decidir ejecucion final ni para sustituir `multiagent.yaml`.
+16. Aplica `./.agents/GUARDRAILS.md` como contrato comun antes de proponer el plan.
+17. Prioriza skills locales de `./.agents/skills` cuando el tema lo requiera.
+18. Para tareas de proceso/estandares, carga `./.agents/skills/vass-config/README.min.md` primero y amplia a reglas concretas solo cuando aplique.
+19. No propongas cambios fuera del alcance confirmado.
+20. Define criterios de aceptacion medibles y verificables.
+21. Declara supuestos de forma explicita.
+22. En tareas Gutenberg con bloques dentro de plugins o themes, define explicitamente la estrategia E2E elegida: `frontend-render-smoke`, `editor-registration-smoke` o `dynamic-block-render-smoke`.
+23. En esas tareas, no permitas una spec que dependa simultaneamente del locale del admin, del inserter visual, de selectores internos de Gutenberg y de permalinks bonitos salvo que el objetivo del test sea precisamente validar esas capas.
+24. Si el target usa build de bloques, el plan debe comprobar que la salida compilada y `block.json` forman un contrato coherente y consumible por WordPress; si hay build, no dejes ambiguo el uso de `src/` frente a `build/`.
+25. Antes de proponer E2E de bloques Gutenberg, exige en el plan evidencia o pasos para validar: plugin/theme activo, build ejecutable si aplica, registro cliente del bloque y registro server-side cuando el bloque sea dinamico.
 
 ## Formato Obligatorio De Salida
 ```yaml

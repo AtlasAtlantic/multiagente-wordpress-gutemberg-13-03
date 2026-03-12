@@ -16,6 +16,18 @@ profiles:
     full-site-wordpress: ./.agents/profiles/full-site-wordpress.yaml
 
 skill_tiers_file: ./.agents/skills-tier.yaml
+skill_discovery_index:
+  path: ./.agents/generated/skill-discovery-index.json
+  allowed_uses:
+    - discovery
+    - shortlist
+    - tier_filtering
+    - tooling_inspection
+  forbidden_uses:
+    - direct_execution_decision
+    - bypass_multiagent_yaml
+    - profile_selection_replacement
+    - quality_gate_replacement
 
 activation:
   strategy: mixed
