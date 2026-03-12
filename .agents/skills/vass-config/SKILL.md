@@ -64,7 +64,16 @@ This skill is governance-first and should be combined with domain skills when im
 - accessibility -> `web-accessibility`
 - E2E -> `e2e-testing-patterns`
 
-### 4) Output expectations
+### 4) Preserve source-of-truth boundaries
+
+For Codex or agent-configuration changes:
+
+- keep `.agents/**` as the canonical workflow source
+- treat `./.agents/generated/skill-discovery-index.json` as a derived artifact only
+- do not move routing, profiles, guardrails or quality-gate logic into `.codex/**`
+- if Codex references the discovery index, it must do so only for discovery or shortlist support
+
+### 5) Output expectations
 
 When this skill is used, ensure outputs include:
 

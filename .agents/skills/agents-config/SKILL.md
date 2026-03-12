@@ -14,6 +14,7 @@ Use this skill when the task is about:
 - `AGENTS.md`
 - `CLAUDE.md`, `.cursor/**`, `.azure/**`
 - `multiagent.yaml`, perfiles, prompts, tiers o guardrails
+- artefactos derivados de `.agents` como `skill-discovery-index.json`
 - `agents-doctor` y consistencia entre contrato, docs y adaptadores
 - reduccion de ruido en routing, skills o contratos de handoff
 
@@ -36,12 +37,14 @@ Load the minimum contract before changing anything:
 - `.agents/GUARDRAILS.md`
 - `.agents/RUNTIMES.md`
 - `.agents/multiagent.yaml`
+- `.agents/skill-discovery-index-v1.md` cuando el cambio afecte discovery o metadata de skills
 
 Open only the profile/prompt/runtime files needed for the task.
 
 ### 2) Keep scopes separated
 
 - `.agents/**` defines workflow, routing, gates/checks, skills and prompts.
+- `./.agents/generated/skill-discovery-index.json` is a derived discovery artifact; it may support shortlist or inspection, but must never replace `.agents` as source of truth.
 - Runtime adapters (`CLAUDE.md`, `.cursor/**`, `.azure/**`) may reference `.agents`, but must not redefine it.
 - `.codex/**` is Codex-specific governance and validation; touch it only if the task explicitly requires it.
 

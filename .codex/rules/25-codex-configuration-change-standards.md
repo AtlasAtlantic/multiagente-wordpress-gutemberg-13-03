@@ -56,6 +56,15 @@ Durante la edición:
 1. Cambiar solo lo necesario para el objetivo.
 2. No mezclar mejoras no relacionadas en el mismo lote.
 3. No reordenar ni reformatear masivamente sin justificación.
+4. Si el cambio referencia artefactos derivados de `.agents`, no convertirlos en una nueva fuente de verdad.
+
+### 2.1 Artefactos derivados de `.agents` (OBLIGATORIO)
+
+Si la configuración Codex necesita consultar metadata de skills:
+
+- puede referenciar `./.agents/generated/skill-discovery-index.json` solo para discovery, filtrado o shortlist
+- no puede usar ese índice para resolver routing, seleccionar perfiles ni decidir ejecución
+- la autoridad sigue estando en `.agents/multiagent.yaml`, perfiles, prompts y guardrails
 
 ### 3. Validación por alcance (OBLIGATORIO)
 
