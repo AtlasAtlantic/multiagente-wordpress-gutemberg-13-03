@@ -1,0 +1,252 @@
+{
+  "version": 1,
+  "generated_at": "2026-03-12T12:38:21Z",
+  "source_of_truth": ".agents",
+  "skills": [
+    {
+      "name": "agents-config",
+      "path": ".agents/skills/agents-config",
+      "tier": "governance_transversal",
+      "source_files": [
+        ".agents/skills/agents-config/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Gobernanza y evolucion de la arquitectura local de agentes: .agents, perfiles, routing, prompts, guardrails, adaptadores runtime y validadores. Usar para mejorar o depurar la configuracion de agentes sin redefinir la fuente de verdad.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "path": ".agents/skills/e2e-testing-patterns",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/e2e-testing-patterns/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Deterministic WordPress end-to-end testing guidance for Playwright-first projects, with Gutenberg-specific rules for editor and frontend validation.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "frontend-responsive-design-standards",
+      "path": ".agents/skills/frontend-responsive-design-standards",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/frontend-responsive-design-standards/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Build responsive, mobile-first layouts using fluid containers, flexible units, media queries, and touch-friendly design that works across all screen sizes. Use this skill when creating or modifying UI layouts, responsive grids, breakpoint styles, mobile navigation, or any interface that needs to adapt to different screen sizes. Apply when working with responsive CSS, media queries, viewport settings, flexbox/grid layouts, mobile-first styling, breakpoint definitions (mobile, tablet, desktop), touch target sizing, relative units (rem, em, %), image optimization for different screens, or testing layouts across multiple devices. Use for any task involving multi-device support, responsive design patterns, or adaptive layouts.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "modern-javascript-patterns",
+      "path": ".agents/skills/modern-javascript-patterns",
+      "tier": "tier_3_reference",
+      "source_files": [
+        ".agents/skills/modern-javascript-patterns/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns for writing clean, efficient JavaScript code. Use when refactoring legacy code, implementing modern patterns, or optimizing JavaScript applications.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "php-best-practices",
+      "path": ".agents/skills/php-best-practices",
+      "tier": "tier_3_reference",
+      "source_files": [
+        ".agents/skills/php-best-practices/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "PHP 8.5+ modern patterns, PSR standards, and SOLID principles. Use when reviewing PHP code, checking type safety, auditing code quality, or ensuring PHP best practices. Triggers on \"review PHP\", \"check PHP code\", \"audit PHP\", or \"PHP best practices\".",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "scss-best-practices",
+      "path": ".agents/skills/scss-best-practices",
+      "tier": "tier_3_reference",
+      "source_files": [
+        ".agents/skills/scss-best-practices/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "SCSS/Sassy CSS best practices and coding guidelines for maintainable, scalable stylesheets",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "vass-config",
+      "path": ".agents/skills/vass-config",
+      "tier": "governance_transversal",
+      "source_files": [
+        ".agents/skills/vass-config/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Repositorio de estandares VASS para flujo de trabajo, calidad, WordPress, testing y cambios de configuracion Codex. Usar como capa transversal de gobierno tecnico.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "web-accessibility",
+      "path": ".agents/skills/web-accessibility",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/web-accessibility/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Implement web accessibility (a11y) standards following WCAG 2.1 guidelines. Use when building accessible UIs, fixing accessibility issues, or ensuring compliance with disability standards. Handles ARIA attributes, keyboard navigation, screen readers, semantic HTML, and accessibility testing.",
+      "tags": [
+        "accessibility",
+        "a11y",
+        "WCAG",
+        "ARIA",
+        "semantic-HTML",
+        "screen-reader"
+      ],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wordpress-router",
+      "path": ".agents/skills/wordpress-router",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/wordpress-router/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wordpress-security-validation",
+      "path": ".agents/skills/wordpress-security-validation",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wordpress-security-validation/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Security-first WordPress development with nonces, sanitization, validation, and escaping to prevent XSS, CSRF, and SQL injection vulnerabilities.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-block-development",
+      "path": ".agents/skills/wp-block-development",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wp-block-development/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when developing WordPress (Gutenberg) blocks: block.json metadata, register_block_type(_from_metadata), attributes/serialization, supports, dynamic rendering (render.php/render_callback), deprecations/migrations, viewScript vs viewScriptModule, and @wordpress/scripts/@wordpress/create-block build and test workflows.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-block-themes",
+      "path": ".agents/skills/wp-block-themes",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wp-block-themes/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-performance",
+      "path": ".agents/skills/wp-performance",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wp-performance/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-phpstan",
+      "path": ".agents/skills/wp-phpstan",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/wp-phpstan/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when configuring, running, or fixing PHPStan static analysis in WordPress projects (plugins/themes/sites): phpstan.neon setup, baselines, WordPress-specific typing, and handling third-party plugin classes.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-plugin-development",
+      "path": ".agents/skills/wp-plugin-development",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wp-plugin-development/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-project-triage",
+      "path": ".agents/skills/wp-project-triage",
+      "tier": "tier_2_support",
+      "source_files": [
+        ".agents/skills/wp-project-triage/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when you need a deterministic inspection of a WordPress repository (plugin/theme/block theme/WP core/Gutenberg/full site) including tooling/tests/version hints, and a structured JSON report to guide workflows and guardrails.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    },
+    {
+      "name": "wp-rest-api",
+      "path": ".agents/skills/wp-rest-api",
+      "tier": "tier_1_execution",
+      "source_files": [
+        ".agents/skills/wp-rest-api/SKILL.md",
+        ".agents/skills-tier.yaml"
+      ],
+      "summary": "Use when building, extending, or debugging WordPress REST API endpoints/routes: register_rest_route, WP_REST_Controller/controller classes, schema/argument validation, permission_callback/authentication, response shaping, register_rest_field/register_meta, or exposing CPTs/taxonomies via show_in_rest.",
+      "tags": [],
+      "inputs": [],
+      "outputs": [],
+      "capabilities": []
+    }
+  ]
+}

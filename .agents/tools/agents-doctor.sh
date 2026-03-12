@@ -221,6 +221,9 @@ else:
     if isinstance(index_data, dict):
         if index_data.get('version') != 1:
             errors.append('skill-discovery-index.json tiene version no soportada')
+        generated_at = index_data.get('generated_at')
+        if not isinstance(generated_at, str) or not re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$', generated_at):
+            errors.append('skill-discovery-index.json no define generated_at valido en UTC ISO 8601')
         if index_data.get('source_of_truth') != '.agents':
             errors.append('skill-discovery-index.json no declara source_of_truth=.agents')
 
@@ -294,15 +297,15 @@ else:
             if frontmatter_name and frontmatter_name != name:
                 warnings.append(f'skill-discovery-index.json usa un nombre distinto al frontmatter para {name}: {frontmatter_name}')
 
-            if entry.get('summary') is None:
+            if 'summary' not in entry:
                 warnings.append(f'skill-discovery-index.json no define summary para {name}')
-            if not entry.get('tags'):
+            if 'tags' not in entry:
                 warnings.append(f'skill-discovery-index.json no define tags para {name}')
-            if not entry.get('inputs'):
+            if 'inputs' not in entry:
                 warnings.append(f'skill-discovery-index.json no define inputs para {name}')
-            if not entry.get('outputs'):
+            if 'outputs' not in entry:
                 warnings.append(f'skill-discovery-index.json no define outputs para {name}')
-            if not entry.get('capabilities'):
+            if 'capabilities' not in entry:
                 warnings.append(f'skill-discovery-index.json no define capabilities para {name}')
 
         missing_index_entries = sorted(skill_set - set(indexed_names.keys()))
