@@ -258,12 +258,15 @@ Reglas obligatorias para Gutenberg:
   - el bloque está registrado en servidor cuando aplique render dinámico
 - preferir setup determinista mediante API, WP-CLI, contenido serializado o helpers reutilizables
 - usar interacción visual del inserter solo cuando el inserter forme parte real del criterio de aceptación
+- si el bloque o plugin introduce literales visibles de UI, esos textos deben estar internacionalizados con las funciones i18n estándar de WordPress y el texto fuente debe mantenerse en inglés
 
 NO usar:
 
 - selectores del chrome interno del editor
 - clases internas de Gutenberg
 - labels traducidas
+- nombres literales visibles de campos, botones, placeholders o enlaces cuando puedan cambiar por idioma, locale o versión
+- tests que dependan de la traducción concreta de literales visibles del plugin o del admin
 - `nth()` como estrategia principal para encontrar campos del bloque
 - permalinks bonitos como dependencia por defecto en entorno local
 
@@ -271,10 +274,49 @@ Preferir:
 
 - data-testid
 - atributos propios del bloque
+- helpers reutilizables del repo para login, navegación y apertura del editor antes que texto visible del admin
+- resolución semántica de controles estables y, si el contenido vive en canvas o `iframe`, locators dentro del contexto correcto
 - URLs estables como `?p=<id>` cuando el objetivo es validar render frontend y no la capa de permalinks
 - validación del resultado final
 
 Siempre priorizar:
+
+- selectores independientes del idioma del backoffice
+- contratos del bloque y del resultado final sobre texto visible del chrome de Gutenberg
+- textos fuente del bloque definidos en inglés e internacionalizados con el estándar WordPress
+
+## Regla de i18n para literales visibles
+
+Si el cambio crea o modifica UI de plugin, bloque o editor:
+
+- todos los literales visibles deben pasar por i18n estándar de WordPress
+- el texto fuente debe escribirse en inglés
+- no se debe usar español u otro idioma como literal fuente dentro del código
+
+Ejemplos esperados:
+
+- PHP: `__( 'Publish message', 'text-domain' )`
+- JS: `__( 'Publish message', 'text-domain' )`
+
+Objetivo:
+
+- mantener una base estable para traducciones
+- evitar que el test o la implementación dependan del locale del desarrollador
+- alinear el código del bloque con el ecosistema WordPress
+
+## Criterio de cierre para Gutenberg
+
+Una spec de Gutenberg no puede considerarse válida ni "casi cerrada" si depende de:
+
+- texto visible del tipo `Añadir bloque`, `Publicar`, `Ver entrada`, `Buscar`
+- `aria-label`, `placeholder` o nombres literales del admin que cambien con traducciones
+- selectores internos de Gutenberg usados como base principal del flujo
+
+Si ocurre cualquiera de esos casos, la salida correcta no es "solo faltan ajustar selectores", sino:
+
+- marcar la spec como frágil o no válida para cierre
+- explicar qué dependencia de locale o versión la invalida
+- redefinir la estrategia con helpers o selectores estables antes de darla por buena
 
 estado final observable > interacción interna del editor.
 

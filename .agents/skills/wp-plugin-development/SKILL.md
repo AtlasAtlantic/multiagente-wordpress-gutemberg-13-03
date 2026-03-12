@@ -79,6 +79,19 @@ Before shipping:
 See:
 - `references/security.md`
 
+### 4.1) Visible UI strings and i18n
+
+If the plugin adds or modifies visible UI text:
+
+- all visible strings must use standard WordPress i18n functions
+- source strings in code must be written in English
+- do not use Spanish or another locale as the source literal in PHP, JS, settings pages, notices, or admin UI
+
+Examples:
+
+- PHP: `__( 'Settings saved.', 'text-domain' )`
+- JS: `__( 'Open panel', 'text-domain' )`
+
 ### 5) Data storage, cron, migrations (if needed)
 
 - Prefer options for small config; custom tables only if necessary.

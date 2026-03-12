@@ -82,6 +82,16 @@ Prefer filesystem patterns under `patterns/` when you want theme-owned patterns.
 Read:
 - `references/patterns.md`
 
+### 5.1) Visible theme strings and i18n
+
+If the theme adds or modifies visible text in patterns, PHP-rendered theme UI, notices, labels, or any user-facing helper text:
+
+- all visible strings must use standard WordPress i18n functions where the file type supports it
+- source strings in code must be written in English
+- do not use Spanish or another locale as the source literal in theme PHP or translatable pattern text
+
+For block theme work, keep translatable source text stable and English-first so translations do not become the implementation contract.
+
 ### 6) Style variations
 
 Style variations are JSON files under `styles/`. Note: once a user picks a style variation, that selection is stored in the DB, so changing the file may not “update what the user sees” automatically.

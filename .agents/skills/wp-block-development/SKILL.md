@@ -183,6 +183,19 @@ Read:
 - `references/supports-and-wrappers.md`
 - `references/dynamic-rendering.md` (if dynamic)
 
+### 6.1) Visible block strings and i18n
+
+If the block defines visible text in editor UI, inspector controls, placeholders, notices, labels, buttons, or frontend-facing defaults:
+
+- all visible strings must use standard WordPress i18n functions
+- source strings in code must be written in English
+- do not use Spanish or another locale as the source literal in JS, PHP, `block.json`-related UI strings, or block defaults intended for display
+
+Examples:
+
+- JS: `__( 'Block title', 'text-domain' )`
+- PHP: `__( 'Read more', 'text-domain' )`
+
 ### 7) Inner blocks (block composition)
 
 If your block is a “container” that nests other blocks, treat Inner Blocks as a first-class feature:
