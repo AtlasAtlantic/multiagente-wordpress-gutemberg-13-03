@@ -1,0 +1,87 @@
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MARIADB_DATABASE: ${WP_DB_NAME}
+      MARIADB_USER: ${WP_DB_USER}
+      MARIADB_PASSWORD: ${WP_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -u\"${WP_DB_USER}\" -p\"${WP_DB_PASSWORD}\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:php8.2-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      WORDPRESS_DB_HOST: ${WP_DB_HOST}
+      WORDPRESS_DB_USER: ${WP_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WP_DB_NAME}
+    volumes:
+      - ./wordpress:/var/www/html
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      wordpress:
+        condition: service_started
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  wp-cli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      WP_DB_HOST: ${WP_DB_HOST}
+      WP_DB_NAME: ${WP_DB_NAME}
+      WP_DB_USER: ${WP_DB_USER}
+      WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WP_TABLE_PREFIX: ${WP_TABLE_PREFIX}
+      WP_SITE_URL: ${WP_SITE_URL}
+      WP_SITE_TITLE: ${WP_SITE_TITLE}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+      WORDPRESS_DB_HOST: ${WP_DB_HOST}
+      WORDPRESS_DB_NAME: ${WP_DB_NAME}
+      WORDPRESS_DB_USER: ${WP_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX}
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./scripts/bootstrap-wp.sh:/usr/local/bin/bootstrap-wp.sh:ro
+    entrypoint: ["/bin/sh", "/usr/local/bin/bootstrap-wp.sh"]
+    restart: "no"
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:

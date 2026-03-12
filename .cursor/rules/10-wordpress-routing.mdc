@@ -1,0 +1,15 @@
+---
+description: WordPress routing and profile selection for Cursor
+alwaysApply: true
+---
+
+# WordPress Routing
+
+- For WordPress tasks, start with `wordpress-router`.
+- Select a profile before implementation:
+  - `plugin-development`
+  - `theme-development`
+  - `block-theme-development`
+  - `full-site-wordpress`
+- Load only the minimal skills required by the selected profile.
+- Respect `.agents/GUARDRAILS.md` during planning, implementation, review, and QA.

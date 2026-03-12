@@ -1,0 +1,23 @@
+---
+description: Validation requirements for .agents and .codex changes
+globs:
+  - ".agents/**"
+  - ".codex/**"
+  - "AGENTS.md"
+  - "CLAUDE.md"
+  - ".azure/**"
+  - ".cursor/**"
+alwaysApply: false
+---
+
+# Configuration Validation
+
+- After changing `.agents/**`, run:
+  - `.agents/tools/agents-doctor.sh`
+- After changing `.codex/**` or `AGENTS.md`, run:
+  - `.codex/tools/update-codex-rules-index.sh`
+  - `.codex/tools/validate-codex-rules.sh`
+  - `.codex/tools/validate-codex-readme.sh`
+  - `.codex/tools/validate-codex-skills.sh`
+  - `.codex/skills/codex-doctor/scripts/run.sh`
+- Do not duplicate `.agents` rules inside `.cursor/rules`.

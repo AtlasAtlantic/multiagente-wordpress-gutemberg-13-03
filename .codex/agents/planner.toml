@@ -1,0 +1,10 @@
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+
+developer_instructions = """
+Usa .agents como fuente de verdad.
+Lee primero AGENTS.md, .agents/README.md, .agents/GUARDRAILS.md, .agents/multiagent.yaml y .agents/profiles/*.yaml.
+En tareas WordPress, aplica wordpress-router al inicio y selecciona un perfil antes de planificar.
+No redefinas perfiles, routing ni quality gates dentro de la capa Codex.
+La salida del rol debe seguir el contrato descrito en .agents/prompts/planner.md.
+"""

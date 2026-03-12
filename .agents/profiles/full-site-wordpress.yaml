@@ -1,0 +1,76 @@
+id: full-site-wordpress
+project_kinds:
+  - full-site
+  - site-stack
+  - wp-site
+  - unknown
+summary: Stack WordPress completo o repositorio con WordPress en subdirectorio que requiere scoping antes de cambiar codigo.
+primary_skills:
+  - wordpress-router
+secondary_skills:
+  - wp-plugin-development
+  - wp-block-development
+  - wp-block-themes
+  - wp-rest-api
+  - wordpress-security-validation
+  - wp-performance
+  - web-accessibility
+  - frontend-responsive-design-standards
+reference_skills:
+  - php-best-practices
+  - modern-javascript-patterns
+  - scss-best-practices
+required_gates:
+  - scope_isolation
+optional_gates:
+  - accessibility
+  - responsive
+required_checks: []
+optional_checks:
+  - build
+  - lint
+  - static_analysis
+  - tests
+  - e2e
+gate_expectations:
+  scope_isolation:
+    expected_when:
+      - siempre en repos full-site o con varios targets
+check_expectations:
+  build:
+    expected_when:
+      - existe tooling en el target elegido
+    include_when:
+      - la tarea pide build, assets o compilacion para el target elegido
+      - el cambio aislado afecta assets que requieren build
+  lint:
+    expected_when:
+      - existe tooling de lint en el target elegido
+    include_when:
+      - la tarea pide lint o revision de calidad para el target elegido
+      - el cambio aislado afecta codigo con lint disponible y el plan necesita evidencia
+  static_analysis:
+    expected_when:
+      - existe phpstan o equivalente en el target elegido
+    include_when:
+      - la tarea pide phpstan, analisis estatico o baseline para el target elegido
+      - el cambio aislado afecta php y el plan justifica analisis estatico
+  tests:
+    expected_when:
+      - existen tests automatizados en el target elegido
+    include_when:
+      - la tarea pide tests o smoke validation en el target elegido
+      - el cambio aislado toca flujo funcional cubierto por tests
+  e2e:
+    expected_when:
+      - existe suite e2e para el target elegido
+    include_when:
+      - la tarea pide e2e o regresion funcional/visual en el target elegido
+      - el cambio aislado afecta flujo critico cubierto por la suite
+      - el target aislado crea o modifica un bloque o UI visible con infraestructura e2e reutilizable
+      - el target aislado corrige una incidencia o bug funcional/visual reproducible con infraestructura e2e reutilizable
+not_applicable_policy:
+  - Los checks se aplican solo al target seleccionado por el router; fuera de ese target son `not_applicable`.
+  - Los gates visuales opcionales solo se evaluan cuando la tarea toca UI del target.
+  - Si el target aislado crea o modifica un bloque o una UI visible que deberia llevar e2e y no existe base reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.
+  - Si el target aislado corrige una incidencia o bug funcional/visual que deberia quedar cubierto y no existe base reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.

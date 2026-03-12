@@ -1,0 +1,51 @@
+.env
+.env.local
+.env.*.local
+
+# Local TLS artifacts
+caddy-local-root.crt
+
+# OS / editor files
+.DS_Store
+.idea/
+.vscode/
+*.iml
+*.code-workspace
+.fleet/
+.history/
+.project
+.classpath
+.settings/
+.metadata/
+
+# Logs and test output
+*.log
+playwright-report/
+test-results/
+coverage/
+
+# Root dependencies
+node_modules/
+
+# WordPress core
+wordpress/wp-admin/
+wordpress/wp-includes/
+wordpress/index.php
+wordpress/license.txt
+wordpress/readme.html
+wordpress/wp-*.php
+wordpress/xmlrpc.php
+wordpress/.htaccess
+
+# WordPress runtime content
+wordpress/wp-content/cache/
+wordpress/wp-content/upgrade/
+wordpress/wp-content/uploads/
+wordpress/wp-content/debug.log
+
+# Bundled WordPress content
+wordpress/wp-content/plugins/akismet/
+wordpress/wp-content/plugins/hello.php
+wordpress/wp-content/themes/twentytwentythree/
+wordpress/wp-content/themes/twentytwentyfour/
+wordpress/wp-content/themes/twentytwentyfive/

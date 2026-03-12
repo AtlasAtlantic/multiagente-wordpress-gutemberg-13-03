@@ -1,0 +1,13 @@
+{
+  email local-dev@{$WP_DOMAIN}
+}
+
+http://{$WP_DOMAIN} {
+  redir https://{$WP_DOMAIN}{uri} permanent
+}
+
+https://{$WP_DOMAIN} {
+  tls internal
+  encode zstd gzip
+  reverse_proxy wordpress:80
+}

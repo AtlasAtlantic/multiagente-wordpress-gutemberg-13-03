@@ -1,0 +1,16 @@
+---
+description: Review discipline for Cursor when asked to review code or configuration
+alwaysApply: false
+---
+
+# Review Discipline
+
+- When the task is a review, prioritize findings over summaries.
+- Order findings by severity: `critical`, `high`, `medium`, `low`.
+- Cite concrete file paths in each finding.
+- Check compliance with `.agents/GUARDRAILS.md`.
+- For WordPress changes, explicitly review:
+  - scope isolation
+  - security (`nonce`, permissions, sanitization, escaping) when applicable
+  - required checks from the selected profile
+- If there are no findings, state that explicitly.

@@ -1,0 +1,15 @@
+---
+description: Common runtime contract for Cursor in this repository
+alwaysApply: true
+---
+
+# Cursor Runtime Core
+
+- Treat `AGENTS.md` and `.agents/` as the source of truth.
+- Read `.agents/README.md`, `.agents/RUNTIMES.md`, and `.agents/GUARDRAILS.md` before acting.
+- Do not redefine workflow, profiles, quality gates, or routing in Cursor-specific files.
+- If there is any conflict between `.cursor/rules` and `.agents/`, follow `.agents/`.
+- Every multi-agent style task must preserve these artifacts:
+  - `plan`
+  - `patch_summary`
+  - `verification_report`

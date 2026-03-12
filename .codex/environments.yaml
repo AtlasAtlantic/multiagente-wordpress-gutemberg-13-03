@@ -1,0 +1,6 @@
+version: 1
+environments:
+  - id: local
+    description: Entorno local de desarrollo
+    constraints:
+      - Use only repository-local skills under ./.agents/skills

@@ -1,0 +1,80 @@
+id: plugin-development
+project_kinds:
+  - plugin
+  - mu-plugin
+summary: Plugin o mu-plugin WordPress con foco en arquitectura, seguridad y tooling PHP.
+primary_skills:
+  - wp-plugin-development
+  - wordpress-security-validation
+secondary_skills:
+  - wp-rest-api
+  - wp-performance
+  - wp-phpstan
+  - e2e-testing-patterns
+  - web-accessibility
+reference_skills:
+  - php-best-practices
+  - modern-javascript-patterns
+  - scss-best-practices
+required_gates:
+  - architecture
+  - security
+optional_gates:
+  - packaging
+  - migrations
+required_checks: []
+optional_checks:
+  - build
+  - lint
+  - static_analysis
+  - tests
+  - e2e
+check_expectations:
+  build:
+    expected_when:
+      - package.json presente en plugin
+    include_when:
+      - la tarea pide build, assets, bundle, frontend o compilacion
+      - el cambio afecta codigo que requiere regenerar artefactos del plugin
+  lint:
+    expected_when:
+      - phpcs o equivalente presente
+    include_when:
+      - la tarea pide lint, phpcs, calidad php o revision de estilo
+      - el cambio afecta codigo php y el plan necesita evidencia de lint
+  static_analysis:
+    expected_when:
+      - composer con phpstan presente
+      - o permiso explicito para anadir dependencias dev
+    include_when:
+      - la tarea pide phpstan, analisis estatico o baseline
+      - el cambio afecta codigo php y el plan justifica analisis estatico
+  tests:
+    expected_when:
+      - PHPUnit o smoke tests definidos
+    include_when:
+      - la tarea pide tests o smoke validation
+      - el cambio toca flujo funcional con tests automatizados relevantes
+  e2e:
+    expected_when:
+      - Playwright o Cypress presentes
+    include_when:
+      - la tarea pide e2e o regresion funcional
+      - el cambio toca flujo critico cubierto por la suite e2e
+      - la tarea crea un bloque nuevo en el plugin y existe infraestructura e2e reutilizable
+      - la tarea modifica comportamiento visible o funcional de un bloque existente y existe infraestructura e2e reutilizable
+      - la tarea corrige una incidencia o bug funcional/visual reproducible en el plugin y existe infraestructura e2e reutilizable
+      - la tarea corrige una incidencia reproducible de bloque gutenberg o editor en el plugin y debe evaluarse la base e2e aunque aun no exista
+gate_expectations:
+  packaging:
+    expected_when:
+      - la tarea toca release o empaquetado
+  migrations:
+    expected_when:
+      - la tarea toca activation, uninstall, schema o cron persistente
+not_applicable_policy:
+  - Si falta tooling de Composer/Node/tests, marcar cada check como `not_applicable` con evidencia concreta.
+  - Si la tarea crea o modifica un bloque con impacto visible/funcional y no existe base e2e reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.
+  - Si la tarea corrige una incidencia o bug funcional/visual que deberia quedar cubierto y no existe base e2e reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.
+  - En incidencias reproducibles de bloque gutenberg o del editor del bloque dentro del plugin, cargar `e2e-testing-patterns` como soporte y decidir explicitamente si se reutiliza una base E2E existente o si hay que pedir confirmacion para montarla.
+  - Los gates opcionales solo se evaluan cuando su `expected_when` aplica al caso.

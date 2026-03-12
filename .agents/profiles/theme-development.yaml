@@ -1,0 +1,54 @@
+id: theme-development
+project_kinds:
+  - theme
+summary: Theme clasico WordPress con foco en frontend, accesibilidad y build.
+primary_skills:
+  - frontend-responsive-design-standards
+  - web-accessibility
+secondary_skills:
+  - wp-performance
+  - e2e-testing-patterns
+reference_skills:
+  - modern-javascript-patterns
+  - scss-best-practices
+required_gates:
+  - responsive
+  - accessibility
+optional_gates: []
+required_checks: []
+optional_checks:
+  - build
+  - lint
+  - tests
+  - e2e
+check_expectations:
+  build:
+    expected_when:
+      - package.json presente en theme
+    include_when:
+      - la tarea pide build, assets, css/js compilado o bundling
+      - el cambio afecta assets del theme que requieren compilacion
+  lint:
+    expected_when:
+      - lint frontend o PHPCS presente
+    include_when:
+      - la tarea pide lint o revision de calidad
+      - el cambio afecta css, js o php del theme y el plan necesita evidencia
+  tests:
+    expected_when:
+      - tests automatizados presentes
+    include_when:
+      - la tarea pide tests o smoke validation
+      - el cambio toca flujo funcional cubierto por tests del theme
+  e2e:
+    expected_when:
+      - Playwright o Cypress presentes
+    include_when:
+      - la tarea pide e2e o regresion visual/funcional
+      - el cambio afecta navegacion o UI cubierta por la suite
+      - la tarea modifica comportamiento visual o funcional relevante del theme y existe infraestructura e2e reutilizable
+      - la tarea corrige una incidencia o bug visual/funcional reproducible en el theme y existe infraestructura e2e reutilizable
+not_applicable_policy:
+  - Si la tarea no toca UI o el repo no tiene tooling frontend, justificar `not_applicable` por check.
+  - Si la tarea cambia UI visible relevante y deberia llevar e2e pero no existe base reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.
+  - Si la tarea corrige una incidencia o bug visual/funcional que deberia quedar cubierto y no existe base e2e reutilizable, pedir confirmacion para montarla antes de dejar `e2e` como `not_applicable`, salvo exclusion explicita de tests.
