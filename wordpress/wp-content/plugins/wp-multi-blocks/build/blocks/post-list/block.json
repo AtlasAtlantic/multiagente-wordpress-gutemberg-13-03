@@ -1,0 +1,52 @@
+{
+  "apiVersion": 3,
+  "name": "wp-multi-blocks/post-list",
+  "title": "Lista de posts",
+  "category": "widgets",
+  "icon": "list-view",
+  "description": "Lista dinámica de entradas.",
+  "textdomain": "wp-multi-blocks",
+  "attributes": {
+    "postsPerPage": {
+      "type": "number",
+      "default": 5
+    },
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
+    "order": {
+      "type": "string",
+      "default": "DESC"
+    },
+    "orderBy": {
+      "type": "string",
+      "default": "date"
+    },
+    "displayExcerpt": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayDate": {
+      "type": "boolean",
+      "default": true
+    },
+    "displayAuthor": {
+      "type": "boolean",
+      "default": false
+    },
+    "noResultsText": {
+      "type": "string",
+      "default": "No se han encontrado entradas."
+    }
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "html": false
+  },
+  "editorScript": "file:../../build/index.js",
+  "style": "file:../../build/style-index.css"
+}

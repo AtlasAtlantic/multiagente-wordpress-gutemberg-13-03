@@ -1,606 +1,340 @@
 ---
 name: e2e-testing-patterns
-description: Master end-to-end testing with Playwright and Cypress to build reliable test suites that catch bugs, improve confidence, and enable fast deployment. Use when implementing E2E tests, debugging flaky tests, or establishing testing standards.
+description: Deterministic WordPress end-to-end testing guidance for Playwright-first projects, with Gutenberg-specific rules for editor and frontend validation.
 ---
 
-# E2E Testing Patterns
+# SKILL: wordpress-e2e-tests
 
-Build reliable, fast, and maintainable end-to-end test suites that provide confidence to ship code quickly and catch regressions before users do.
+## Propósito
 
-## When to Use This Skill
+Crear, actualizar o validar **tests E2E deterministas** para proyectos WordPress
+(plugins, themes o bloques Gutenberg).
 
-- Implementing end-to-end test automation
-- Debugging flaky or unreliable tests
-- Testing critical user workflows
-- Setting up CI/CD test pipelines
-- Testing across multiple browsers
-- Validating accessibility requirements
-- Testing responsive designs
-- Establishing E2E testing standards
+La skill garantiza que los cambios visibles en frontend o editor
+se validen mediante **tests reproducibles basados en Playwright**.
 
-## WordPress / Gutenberg Convention
+El objetivo es detectar:
 
-When the target is a WordPress plugin or theme with reusable E2E infrastructure:
+- regresiones visuales
+- errores de registro de bloques
+- fallos de render dinámico
+- errores en flujos críticos del editor
 
-- new Gutenberg blocks should get an associated E2E smoke test
-- visible behavior changes in an existing block should update its associated E2E test
-- reproducible visual or functional bugs should leave behind an E2E regression test when the target has reusable infrastructure
-- block tests should cover, at minimum:
-  - inserter/editor interaction or block presence in editor when relevant
-  - frontend render smoke for the affected block
+---
 
-If a block or visible UI change should carry E2E but the repo has no reusable E2E base, ask whether that base should be created before treating `e2e` as `not_applicable`, unless the user explicitly excludes tests.
+# Framework estándar
 
-### WordPress Gutenberg Hard Rules
+Framework por defecto: **Playwright**
 
-For Gutenberg block work, these rules are mandatory:
+Cypress solo debe usarse si:
 
-- validate preconditions before relying on editor interaction:
-  - target plugin or theme active in the test environment
-  - required block assets built when the target uses a build step
-  - block registered in client (`window.wp.blocks.getBlockType(...)`) before testing inserter/editor behavior
-  - block registered server-side when the block is dynamic or frontend rendering depends on PHP
-- do not use localized labels from the WordPress editor chrome as the primary locator strategy when a more stable alternative exists
-- do not depend on obsolete internal editor selectors such as title/input DOM from older Gutenberg versions
-- prefer deterministic setup over fragile UI setup:
-  - for block frontend smoke tests, prefer preparing post content through helpers, editor store, REST, or serialized block content when equivalent coverage is achieved
-  - use visual inserter interaction only when inserter behavior itself is part of the acceptance criteria
-- for local WordPress frontend navigation, prefer stable URLs such as `?p=<id>` over pretty permalinks unless permalink behavior is part of the test goal
-- for dynamic blocks, verify the runtime path that matters:
-  - server-side registration exists
-  - render callback or render file is wired
-  - frontend output is asserted from the rendered page
+- el repositorio ya tiene Cypress configurado
+- existe una suite E2E heredada en Cypress
 
-### Preferred Block Test Strategies
+Nunca crear nuevas suites en Cypress si el proyecto usa Playwright.
 
-Choose the narrowest strategy that proves the requirement:
+---
 
-1. `frontend-render-smoke`
-   - prepare a post deterministically
-   - publish it
-   - assert the rendered frontend output
-   - preferred for most block regressions and block rendering changes
-2. `editor-registration-smoke`
-   - verify the block is registered and available in the editor
-   - use when the task changes registration, metadata, category, supports, or inserter availability
-3. `dynamic-block-render-smoke`
-   - verify server-side registration and rendered frontend output for a dynamic block
-   - use when output depends on PHP, query results, permissions, or runtime data
+# Cuándo usar esta skill
 
-If one spec mixes editor chrome, inserter flow, publishing, permalink assumptions, and frontend assertions without necessity, simplify it before closing the task.
+Aplicar la skill si el cambio afecta a:
 
-### Disallowed Patterns For Gutenberg E2E
+- bloques Gutenberg
+- render frontend
+- comportamiento visible de plugin
+- flujo del editor
+- endpoints usados por UI
+- scripts frontend críticos
 
-Avoid these patterns unless the task explicitly requires them and the reason is documented:
+No aplicar si:
 
-- selectors tied to translated editor chrome text when a helper/store-based path exists
-- selectors tied to private Gutenberg DOM that changes across versions
-- assuming the first item in dynamic output always carries every optional field
-- relying on pretty permalinks in local environments by default
-- closing a block task with only editor interaction evidence and no frontend render evidence when the user-visible behavior is in frontend
-- generating block E2E without checking whether the plugin/theme is active and whether build artifacts exist
+- cambios puramente internos PHP
+- refactors sin impacto en UI
+- cambios solo de build tooling
 
-## Core Concepts
+---
 
-### 1. E2E Testing Fundamentals
+# Contrato de entrada
 
-**What to Test with E2E:**
+La skill espera los siguientes inputs:
 
-- Critical user journeys (login, checkout, signup)
-- Complex interactions (drag-and-drop, multi-step forms)
-- Cross-browser compatibility
-- Real API integration
-- Authentication flows
+repo_path  
+Ruta del repositorio.
 
-**What NOT to Test with E2E:**
+change_scope  
+Tipo de cambio:
 
-- Unit-level logic (use unit tests)
-- API contracts (use integration tests)
-- Edge cases (too slow)
-- Internal implementation details
+- new_block
+- block_update
+- plugin_feature
+- regression_fix
+- infra_setup
 
-### 2. Test Philosophy
+target_type  
 
-**The Testing Pyramid:**
+- plugin
+- theme
+- block
 
-```
-        /\
-       /E2E\         ← Few, focused on critical paths
-      /─────\
-     /Integr\        ← More, test component interactions
-    /────────\
-   /Unit Tests\      ← Many, fast, isolated
-  /────────────\
-```
+e2e_framework  
 
-**Best Practices:**
+- playwright
+- cypress
+- auto
 
-- Test user behavior, not implementation
-- Keep tests independent
-- Make tests deterministic
-- Optimize for speed
-- Use data-testid, not CSS selectors
+requires_editor_flow  
 
-## Playwright Patterns
+- true
+- false
 
-### Setup and Configuration
+has_existing_e2e  
 
-```typescript
-// playwright.config.ts
-import { defineConfig, devices } from "@playwright/test";
+- true
+- false
 
-export default defineConfig({
-  testDir: "./e2e",
-  timeout: 30000,
-  expect: {
-    timeout: 5000,
-  },
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [["html"], ["junit", { outputFile: "results.xml" }]],
-  use: {
-    baseURL: "http://localhost:3000",
-    trace: "on-first-retry",
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
-  },
-  projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
-    { name: "webkit", use: { ...devices["Desktop Safari"] } },
-    { name: "mobile", use: { ...devices["iPhone 13"] } },
-  ],
+base_url  
+
+URL del entorno de test.
+
+---
+
+# Contrato de salida
+
+La skill debe producir:
+
+generated_tests
+
+Lista de tests creados o modificados.
+
+test_strategy
+
+Tipo de test aplicado:
+
+- editor_smoke
+- frontend_render
+- dynamic_block_render
+- feature_flow
+- regression_test
+
+run_command
+
+Comando para ejecutar la suite.
+
+environment_requirements
+
+Precondiciones necesarias.
+
+risk_notes
+
+Posibles puntos frágiles detectados.
+
+---
+
+# Precondiciones obligatorias
+
+Antes de generar tests se debe verificar:
+
+1. WordPress responde en `base_url`
+2. usuario admin de test disponible
+3. plugin o theme objetivo activo
+4. assets del proyecto compilados
+5. bloque Gutenberg registrado
+6. REST API accesible
+
+Si alguna condición falla:
+
+return status: `environment_not_ready`
+
+---
+
+# Bootstrap del entorno
+
+El entorno de test debe ser **determinista**.
+
+Reglas:
+
+- evitar datos generados con timestamp
+- usar slugs predecibles
+- crear contenido base mediante API o WP-CLI
+- aislar datos de test con prefijo
+
+Ejemplo:
+
+test-post-e2e
+test-user-e2e
+
+---
+
+# Estrategia de decisión
+
+Determinar el tipo de test usando esta lógica.
+
+## Cambio en bloque Gutenberg
+
+Si el cambio afecta a registro o UI del bloque:
+
+crear test:
+
+editor_smoke
+
+Validar:
+
+- bloque aparece en inserter
+- bloque se puede insertar
+- atributos se guardan correctamente
+
+---
+
+## Cambio en render frontend
+
+crear test:
+
+frontend_render
+
+Validar:
+
+- contenido visible
+- HTML esperado
+- estilos aplicados
+
+---
+
+## Bloques dinámicos (render_callback)
+
+crear test:
+
+dynamic_block_render
+
+Validar:
+
+- render PHP correcto
+- contenido frontend coincide con atributos
+
+---
+
+## Features de plugin
+
+crear test:
+
+feature_flow
+
+Ejemplo:
+
+- formulario
+- navegación
+- interacción JS
+
+---
+
+# Reglas para WordPress / Gutenberg
+
+Evitar selectores frágiles.
+
+NO usar:
+
+- selectores del chrome interno del editor
+- clases internas de Gutenberg
+- labels traducidas
+
+Preferir:
+
+- data-testid
+- atributos propios del bloque
+- validación del resultado final
+
+Siempre priorizar:
+
+estado final observable > interacción interna del editor.
+
+---
+
+# Ejemplo Playwright
+
+```ts
+import { test, expect } from '@playwright/test';
+
+test('block renders on frontend', async ({ page }) => {
+
+  await page.goto('/test-post-e2e');
+
+  const block = page.locator('[data-testid="my-block"]');
+
+  await expect(block).toBeVisible();
+
 });
 ```
 
-### Pattern 1: Page Object Model
-
-```typescript
-// pages/LoginPage.ts
-import { Page, Locator } from "@playwright/test";
-
-export class LoginPage {
-  readonly page: Page;
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
-  readonly errorMessage: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-    this.emailInput = page.getByLabel("Email");
-    this.passwordInput = page.getByLabel("Password");
-    this.loginButton = page.getByRole("button", { name: "Login" });
-    this.errorMessage = page.getByRole("alert");
-  }
-
-  async goto() {
-    await this.page.goto("/login");
-  }
-
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.loginButton.click();
-  }
-
-  async getErrorMessage(): Promise<string> {
-    return (await this.errorMessage.textContent()) ?? "";
-  }
-}
-
-// Test using Page Object
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "./pages/LoginPage";
-
-test("successful login", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login("user@example.com", "password123");
-
-  await expect(page).toHaveURL("/dashboard");
-  await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
-});
-
-test("failed login shows error", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login("invalid@example.com", "wrong");
-
-  const error = await loginPage.getErrorMessage();
-  expect(error).toContain("Invalid credentials");
-});
-```
-
-### Pattern 2: Fixtures for Test Data
-
-```typescript
-// fixtures/test-data.ts
-import { test as base } from "@playwright/test";
-
-type TestData = {
-  testUser: {
-    email: string;
-    password: string;
-    name: string;
-  };
-  adminUser: {
-    email: string;
-    password: string;
-  };
-};
-
-export const test = base.extend<TestData>({
-  testUser: async ({}, use) => {
-    const user = {
-      email: `test-${Date.now()}@example.com`,
-      password: "Test123!@#",
-      name: "Test User",
-    };
-    // Setup: Create user in database
-    await createTestUser(user);
-    await use(user);
-    // Teardown: Clean up user
-    await deleteTestUser(user.email);
-  },
-
-  adminUser: async ({}, use) => {
-    await use({
-      email: "admin@example.com",
-      password: process.env.ADMIN_PASSWORD!,
-    });
-  },
-});
-
-// Usage in tests
-import { test } from "./fixtures/test-data";
-
-test("user can update profile", async ({ page, testUser }) => {
-  await page.goto("/login");
-  await page.getByLabel("Email").fill(testUser.email);
-  await page.getByLabel("Password").fill(testUser.password);
-  await page.getByRole("button", { name: "Login" }).click();
-
-  await page.goto("/profile");
-  await page.getByLabel("Name").fill("Updated Name");
-  await page.getByRole("button", { name: "Save" }).click();
-
-  await expect(page.getByText("Profile updated")).toBeVisible();
-});
-```
-
-### Pattern 3: Waiting Strategies
-
-```typescript
-// ❌ Bad: Fixed timeouts
-await page.waitForTimeout(3000); // Flaky!
-
-// ✅ Good: Wait for specific conditions
-await page.waitForLoadState("networkidle");
-await page.waitForURL("/dashboard");
-await page.waitForSelector('[data-testid="user-profile"]');
-
-// ✅ Better: Auto-waiting with assertions
-await expect(page.getByText("Welcome")).toBeVisible();
-await expect(page.getByRole("button", { name: "Submit" })).toBeEnabled();
-
-// Wait for API response
-const responsePromise = page.waitForResponse(
-  (response) =>
-    response.url().includes("/api/users") && response.status() === 200,
-);
-await page.getByRole("button", { name: "Load Users" }).click();
-const response = await responsePromise;
-const data = await response.json();
-expect(data.users).toHaveLength(10);
-
-// Wait for multiple conditions
-await Promise.all([
-  page.waitForURL("/success"),
-  page.waitForLoadState("networkidle"),
-  expect(page.getByText("Payment successful")).toBeVisible(),
-]);
-```
-
-### Pattern 4: Network Mocking and Interception
-
-```typescript
-// Mock API responses
-test("displays error when API fails", async ({ page }) => {
-  await page.route("**/api/users", (route) => {
-    route.fulfill({
-      status: 500,
-      contentType: "application/json",
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    });
-  });
-
-  await page.goto("/users");
-  await expect(page.getByText("Failed to load users")).toBeVisible();
-});
-
-// Intercept and modify requests
-test("can modify API request", async ({ page }) => {
-  await page.route("**/api/users", async (route) => {
-    const request = route.request();
-    const postData = JSON.parse(request.postData() || "{}");
-
-    // Modify request
-    postData.role = "admin";
-
-    await route.continue({
-      postData: JSON.stringify(postData),
-    });
-  });
-
-  // Test continues...
-});
-
-// Mock third-party services
-test("payment flow with mocked Stripe", async ({ page }) => {
-  await page.route("**/api/stripe/**", (route) => {
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify({
-        id: "mock_payment_id",
-        status: "succeeded",
-      }),
-    });
-  });
-
-  // Test payment flow with mocked response
-});
-```
-
-## Cypress Patterns
-
-### Setup and Configuration
-
-```typescript
-// cypress.config.ts
-import { defineConfig } from "cypress";
-
-export default defineConfig({
-  e2e: {
-    baseUrl: "http://localhost:3000",
-    viewportWidth: 1280,
-    viewportHeight: 720,
-    video: false,
-    screenshotOnRunFailure: true,
-    defaultCommandTimeout: 10000,
-    requestTimeout: 10000,
-    setupNodeEvents(on, config) {
-      // Implement node event listeners
-    },
-  },
-});
-```
-
-### Pattern 1: Custom Commands
-
-```typescript
-// cypress/support/commands.ts
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      login(email: string, password: string): Chainable<void>;
-      createUser(userData: UserData): Chainable<User>;
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
-    }
-  }
-}
-
-Cypress.Commands.add("login", (email: string, password: string) => {
-  cy.visit("/login");
-  cy.get('[data-testid="email"]').type(email);
-  cy.get('[data-testid="password"]').type(password);
-  cy.get('[data-testid="login-button"]').click();
-  cy.url().should("include", "/dashboard");
-});
-
-Cypress.Commands.add("createUser", (userData: UserData) => {
-  return cy.request("POST", "/api/users", userData).its("body");
-});
-
-Cypress.Commands.add("dataCy", (value: string) => {
-  return cy.get(`[data-cy="${value}"]`);
-});
-
-// Usage
-cy.login("user@example.com", "password");
-cy.dataCy("submit-button").click();
-```
-
-### Pattern 2: Cypress Intercept
-
-```typescript
-// Mock API calls
-cy.intercept("GET", "/api/users", {
-  statusCode: 200,
-  body: [
-    { id: 1, name: "John" },
-    { id: 2, name: "Jane" },
-  ],
-}).as("getUsers");
-
-cy.visit("/users");
-cy.wait("@getUsers");
-cy.get('[data-testid="user-list"]').children().should("have.length", 2);
-
-// Modify responses
-cy.intercept("GET", "/api/users", (req) => {
-  req.reply((res) => {
-    // Modify response
-    res.body.users = res.body.users.slice(0, 5);
-    res.send();
-  });
-});
-
-// Simulate slow network
-cy.intercept("GET", "/api/data", (req) => {
-  req.reply((res) => {
-    res.delay(3000); // 3 second delay
-    res.send();
-  });
-});
-```
-
-## Advanced Patterns
-
-### Pattern 1: Visual Regression Testing
-
-```typescript
-// With Playwright
-import { test, expect } from "@playwright/test";
-
-test("homepage looks correct", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveScreenshot("homepage.png", {
-    fullPage: true,
-    maxDiffPixels: 100,
-  });
-});
-
-test("button in all states", async ({ page }) => {
-  await page.goto("/components");
-
-  const button = page.getByRole("button", { name: "Submit" });
-
-  // Default state
-  await expect(button).toHaveScreenshot("button-default.png");
-
-  // Hover state
-  await button.hover();
-  await expect(button).toHaveScreenshot("button-hover.png");
-
-  // Disabled state
-  await button.evaluate((el) => el.setAttribute("disabled", "true"));
-  await expect(button).toHaveScreenshot("button-disabled.png");
-});
-```
-
-### Pattern 2: Parallel Testing with Sharding
-
-```typescript
-// playwright.config.ts
-export default defineConfig({
-  projects: [
-    {
-      name: "shard-1",
-      use: { ...devices["Desktop Chrome"] },
-      grepInvert: /@slow/,
-      shard: { current: 1, total: 4 },
-    },
-    {
-      name: "shard-2",
-      use: { ...devices["Desktop Chrome"] },
-      shard: { current: 2, total: 4 },
-    },
-    // ... more shards
-  ],
-});
-
-// Run in CI
-// npx playwright test --shard=1/4
-// npx playwright test --shard=2/4
-```
-
-### Pattern 3: Accessibility Testing
-
-```typescript
-// Install: npm install @axe-core/playwright
-import { test, expect } from "@playwright/test";
-import AxeBuilder from "@axe-core/playwright";
-
-test("page should not have accessibility violations", async ({ page }) => {
-  await page.goto("/");
-
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .exclude("#third-party-widget")
-    .analyze();
-
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("form is accessible", async ({ page }) => {
-  await page.goto("/signup");
-
-  const results = await new AxeBuilder({ page }).include("form").analyze();
-
-  expect(results.violations).toEqual([]);
-});
-```
-
-## Best Practices
-
-1. **Use Data Attributes**: `data-testid` or `data-cy` for stable selectors
-2. **Avoid Brittle Selectors**: Don't rely on CSS classes or DOM structure
-3. **Test User Behavior**: Click, type, see - not implementation details
-4. **Keep Tests Independent**: Each test should run in isolation
-5. **Clean Up Test Data**: Create and destroy test data in each test
-6. **Use Page Objects**: Encapsulate page logic
-7. **Meaningful Assertions**: Check actual user-visible behavior
-8. **Optimize for Speed**: Mock when possible, parallel execution
-
-```typescript
-// ❌ Bad selectors
-cy.get(".btn.btn-primary.submit-button").click();
-cy.get("div > form > div:nth-child(2) > input").type("text");
-
-// ✅ Good selectors
-cy.getByRole("button", { name: "Submit" }).click();
-cy.getByLabel("Email address").type("user@example.com");
-cy.get('[data-testid="email-input"]').type("user@example.com");
-```
-
-## Common Pitfalls
-
-- **Flaky Tests**: Use proper waits, not fixed timeouts
-- **Slow Tests**: Mock external APIs, use parallel execution
-- **Over-Testing**: Don't test every edge case with E2E
-- **Coupled Tests**: Tests should not depend on each other
-- **Poor Selectors**: Avoid CSS classes and nth-child
-- **No Cleanup**: Clean up test data after each test
-- **Testing Implementation**: Test user behavior, not internals
-
-## Debugging Failing Tests
-
-```typescript
-// Playwright debugging
-// 1. Run in headed mode
-npx playwright test --headed
-
-// 2. Run in debug mode
-npx playwright test --debug
-
-// 3. Use trace viewer
-await page.screenshot({ path: 'screenshot.png' });
-await page.video()?.saveAs('video.webm');
-
-// 4. Add test.step for better reporting
-test('checkout flow', async ({ page }) => {
-    await test.step('Add item to cart', async () => {
-        await page.goto('/products');
-        await page.getByRole('button', { name: 'Add to Cart' }).click();
-    });
-
-    await test.step('Proceed to checkout', async () => {
-        await page.goto('/cart');
-        await page.getByRole('button', { name: 'Checkout' }).click();
-    });
-});
-
-// 5. Inspect page state
-await page.pause();  // Pauses execution, opens inspector
-```
-
-## Resources
-
-- **references/playwright-best-practices.md**: Playwright-specific patterns
-- **references/cypress-best-practices.md**: Cypress-specific patterns
-- **references/flaky-test-debugging.md**: Debugging unreliable tests
-- **assets/e2e-testing-checklist.md**: What to test with E2E
-- **assets/selector-strategies.md**: Finding reliable selectors
-- **scripts/test-analyzer.ts**: Analyze test flakiness and duration
+---
+
+# Setup recomendado Playwright
+
+tests/
+e2e/
+playwright.config.ts
+
+Config básica:
+
+- retries en CI
+- screenshots en fallo
+- trace activado
+
+---
+
+# Ejecución
+
+Comando estándar:
+
+npx playwright test
+
+CI:
+
+npx playwright test --reporter=dot
+
+---
+
+# Anti-flakiness
+
+Evitar:
+
+- waits arbitrarios
+- sleeps
+- selectores frágiles
+- dependencia de orden de ejecución
+
+Preferir:
+
+- expect.poll
+- waits explícitos
+- asserts de estado final
+
+---
+
+# Definition of Done
+
+La skill se considera completada cuando:
+
+- existe al menos un test relevante
+- el test es determinista
+- se puede ejecutar en CI
+- valida el comportamiento visible
+- no usa selectores frágiles
+
+---
+
+# Errores comunes detectados
+
+1. Tests dependientes de traducciones
+2. Uso de clases internas de Gutenberg
+3. Uso de `waitForTimeout`
+4. Setup no determinista
+5. Dependencia de estado previo de la DB
+
+---
+
+# Resultado esperado
+
+La skill produce:
+
+- tests E2E reproducibles
+- cobertura mínima del cambio
+- ejecución estable en CI

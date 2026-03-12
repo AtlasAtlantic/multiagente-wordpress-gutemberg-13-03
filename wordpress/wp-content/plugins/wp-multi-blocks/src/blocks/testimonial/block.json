@@ -1,0 +1,33 @@
+{
+	"apiVersion": 3,
+	"name": "wp-multi-blocks/testimonial",
+	"title": "Testimonio",
+	"category": "widgets",
+	"icon": "format-quote",
+	"description": "Bloque de testimonio con cita y autor.",
+	"textdomain": "wp-multi-blocks",
+	"attributes": {
+		"quote": {
+			"type": "string",
+			"source": "html",
+			"selector": "blockquote"
+		},
+		"author": {
+			"type": "string",
+			"source": "html",
+			"selector": "figcaption .wp-multi-blocks-testimonial__author"
+		},
+		"role": {
+			"type": "string",
+			"source": "html",
+			"selector": "figcaption .wp-multi-blocks-testimonial__role"
+		}
+	},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false
+	},
+	"editorScript": "file:../../build/index.js",
+	"style": "file:../../build/style-index.css"
+}
+
