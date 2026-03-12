@@ -96,6 +96,21 @@ base_url
 
 URL del entorno de test.
 
+## Resolución de `base_url`
+
+Antes de ejecutar o diagnosticar Playwright, resolver la URL efectiva del entorno en este orden:
+
+1. `PLAYWRIGHT_BASE_URL` en `.env` o en el entorno del proceso
+2. `use.baseURL` en `playwright.config.js`
+3. fallback hardcodeado del config solo si no existe configuración explícita
+
+Reglas obligatorias:
+
+- no asumir que el fallback hardcodeado es la URL activa del proyecto
+- si existe `PLAYWRIGHT_BASE_URL`, tratarlo como fuente prioritaria del entorno E2E local
+- antes de diagnosticar un fallo de red, DNS o login, mencionar la `base_url` efectiva resuelta con evidencia local
+- no reportar errores usando una URL por defecto distinta de la que el repo tiene configurada realmente
+
 ---
 
 # Contrato de salida
@@ -144,6 +159,8 @@ Antes de generar tests se debe verificar:
 Si alguna condición falla:
 
 return status: `environment_not_ready`
+
+Antes de marcar `environment_not_ready`, confirmar que `base_url` se ha resuelto con las reglas anteriores y no desde un fallback incorrecto.
 
 ---
 
