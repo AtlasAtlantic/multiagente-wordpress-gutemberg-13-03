@@ -120,15 +120,6 @@ Estructura de alto nivel:
 - `tags`
   - tags ligeros para discovery
   - array de strings
-- `inputs`
-  - inputs declarados de forma ligera cuando la extracción sea fiable
-  - array de strings
-- `outputs`
-  - outputs declarados de forma ligera cuando la extracción sea fiable
-  - array de strings
-- `capabilities`
-  - capacidades declaradas de forma ligera cuando la extracción sea fiable
-  - array de strings
 
 ### Ejemplo v1
 
@@ -147,10 +138,7 @@ Estructura de alto nivel:
     "gutenberg",
     "playwright",
     "e2e"
-  ],
-  "inputs": [],
-  "outputs": [],
-  "capabilities": []
+  ]
 }
 ```
 
@@ -158,15 +146,15 @@ Estructura de alto nivel:
 
 ### `name`
 
-Orden preferente de fuente:
+Fuente canónica:
 
-1. frontmatter `name` de `SKILL.md`
-2. nombre base del directorio de la skill
+- nombre base del directorio de la skill dentro de `.agents/skills/`
 
-Regla de normalización:
+Reglas:
 
-- si existe frontmatter `name`, debe coincidir con el nombre base del directorio o estar explícitamente aceptado por las convenciones del repo
-- en v1 debe priorizarse el id canónico realmente usado por el repo en routing y profiles
+- `name` debe coincidir con el id canónico usado por el repo en routing, profiles y configuración
+- en v1 no debe derivarse desde frontmatter de `SKILL.md`
+- el frontmatter puede usar el mismo id por consistencia documental, pero no es fuente de verdad para el índice
 
 ### `path`
 
@@ -228,18 +216,6 @@ Reglas:
 
 - es preferible omitir antes que hacer parsing semántico frágil
 
-### `inputs`, `outputs`, `capabilities`
-
-Comportamiento permitido en v1:
-
-- poblar solo si existe una regla de extracción determinista
-- en caso contrario emitir arrays vacíos
-
-Reglas:
-
-- no parsear prosa libre de forma heurística en v1
-- no inferir a partir de ejemplos
-
 ## Reglas de validación
 
 La validación debe vivir en `agents-doctor`.
@@ -259,15 +235,14 @@ La validación debe vivir en `agents-doctor`.
 - `source_files` vacío
 - alguna entrada de `source_files` no existe
 - `version` de alto nivel no está soportada
+- el índice committed no coincide con una regeneración determinista del generador (staleness)
 
 ### Warnings
 
 - `summary` es `null`
 - `tags` está vacío
-- `inputs` está vacío
-- `outputs` está vacío
-- `capabilities` está vacío
-- el frontmatter `name` difiere del nombre base del directorio
+
+En v1 los warnings semánticos se limitan a metadata opcional realmente presente en el contrato.
 
 Los warnings están permitidos en v1 porque la metadata semántica puede seguir incompleta.
 
@@ -280,6 +255,7 @@ El generador debe:
 3. construir entradas deterministas
 4. ordenar las entradas por `name`
 5. emitir JSON con formato estable
+6. permitir regeneración determinista para validación de staleness
 
 El generador no debe:
 
@@ -323,6 +299,5 @@ La metadata aditiva puede mantenerse dentro de `v1` si:
 
 ## Siguientes entregables recomendados
 
-1. script generador para `./.agents/generated/skill-discovery-index.json`
-2. checks de `agents-doctor` para consistencia v1
-3. reglas opcionales de normalización de metadata para `tags`, `inputs`, `outputs` y `capabilities`
+1. normalización opcional adicional de `tags` si se amplía metadata estructurada en `SKILL.md`
+2. mejoras de tooling que consuman el índice sin introducir lógica resolutiva

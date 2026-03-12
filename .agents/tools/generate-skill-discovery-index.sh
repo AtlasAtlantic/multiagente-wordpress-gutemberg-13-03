@@ -6,6 +6,7 @@ cd "$repo_root"
 
 python3 - <<'PY'
 import json
+import os
 import pathlib
 from datetime import datetime, timezone
 
@@ -19,7 +20,7 @@ agents_dir = root / '.agents'
 skills_dir = agents_dir / 'skills'
 tiers_path = agents_dir / 'skills-tier.yaml'
 output_dir = agents_dir / 'generated'
-output_path = output_dir / 'skill-discovery-index.json'
+output_path = pathlib.Path(os.environ.get('SKILL_DISCOVERY_INDEX_OUTPUT_PATH', output_dir / 'skill-discovery-index.json'))
 
 tiers = yaml.safe_load(tiers_path.read_text()) or {}
 tier_map = {}
@@ -67,14 +68,11 @@ for skill_dir in sorted(path for path in skills_dir.iterdir() if path.is_dir()):
         ],
         "summary": frontmatter.get('description'),
         "tags": normalize_tags(frontmatter),
-        "inputs": [],
-        "outputs": [],
-        "capabilities": [],
     })
 
 document = {
     "version": 1,
-    "generated_at": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+    "generated_at": os.environ.get('SKILL_DISCOVERY_INDEX_GENERATED_AT', datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')),
     "source_of_truth": ".agents",
     "skills": skills,
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-03-12T12:38:21Z",
+  "generated_at": "2026-03-12T13:26:05Z",
   "source_of_truth": ".agents",
   "skills": [
     {
@@ -12,10 +12,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Gobernanza y evolucion de la arquitectura local de agentes: .agents, perfiles, routing, prompts, guardrails, adaptadores runtime y validadores. Usar para mejorar o depurar la configuracion de agentes sin redefinir la fuente de verdad.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "e2e-testing-patterns",
@@ -26,10 +23,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Deterministic WordPress end-to-end testing guidance for Playwright-first projects, with Gutenberg-specific rules for editor and frontend validation.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "frontend-responsive-design-standards",
@@ -40,10 +34,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Build responsive, mobile-first layouts using fluid containers, flexible units, media queries, and touch-friendly design that works across all screen sizes. Use this skill when creating or modifying UI layouts, responsive grids, breakpoint styles, mobile navigation, or any interface that needs to adapt to different screen sizes. Apply when working with responsive CSS, media queries, viewport settings, flexbox/grid layouts, mobile-first styling, breakpoint definitions (mobile, tablet, desktop), touch target sizing, relative units (rem, em, %), image optimization for different screens, or testing layouts across multiple devices. Use for any task involving multi-device support, responsive design patterns, or adaptive layouts.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "modern-javascript-patterns",
@@ -54,10 +45,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns for writing clean, efficient JavaScript code. Use when refactoring legacy code, implementing modern patterns, or optimizing JavaScript applications.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "php-best-practices",
@@ -68,10 +56,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "PHP 8.5+ modern patterns, PSR standards, and SOLID principles. Use when reviewing PHP code, checking type safety, auditing code quality, or ensuring PHP best practices. Triggers on \"review PHP\", \"check PHP code\", \"audit PHP\", or \"PHP best practices\".",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "scss-best-practices",
@@ -82,10 +67,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "SCSS/Sassy CSS best practices and coding guidelines for maintainable, scalable stylesheets",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "vass-config",
@@ -96,10 +78,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Repositorio de estandares VASS para flujo de trabajo, calidad, WordPress, testing y cambios de configuracion Codex. Usar como capa transversal de gobierno tecnico.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "web-accessibility",
@@ -117,10 +96,7 @@
         "ARIA",
         "semantic-HTML",
         "screen-reader"
-      ],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      ]
     },
     {
       "name": "wordpress-router",
@@ -131,10 +107,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wordpress-security-validation",
@@ -145,10 +118,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Security-first WordPress development with nonces, sanitization, validation, and escaping to prevent XSS, CSRF, and SQL injection vulnerabilities.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-block-development",
@@ -159,10 +129,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when developing WordPress (Gutenberg) blocks: block.json metadata, register_block_type(_from_metadata), attributes/serialization, supports, dynamic rendering (render.php/render_callback), deprecations/migrations, viewScript vs viewScriptModule, and @wordpress/scripts/@wordpress/create-block build and test workflows.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-block-themes",
@@ -173,10 +140,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-performance",
@@ -187,10 +151,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-phpstan",
@@ -201,10 +162,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when configuring, running, or fixing PHPStan static analysis in WordPress projects (plugins/themes/sites): phpstan.neon setup, baselines, WordPress-specific typing, and handling third-party plugin classes.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-plugin-development",
@@ -215,10 +173,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-project-triage",
@@ -229,10 +184,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when you need a deterministic inspection of a WordPress repository (plugin/theme/block theme/WP core/Gutenberg/full site) including tooling/tests/version hints, and a structured JSON report to guide workflows and guardrails.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     },
     {
       "name": "wp-rest-api",
@@ -243,10 +195,7 @@
         ".agents/skills-tier.yaml"
       ],
       "summary": "Use when building, extending, or debugging WordPress REST API endpoints/routes: register_rest_route, WP_REST_Controller/controller classes, schema/argument validation, permission_callback/authentication, response shaping, register_rest_field/register_meta, or exposing CPTs/taxonomies via show_in_rest.",
-      "tags": [],
-      "inputs": [],
-      "outputs": [],
-      "capabilities": []
+      "tags": []
     }
   ]
 }

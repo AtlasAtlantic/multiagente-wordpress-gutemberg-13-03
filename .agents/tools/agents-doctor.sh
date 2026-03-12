@@ -6,9 +6,12 @@ cd "$repo_root"
 
 python3 - <<'PY'
 import json
+import os
 import pathlib
 import re
+import subprocess
 import sys
+import tempfile
 
 try:
     import yaml
@@ -24,6 +27,7 @@ prompts_dir = agents_dir / 'prompts'
 skills_alias = root / 'skills'
 skill_index_spec = agents_dir / 'skill-discovery-index-v1.md'
 skill_discovery_index = agents_dir / 'generated' / 'skill-discovery-index.json'
+skill_index_generator = agents_dir / 'tools' / 'generate-skill-discovery-index.sh'
 
 errors = []
 warnings = []
@@ -59,6 +63,7 @@ required_common_files = [
     agents_dir / 'multiagent.yaml',
     agents_dir / 'skills-tier.yaml',
     skill_index_spec,
+    skill_index_generator,
 ]
 for file_path in required_common_files:
     if not file_path.exists():
@@ -196,19 +201,6 @@ for skill in sorted(skill_set - set(tier_skills)):
 for skill in sorted(skill_set - profile_referenced_skills - {'wordpress-router', 'wp-project-triage', 'vass-config', 'agents-config'}):
     warnings.append(f'skill huerfana: no aparece en ningun perfil: {skill}')
 
-def load_frontmatter(skill_md_path):
-    text = skill_md_path.read_text()
-    if not text.startswith('---\n'):
-        return {}
-    parts = text.split('---\n', 2)
-    if len(parts) < 3:
-        return {}
-    try:
-        data = yaml.safe_load(parts[1]) or {}
-    except Exception:
-        return {}
-    return data if isinstance(data, dict) else {}
-
 if not skill_discovery_index.exists():
     warnings.append(f'indice derivado no existe todavia: {skill_discovery_index}')
 else:
@@ -292,21 +284,10 @@ else:
             for missing_source in missing_sources:
                 errors.append(f'skill-discovery-index.json no referencia source_file requerido para {name}: {missing_source}')
 
-            frontmatter = load_frontmatter(root / f'.agents/skills/{name}/SKILL.md')
-            frontmatter_name = frontmatter.get('name')
-            if frontmatter_name and frontmatter_name != name:
-                warnings.append(f'skill-discovery-index.json usa un nombre distinto al frontmatter para {name}: {frontmatter_name}')
-
             if 'summary' not in entry:
                 warnings.append(f'skill-discovery-index.json no define summary para {name}')
             if 'tags' not in entry:
                 warnings.append(f'skill-discovery-index.json no define tags para {name}')
-            if 'inputs' not in entry:
-                warnings.append(f'skill-discovery-index.json no define inputs para {name}')
-            if 'outputs' not in entry:
-                warnings.append(f'skill-discovery-index.json no define outputs para {name}')
-            if 'capabilities' not in entry:
-                warnings.append(f'skill-discovery-index.json no define capabilities para {name}')
 
         missing_index_entries = sorted(skill_set - set(indexed_names.keys()))
         extra_index_entries = sorted(set(indexed_names.keys()) - skill_set)
@@ -314,6 +295,32 @@ else:
             errors.append(f'skill real sin entrada en skill-discovery-index.json: {skill}')
         for skill in extra_index_entries:
             errors.append(f'skill-discovery-index.json referencia una skill inexistente: {skill}')
+
+        if isinstance(index_data, dict):
+            try:
+                with tempfile.TemporaryDirectory() as temp_dir:
+                    temp_index_path = pathlib.Path(temp_dir) / 'skill-discovery-index.json'
+                    env = os.environ.copy()
+                    env['SKILL_DISCOVERY_INDEX_OUTPUT_PATH'] = str(temp_index_path)
+                    env['SKILL_DISCOVERY_INDEX_GENERATED_AT'] = index_data.get('generated_at', '')
+                    result = subprocess.run(
+                        [str(skill_index_generator)],
+                        cwd=str(root),
+                        env=env,
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                    )
+                    if result.returncode != 0:
+                        errors.append(f'no se pudo regenerar skill-discovery-index.json para validar staleness: {result.stderr.strip() or result.stdout.strip()}')
+                    elif not temp_index_path.exists():
+                        errors.append('el generador de skill-discovery-index no produjo archivo temporal para validar staleness')
+                    else:
+                        regenerated_index = json.loads(temp_index_path.read_text())
+                        if regenerated_index != index_data:
+                            errors.append('skill-discovery-index.json esta desactualizado respecto al generador y las fuentes canonicas')
+            except Exception as exc:
+                errors.append(f'fallo al validar staleness de skill-discovery-index.json: {exc}')
 
 agents_doc = (root / 'AGENTS.md').read_text().splitlines()
 agents_doc_text = (root / 'AGENTS.md').read_text()
