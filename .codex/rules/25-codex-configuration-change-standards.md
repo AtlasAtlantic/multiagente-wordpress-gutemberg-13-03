@@ -43,6 +43,7 @@ Se considera cambio de configuración Codex cualquier modificación en:
 - `.codex/skills/*/SKILL.md`
 - `.codex/skills/*/scripts/*.sh`
 - `AGENTS.md`
+- `docs/codex-configuration-change-log.md`
 
 ### 2. Flujo de cambio (OBLIGATORIO)
 
@@ -94,6 +95,19 @@ Cada entrega debe incluir:
 
 Sin esa evidencia, la tarea no puede marcarse como cerrada.
 
+### 4.1 Bitácora cronológica obligatoria (OBLIGATORIO)
+
+Todo cambio de configuración Codex debe añadir una entrada nueva en:
+
+- `docs/codex-configuration-change-log.md`
+
+Reglas:
+
+- añadir la entrada al final del archivo
+- mantener orden cronológico ascendente
+- resumir qué cambió, por qué y qué validación se ejecutó
+- no sobrescribir ni reordenar entradas anteriores salvo corrección justificada
+
 ### 5. Criterio de cierre (OBLIGATORIO)
 
 Una tarea de configuración Codex se considera cerrada solo si:
@@ -101,6 +115,7 @@ Una tarea de configuración Codex se considera cerrada solo si:
 1. Todos los validadores del alcance están en verde.
 2. El diff es coherente con el objetivo declarado.
 3. No hay cambios colaterales sin justificar.
+4. La bitácora cronológica se ha actualizado cuando aplica.
 
 ## Ejemplos
 

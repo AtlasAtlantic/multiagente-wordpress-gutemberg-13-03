@@ -75,3 +75,4 @@ When this skill is used, ensure the result includes:
 - what contract or layer changed
 - why the change reduces ambiguity, drift, or noise
 - exact validation evidence
+- update to `docs/codex-configuration-change-log.md` when the task also changes Codex configuration or Codex governance

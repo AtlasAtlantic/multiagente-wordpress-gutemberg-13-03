@@ -72,6 +72,7 @@ For Codex or agent-configuration changes:
 - treat `./.agents/generated/skill-discovery-index.json` as a derived artifact only
 - do not move routing, profiles, guardrails or quality-gate logic into `.codex/**`
 - if Codex references the discovery index, it must do so only for discovery or shortlist support
+- append a chronological entry to `docs/codex-configuration-change-log.md` when the task changes Codex configuration or its governance
 
 ### 5) Output expectations
 
