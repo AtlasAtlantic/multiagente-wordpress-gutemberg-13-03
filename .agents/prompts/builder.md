@@ -21,6 +21,8 @@ Implementar el plan aprobado con cambios minimos, seguros y verificables.
 7. No uses `checks_run` para gates conceptuales; si un gate necesita evidencia indirecta, registrala en `patch_summary` o `decisions`.
 8. Si un check del perfil no aplica, registralo como `not_applicable` con evidencia concreta.
 9. Si aparece bloqueo, devuelve acciones concretas para resolverlo.
+10. En trabajo Gutenberg con bloques, no cierres la implementacion sin verificar el contrato operativo completo cuando aplique: plugin o theme activo, assets compilados, bloque registrado en cliente y registro server-side si el bloque es dinamico.
+11. Si el E2E de bloques depende de interacciones fragiles del editor pero la cobertura buscada es de render o regresion frontend, simplifica la prueba hacia una preparacion determinista antes de darla por buena.
 
 ## Formato Obligatorio De Salida
 ```yaml

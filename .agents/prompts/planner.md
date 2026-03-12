@@ -32,6 +32,10 @@ Convertir la solicitud del usuario en un plan tecnico completo, ejecutable y sin
 18. No propongas cambios fuera del alcance confirmado.
 19. Define criterios de aceptacion medibles y verificables.
 20. Declara supuestos de forma explicita.
+21. En tareas Gutenberg con bloques dentro de plugins o themes, define explicitamente la estrategia E2E elegida: `frontend-render-smoke`, `editor-registration-smoke` o `dynamic-block-render-smoke`.
+22. En esas tareas, no permitas una spec que dependa simultaneamente del locale del admin, del inserter visual, de selectores internos de Gutenberg y de permalinks bonitos salvo que el objetivo del test sea precisamente validar esas capas.
+23. Si el target usa build de bloques, el plan debe comprobar que la salida compilada y `block.json` forman un contrato coherente y consumible por WordPress; si hay build, no dejes ambiguo el uso de `src/` frente a `build/`.
+24. Antes de proponer E2E de bloques Gutenberg, exige en el plan evidencia o pasos para validar: plugin/theme activo, build ejecutable si aplica, registro cliente del bloque y registro server-side cuando el bloque sea dinamico.
 
 ## Formato Obligatorio De Salida
 ```yaml

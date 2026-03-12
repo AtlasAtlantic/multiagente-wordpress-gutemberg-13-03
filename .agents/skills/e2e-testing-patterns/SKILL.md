@@ -31,6 +31,55 @@ When the target is a WordPress plugin or theme with reusable E2E infrastructure:
 
 If a block or visible UI change should carry E2E but the repo has no reusable E2E base, ask whether that base should be created before treating `e2e` as `not_applicable`, unless the user explicitly excludes tests.
 
+### WordPress Gutenberg Hard Rules
+
+For Gutenberg block work, these rules are mandatory:
+
+- validate preconditions before relying on editor interaction:
+  - target plugin or theme active in the test environment
+  - required block assets built when the target uses a build step
+  - block registered in client (`window.wp.blocks.getBlockType(...)`) before testing inserter/editor behavior
+  - block registered server-side when the block is dynamic or frontend rendering depends on PHP
+- do not use localized labels from the WordPress editor chrome as the primary locator strategy when a more stable alternative exists
+- do not depend on obsolete internal editor selectors such as title/input DOM from older Gutenberg versions
+- prefer deterministic setup over fragile UI setup:
+  - for block frontend smoke tests, prefer preparing post content through helpers, editor store, REST, or serialized block content when equivalent coverage is achieved
+  - use visual inserter interaction only when inserter behavior itself is part of the acceptance criteria
+- for local WordPress frontend navigation, prefer stable URLs such as `?p=<id>` over pretty permalinks unless permalink behavior is part of the test goal
+- for dynamic blocks, verify the runtime path that matters:
+  - server-side registration exists
+  - render callback or render file is wired
+  - frontend output is asserted from the rendered page
+
+### Preferred Block Test Strategies
+
+Choose the narrowest strategy that proves the requirement:
+
+1. `frontend-render-smoke`
+   - prepare a post deterministically
+   - publish it
+   - assert the rendered frontend output
+   - preferred for most block regressions and block rendering changes
+2. `editor-registration-smoke`
+   - verify the block is registered and available in the editor
+   - use when the task changes registration, metadata, category, supports, or inserter availability
+3. `dynamic-block-render-smoke`
+   - verify server-side registration and rendered frontend output for a dynamic block
+   - use when output depends on PHP, query results, permissions, or runtime data
+
+If one spec mixes editor chrome, inserter flow, publishing, permalink assumptions, and frontend assertions without necessity, simplify it before closing the task.
+
+### Disallowed Patterns For Gutenberg E2E
+
+Avoid these patterns unless the task explicitly requires them and the reason is documented:
+
+- selectors tied to translated editor chrome text when a helper/store-based path exists
+- selectors tied to private Gutenberg DOM that changes across versions
+- assuming the first item in dynamic output always carries every optional field
+- relying on pretty permalinks in local environments by default
+- closing a block task with only editor interaction evidence and no frontend render evidence when the user-visible behavior is in frontend
+- generating block E2E without checking whether the plugin/theme is active and whether build artifacts exist
+
 ## Core Concepts
 
 ### 1. E2E Testing Fundamentals

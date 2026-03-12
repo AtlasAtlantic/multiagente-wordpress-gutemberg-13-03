@@ -35,6 +35,63 @@ Use this skill for block work such as:
 
 If this repo is a full site (`wp-content/` present), be explicit about *which* plugin/theme contains the block.
 
+### 0.5) Decide the source/build contract before coding
+
+Before creating or refactoring a block, decide whether the target uses direct source files or compiled assets.
+
+Mandatory rules:
+
+- if the target has a build step, treat source and runtime artifacts as different layers
+- do not leave `block.json` pointing ambiguously to files that are sometimes source and sometimes build output
+- do not overwrite source files with compiled output
+- when a project uses build artifacts, keep runtime assets in a stable `build/` contract and make WordPress consume that contract consistently
+
+Apply the VASS block standard as source of truth here:
+- `./.agents/skills/vass-config/22-wordpress-blocks-standards.md`
+
+Minimum decision to record before implementation:
+
+- where source lives
+- where compiled artifacts live
+- which path WordPress registers from
+- whether the block is static or dynamic
+
+Preferred contract for block plugins that compile assets:
+
+```text
+my-plugin/
+├── my-plugin.php
+├── package.json
+├── src/
+│   └── blocks/
+│       └── block-name/
+│           ├── block.json
+│           ├── index.js
+│           ├── edit.js
+│           ├── save.js
+│           ├── editor.scss
+│           └── style.scss
+├── build/
+│   └── blocks/
+│       └── block-name/
+│           ├── block.json
+│           ├── index.js
+│           ├── index.asset.php
+│           ├── index.css
+│           └── style-index.css
+└── includes/
+    └── blocks.php
+```
+
+Operational rules for that contract:
+
+- `src/` is source only
+- `build/` is runtime only
+- WordPress registers blocks from `build/blocks/<block-name>`
+- `block.json` consumed by WordPress lives in the runtime path
+- do not place compiled artifacts outside the plugin/theme target
+- do not compile into the same folder that contains block source files
+
 ### 1) Create a new block (if needed)
 
 If you are creating a new block, prefer scaffolding rather than hand-rolling structure:
@@ -49,6 +106,13 @@ After scaffolding:
 
 1. Re-run the block list script and confirm the new block root.
 2. Continue with the remaining steps (model choice, metadata, registration, serialization).
+
+If you scaffold or hand-roll a block, the initial implementation must include both halves of registration:
+
+- server-side registration from metadata when the repo uses PHP registration
+- client-side registration with `registerBlockType(...)` for the editor
+
+Do not assume importing `edit.js` / `save.js` is enough; confirm that the entry file actually registers the block in JavaScript.
 
 ### 2) Ensure apiVersion 3 (WordPress 6.9+)
 
@@ -86,6 +150,8 @@ Common pitfalls:
 - changing `name` breaks compatibility (treat it as stable API)
 - changing saved markup without adding `deprecated` causes “Invalid block”
 - adding attributes without defining source/serialization correctly causes “attribute not saving”
+- pointing `editorScript`, `editorStyle`, or `style` at source files when the runtime really depends on compiled artifacts
+- using a build step but leaving no stable `build/` contract for WordPress to consume
 
 ### 5) Register the block (server-side preferred)
 
@@ -97,6 +163,13 @@ Prefer PHP registration using metadata, especially when:
 
 Read and apply:
 - `references/registration.md`
+
+Hard rules:
+
+- if the repo uses build artifacts, register from the runtime-ready path, not from ambiguous source files
+- for dynamic blocks, confirm the PHP render path or `render_callback` is actually reachable at runtime
+- for plugin/theme block setups that rely on metadata registration, verify the files referenced by `block.json` exist after build
+- for block plugins with build, keep the full runtime path inside the plugin target; never emit build artifacts to the repo root or another external location
 
 ### 6) Implement edit/save/render patterns
 
@@ -150,12 +223,29 @@ Prefer whatever the repo already uses:
 Read:
 - `references/tooling-and-testing.md`
 
+### 11) Block preflight before closing
+
+Before closing block work, verify the block contract end-to-end:
+
+1. `block.json` points to files that really exist in the runtime layout
+2. if the repo uses build:
+   - build output is generated in the expected location
+   - source files were not overwritten by the build
+3. the block is registered in the editor client
+4. if the block is dynamic, the block is also registered server-side and its frontend render path is active
+5. if the task includes E2E, the chosen test strategy is explicit:
+   - `frontend-render-smoke`
+   - `editor-registration-smoke`
+   - `dynamic-block-render-smoke`
+
 ## Verification
 
 - Block appears in inserter and inserts successfully.
 - Saving + reloading does not create “Invalid block”.
 - Frontend output matches expectations (static: saved markup; dynamic: server output).
 - Assets load where expected (editor vs frontend).
+- Client registration exists: `window.wp.blocks.getBlockType( '<namespace/block>' )` or equivalent evidence.
+- If dynamic, server-side registration exists and the render path is wired.
 - If reusable E2E infrastructure exists in the target plugin/theme and the block is new or its visible behavior changed, create or update the block's associated E2E test.
 - Run the repo’s lint/build/tests that triage recommends.
 
@@ -166,6 +256,13 @@ If something fails, start here:
 - `references/debugging.md` (common failures + fastest checks)
 - `references/attributes-and-serialization.md` (attributes not saving)
 - `references/deprecations.md` (invalid block after change)
+
+Pay special attention to these failures:
+
+- block available in PHP but missing in editor: usually missing `registerBlockType(...)` or broken editor asset loading
+- block available in editor but missing in frontend: usually build/path mismatch or server-side registration gap
+- dynamic block comment saved but no frontend output: usually block not registered server-side at runtime
+- build succeeds but WordPress still cannot load the block: usually `block.json` points to the wrong layer (`src/` vs `build/`)
 
 ## Escalation
 

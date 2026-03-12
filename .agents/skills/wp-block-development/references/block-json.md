@@ -7,6 +7,9 @@ Use this file when you’re editing `block.json` fields or choosing between scri
 - Treat `name` as stable API (renaming breaks existing content).
 - Prefer adding new functionality without changing saved markup; if markup must change, add a `deprecated` version.
 - Keep assets scoped: editor assets should not ship to frontend unless needed.
+- If the project uses build artifacts, make `block.json` point to the runtime-ready files, not to ambiguous source files.
+- Do not let compiled output overwrite block source files.
+- Keep one explicit contract for runtime paths: WordPress should know whether it consumes `build/` or direct source, never a mix that changes per command.
 
 ## API version + schema
 
@@ -40,10 +43,31 @@ This is not a full schema; it’s a “what matters in practice” list:
 - `viewScriptModule`: module-based frontend scripts (newer WP).
 - `render`: points to a PHP render file for dynamic blocks (newer WP).
 
+## Source vs build decision
+
+When a repo compiles block assets:
+
+- source files remain source (`index.js`, `edit.js`, `save.js`, CSS/SCSS input)
+- compiled assets live in a dedicated runtime directory, typically `build/`
+- `block.json` should reference the runtime-ready files that WordPress actually loads
+
+Typical safe pattern:
+
+- source:
+  - `blocks/hero/index.js`
+  - `blocks/hero/edit.js`
+  - `blocks/hero/save.js`
+- runtime:
+  - `blocks/hero/build/index.js`
+  - `blocks/hero/build/index.css`
+  - `blocks/hero/build/style-index.css`
+
+If the repo follows a VASS-style block structure, prefer the `src/` vs `build/` contract documented in:
+- `./.agents/skills/vass-config/22-wordpress-blocks-standards.md`
+
 ## Helpful upstream references
 
 - Block metadata reference (block.json):
   - https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/
 - Block.json schema (editor tooling):
   - https://schemas.wp.org/trunk/block.json
-

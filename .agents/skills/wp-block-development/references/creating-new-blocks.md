@@ -38,9 +38,26 @@ References:
 If you cannot run `create-block` (no Node tooling or restricted network):
 
 1. Create a plugin or theme location that will register the block.
-2. Create a block folder with a valid `block.json`.
-3. Register via `register_block_type_from_metadata()` in PHP.
-4. Add editor JS and (optionally) frontend view assets.
+2. Decide the runtime contract before creating files:
+   - direct source without build, or
+   - `src/` + `build/` with WordPress consuming `build/`
+3. If the target is a block plugin with build, prefer this structure:
+
+```text
+my-plugin/
+├── src/blocks/block-name/
+└── build/blocks/block-name/
+```
+
+4. Create a block folder with a valid `block.json`.
+5. Register via `register_block_type_from_metadata()` in PHP.
+6. Add editor JS and (optionally) frontend view assets.
+
+Mandatory rules for manual setups:
+
+- do not emit compiled assets outside the plugin/theme target
+- do not compile on top of source files
+- if the repo uses build, ensure the runtime `block.json` and built assets live together in the path WordPress registers
+- if the block has editor JS, ensure the client entry actually calls `registerBlockType(...)`
 
 Then follow the rest of `wp-block-development` for metadata, registration, and serialization.
-
