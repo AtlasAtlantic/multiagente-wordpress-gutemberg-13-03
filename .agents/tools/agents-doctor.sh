@@ -22,6 +22,8 @@ skills_dir = agents_dir / 'skills'
 profiles_dir = agents_dir / 'profiles'
 prompts_dir = agents_dir / 'prompts'
 skills_alias = root / 'skills'
+skill_index_spec = agents_dir / 'skill-discovery-index-v1.md'
+skill_discovery_index = agents_dir / 'generated' / 'skill-discovery-index.json'
 
 errors = []
 warnings = []
@@ -56,6 +58,7 @@ required_common_files = [
     agents_dir / 'GUARDRAILS.md',
     agents_dir / 'multiagent.yaml',
     agents_dir / 'skills-tier.yaml',
+    skill_index_spec,
 ]
 for file_path in required_common_files:
     if not file_path.exists():
@@ -173,9 +176,14 @@ for profile in sorted(profile_registry - profile_ids):
     errors.append(f'.agents/multiagent.yaml registra un perfil inexistente: {profile}')
 
 tiers = yaml.safe_load((agents_dir / 'skills-tier.yaml').read_text())
+tier_map = {}
 tier_skills = []
-for values in (tiers.get('tiers', {}) or {}).values():
-    tier_skills.extend(values or [])
+for tier_name, values in (tiers.get('tiers', {}) or {}).items():
+    for skill in values or []:
+        tier_skills.append(skill)
+        if skill in tier_map:
+            errors.append(f'skill duplicada en skills-tier.yaml: {skill}')
+        tier_map[skill] = tier_name
 seen = set()
 for skill in tier_skills:
     if skill in seen:
@@ -187,6 +195,122 @@ for skill in sorted(skill_set - set(tier_skills)):
     warnings.append(f'skill sin tier asignado: {skill}')
 for skill in sorted(skill_set - profile_referenced_skills - {'wordpress-router', 'wp-project-triage', 'vass-config', 'agents-config'}):
     warnings.append(f'skill huerfana: no aparece en ningun perfil: {skill}')
+
+def load_frontmatter(skill_md_path):
+    text = skill_md_path.read_text()
+    if not text.startswith('---\n'):
+        return {}
+    parts = text.split('---\n', 2)
+    if len(parts) < 3:
+        return {}
+    try:
+        data = yaml.safe_load(parts[1]) or {}
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+if not skill_discovery_index.exists():
+    warnings.append(f'indice derivado no existe todavia: {skill_discovery_index}')
+else:
+    try:
+        index_data = json.loads(skill_discovery_index.read_text())
+    except Exception as exc:
+        errors.append(f'no se pudo leer skill-discovery-index.json: {exc}')
+        index_data = None
+
+    if isinstance(index_data, dict):
+        if index_data.get('version') != 1:
+            errors.append('skill-discovery-index.json tiene version no soportada')
+        if index_data.get('source_of_truth') != '.agents':
+            errors.append('skill-discovery-index.json no declara source_of_truth=.agents')
+
+        skills_entries = index_data.get('skills')
+        if not isinstance(skills_entries, list):
+            errors.append('skill-discovery-index.json no define skills como array')
+            skills_entries = []
+
+        indexed_names = {}
+        indexed_paths = {}
+        for entry in skills_entries:
+            if not isinstance(entry, dict):
+                errors.append('skill-discovery-index.json contiene una entrada de skill invalida')
+                continue
+
+            name = entry.get('name')
+            path = entry.get('path')
+            tier = entry.get('tier')
+            source_files = entry.get('source_files')
+
+            if not name or not isinstance(name, str):
+                errors.append('skill-discovery-index.json contiene una skill sin name valido')
+                continue
+            if not path or not isinstance(path, str):
+                errors.append(f'skill-discovery-index.json contiene una skill sin path valido: {name}')
+                continue
+            if not tier or not isinstance(tier, str):
+                errors.append(f'skill-discovery-index.json contiene una skill sin tier valido: {name}')
+            if not isinstance(source_files, list) or not source_files:
+                errors.append(f'skill-discovery-index.json contiene una skill con source_files vacio: {name}')
+                source_files = []
+
+            if name in indexed_names:
+                errors.append(f'skill-discovery-index.json contiene name duplicado: {name}')
+            indexed_names[name] = entry
+
+            if path in indexed_paths:
+                errors.append(f'skill-discovery-index.json contiene path duplicado: {path}')
+            indexed_paths[path] = entry
+
+            entry_path = root / path
+            if not entry_path.exists():
+                errors.append(f'skill-discovery-index.json referencia un path inexistente: {path}')
+            if (entry_path / 'SKILL.md').exists() is False:
+                errors.append(f'skill-discovery-index.json referencia una skill sin SKILL.md: {path}')
+
+            for source_file in source_files:
+                if not isinstance(source_file, str) or not (root / source_file).exists():
+                    errors.append(f'skill-discovery-index.json referencia source_file inexistente en {name}: {source_file}')
+
+            expected_path = f'.agents/skills/{name}'
+            if path != expected_path:
+                errors.append(f'skill-discovery-index.json path no canonical para {name}: {path}')
+
+            canonical_tier = tier_map.get(name)
+            if canonical_tier is None:
+                errors.append(f'skill-discovery-index.json referencia una skill sin tier canonico: {name}')
+            elif tier != canonical_tier:
+                errors.append(f'skill-discovery-index.json tier inconsistente para {name}: {tier} != {canonical_tier}')
+
+            required_sources = {
+                f'.agents/skills/{name}/SKILL.md',
+                '.agents/skills-tier.yaml',
+            }
+            missing_sources = sorted(required_sources - set(source_files))
+            for missing_source in missing_sources:
+                errors.append(f'skill-discovery-index.json no referencia source_file requerido para {name}: {missing_source}')
+
+            frontmatter = load_frontmatter(root / f'.agents/skills/{name}/SKILL.md')
+            frontmatter_name = frontmatter.get('name')
+            if frontmatter_name and frontmatter_name != name:
+                warnings.append(f'skill-discovery-index.json usa un nombre distinto al frontmatter para {name}: {frontmatter_name}')
+
+            if entry.get('summary') is None:
+                warnings.append(f'skill-discovery-index.json no define summary para {name}')
+            if not entry.get('tags'):
+                warnings.append(f'skill-discovery-index.json no define tags para {name}')
+            if not entry.get('inputs'):
+                warnings.append(f'skill-discovery-index.json no define inputs para {name}')
+            if not entry.get('outputs'):
+                warnings.append(f'skill-discovery-index.json no define outputs para {name}')
+            if not entry.get('capabilities'):
+                warnings.append(f'skill-discovery-index.json no define capabilities para {name}')
+
+        missing_index_entries = sorted(skill_set - set(indexed_names.keys()))
+        extra_index_entries = sorted(set(indexed_names.keys()) - skill_set)
+        for skill in missing_index_entries:
+            errors.append(f'skill real sin entrada en skill-discovery-index.json: {skill}')
+        for skill in extra_index_entries:
+            errors.append(f'skill-discovery-index.json referencia una skill inexistente: {skill}')
 
 agents_doc = (root / 'AGENTS.md').read_text().splitlines()
 agents_doc_text = (root / 'AGENTS.md').read_text()
