@@ -230,21 +230,43 @@ Ejemplo:
 
 Evitar selectores frágiles.
 
+Reglas obligatorias para Gutenberg:
+
+- distinguir siempre entre `editor chrome` y `editor canvas`
+- si el contenido editable vive dentro de `iframe`, los locators del bloque deben resolverse en ese `iframe`
+- validar antes del test que:
+  - el plugin o theme objetivo está activo
+  - los assets del bloque están compilados
+  - el bloque está registrado en cliente
+  - el bloque está registrado en servidor cuando aplique render dinámico
+- preferir setup determinista mediante API, WP-CLI, contenido serializado o helpers reutilizables
+- usar interacción visual del inserter solo cuando el inserter forme parte real del criterio de aceptación
+
 NO usar:
 
 - selectores del chrome interno del editor
 - clases internas de Gutenberg
 - labels traducidas
+- `nth()` como estrategia principal para encontrar campos del bloque
+- permalinks bonitos como dependencia por defecto en entorno local
 
 Preferir:
 
 - data-testid
 - atributos propios del bloque
+- URLs estables como `?p=<id>` cuando el objetivo es validar render frontend y no la capa de permalinks
 - validación del resultado final
 
 Siempre priorizar:
 
 estado final observable > interacción interna del editor.
+
+Smells que obligan a replantear el test:
+
+- una misma spec mezcla inserter, edición, publicación y frontend sin necesidad
+- el test depende de texto de interfaz de WordPress que cambia con el idioma
+- el test no comprueba el render frontend aunque el cambio sea visible para usuario final
+- el test intenta demostrar render dinámico solo con evidencia del editor
 
 ---
 
