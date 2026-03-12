@@ -238,6 +238,7 @@ El objetivo es que el stack pueda arrancar desde cero sin pasos manuales de inst
 Importante:
 - el servicio `wp-cli` prepara el core antes de que arranque Apache
 - eso evita que la imagen `wordpress:php8.2-apache` imponga la version inicial al primer arranque
+- `wp-config.php` se ajusta para reconocer `HTTPS` detras de Caddy y evitar bucles en `/wp-admin`
 
 ### 7. Verificar que WordPress ha arrancado bien
 

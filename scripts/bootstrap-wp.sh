@@ -47,6 +47,27 @@ if [ ! -f wp-config.php ]; then
     --allow-root
 fi
 
+if ! grep -q "HTTP_X_FORWARDED_PROTO" wp-config.php; then
+  python3 - <<'PY'
+from pathlib import Path
+
+path = Path("/var/www/html/wp-config.php")
+text = path.read_text()
+marker = "/* Add any custom values between this line and the \"stop editing\" line. */"
+snippet = """if (
+\tisset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) &&
+\t'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']
+) {
+\t$_SERVER['HTTPS'] = 'on';
+}
+
+"""
+if marker in text and snippet not in text:
+    text = text.replace(marker, marker + "\n\n" + snippet, 1)
+    path.write_text(text)
+PY
+fi
+
 [ -w wp-content ] && mkdir -p wp-content/uploads || true
 
 echo "Waiting for database availability..."
