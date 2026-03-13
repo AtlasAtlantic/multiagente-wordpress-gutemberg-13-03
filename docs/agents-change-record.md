@@ -32,6 +32,8 @@
 - [`LOG-0028`: ajuste de `.gitignore` para ignorar el artefacto zip de implementación`](#2026-03-13-1359-europemadrid--log-0028)
 - [`LOG-0029`: consolidación mínima del modelo reusable y del runtime derivado`](#2026-03-13-1415-europemadrid--log-0029)
 - [`LOG-0030`: validación final de la iteración de consolidación`](#2026-03-13-1417-europemadrid--log-0030)
+- [`LOG-0031`: hardening operativo de runtime outputs y documentación de mantenimiento`](#2026-03-13-1426-europemadrid--log-0031)
+- [`LOG-0032`: validación final de cierre de plataforma`](#2026-03-13-1426-europemadrid--log-0032)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -908,3 +910,65 @@
   - `Sí`
 - Observaciones:
   - `sync-runtime` volvió a requerir ejecución fuera del sandbox para sobrescribir manifiestos derivados preexistentes
+
+## 2026-03-13 14:26 Europe/Madrid | LOG-0031
+
+- Tipo: `update`
+- Área: `tools`
+- Resumen: hardening operativo de runtime outputs y formalización del mantenimiento de plataforma
+- Motivo: dejar `.agents` en estado de cierre con regeneración reproducible de outputs y reglas explícitas de mantenimiento y DoD
+- Archivos afectados:
+  - `.agents/tools/sync-runtime/run.sh`
+  - `.agents/architecture/maintenance.md`
+  - `.agents/architecture/platform-definition-of-done.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `sync-runtime` pasó a recrear y sanear cada `runtime/*/output` antes de generar artefactos
+  - se fijó `umask 022` y se normalizaron permisos de directorio y manifiestos para evitar herencias problemáticas
+  - se mantuvo `.gitkeep` y se eliminaron artefactos derivados previos antes de escribir nuevos
+  - se documentó qué pertenece a plataforma, qué pertenece a perfiles, qué pertenece al contexto de proyecto y qué es runtime derivado
+  - se añadió una Definition of Done operativa para cambios futuros en `.agents`
+- Impacto:
+  - la regeneración de outputs deja de depender de ownership heredado y el mantenimiento de plataforma queda normado
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - el hardening se limitó al cierre operativo y no introdujo nuevas abstracciones de arquitectura
+
+## 2026-03-13 14:26 Europe/Madrid | LOG-0032
+
+- Tipo: `validation`
+- Área: `runtime`
+- Resumen: validación final de cierre de plataforma con outputs runtime regenerados y permisos consistentes
+- Motivo: comprobar que el flujo `doctor -> validate-config -> sync-runtime` es reproducible sin intervención manual
+- Archivos afectados:
+  - `.agents/runtime/codex/output/manifest.txt`
+  - `.agents/runtime/claude/output/manifest.txt`
+  - `.agents/runtime/cursor/output/manifest.txt`
+  - `.agents/runtime/chatgpt/output/manifest.txt`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` pasó sin incidencias
+  - `validate-config` pasó sin incidencias
+  - `sync-runtime` regeneró de nuevo todos los manifiestos a partir de los mappings
+  - se comprobó que los directorios `output/` quedaron con permisos `755`
+  - se comprobó que los `manifest.txt` quedaron con permisos `644`
+- Impacto:
+  - el cierre de plataforma queda respaldado por una validación reproducible y limpia de artefactos derivados
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+  - `ls -ld .agents/runtime/*/output`
+  - `ls -l .agents/runtime/*/output`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - no se detectaron warnings nuevos durante el flujo final

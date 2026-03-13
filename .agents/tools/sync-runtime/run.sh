@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
+umask 022
 
 ROOT="${1:-.agents}"
 REVISION="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
@@ -43,6 +44,12 @@ for mapping_path in sorted((root / "runtime").glob("*/mapping.yaml")):
         )
     )
 PY
+  output_dir="$(dirname "$out")"
+  mkdir -p "$output_dir"
+  find "$output_dir" -mindepth 1 ! -name '.gitkeep' -exec rm -rf {} +
+  chmod 755 "$output_dir"
+  touch "$output_dir/.gitkeep"
+  chmod 644 "$output_dir/.gitkeep"
   tmp="$(mktemp "$(dirname "$out")/.manifest.XXXXXX")"
   {
     echo "runtime=$runtime"
@@ -55,11 +62,15 @@ PY
     echo "inputs=$inputs_csv"
     echo "active_profiles=$active_profiles"
   } > "$tmp"
-  if ! mv "$tmp" "$out"; then
+  chmod 644 "$tmp"
+  rm -f "$out"
+  if ! cp "$tmp" "$out"; then
     rm -f "$tmp"
     echo "Failed to write runtime manifest: $out" >&2
     status=1
   fi
+  rm -f "$tmp"
+  chmod 644 "$out"
   if [ ! -f "$out" ]; then
     echo "Failed to write runtime manifest: $out" >&2
     status=1
