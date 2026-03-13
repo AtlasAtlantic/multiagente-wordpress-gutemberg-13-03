@@ -29,6 +29,9 @@
 - [`LOG-0025`: separación entre perfiles reutilizables y contexto específico del proyecto`](#2026-03-13-1337-europemadrid--log-0025)
 - [`LOG-0026`: metadatos de plataforma, validación ampliada y runtime Codex derivado`](#2026-03-13-1340-europemadrid--log-0026)
 - [`LOG-0027`: validación final de la migración a plataforma reusable`](#2026-03-13-1342-europemadrid--log-0027)
+- [`LOG-0028`: ajuste de `.gitignore` para ignorar el artefacto zip de implementación`](#2026-03-13-1359-europemadrid--log-0028)
+- [`LOG-0029`: consolidación mínima del modelo reusable y del runtime derivado`](#2026-03-13-1415-europemadrid--log-0029)
+- [`LOG-0030`: validación final de la iteración de consolidación`](#2026-03-13-1417-europemadrid--log-0030)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -813,3 +816,95 @@
   - `Sí`
 - Observaciones:
   - `sync-runtime` tuvo que ejecutarse fuera del sandbox para sobrescribir manifiestos existentes propiedad de `wheel`
+
+## 2026-03-13 13:59 Europe/Madrid | LOG-0028
+
+- Tipo: `update`
+- Área: `repo`
+- Resumen: ajuste de `.gitignore` para ignorar el artefacto zip de implementación de Codex
+- Motivo: la regla existente ignoraba solo el directorio `docs/agents-codex-implementacion/` y dejaba visible el archivo `docs/agents-codex-implementacion.zip`
+- Archivos afectados:
+  - `.gitignore`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadió una regla específica para `docs/agents-codex-implementacion.zip`
+  - se registró el cambio para mantener trazabilidad del ajuste de ignore
+- Impacto:
+  - Git deja de considerar el `.zip` como cambio pendiente cuando se relee el índice
+- Validación:
+  - `git status --short docs`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - la carpeta y el archivo zip requieren reglas separadas porque Git no trata ambas rutas como equivalentes
+
+## 2026-03-13 14:15 Europe/Madrid | LOG-0029
+
+- Tipo: `update`
+- Área: `tools`
+- Resumen: consolidación mínima del modelo reusable con sync runtime operativo, taxonomía de compatibilidad corregida y perfil WordPress formalizado como compatibilidad
+- Motivo: cerrar los puntos estructurales detectados en la auditoría y pasar de una plataforma parcialmente consolidada a una base operativamente consistente
+- Archivos afectados:
+  - `.agents/tools/sync-runtime/run.sh`
+  - `.agents/tools/validate-config/run.py`
+  - `.agents/compatibility.yaml`
+  - `.agents/catalog.yaml`
+  - `.agents/schemas/catalog.schema.json`
+  - `.agents/schemas/compatibility.schema.json`
+  - `.agents/schemas/profile.schema.json`
+  - `.agents/profiles/wordpress.yaml`
+  - `.agents/profiles/README.md`
+  - `.agents/project/project.yaml`
+  - `.agents/project/README.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `sync-runtime` dejó de iterar runtimes hardcodeados y pasó a descubrir y consumir `runtime/*/mapping.yaml`
+  - `validate-config` pasó a validar existencia de mappings, inputs declarados, `template_dir`, `output_dir` y coherencia mínima con el sync
+  - `compatibility.yaml` separó `project_types`, `infrastructure_profiles`, `compatibility_profiles` y `optional_capabilities`
+  - `catalog.yaml` pasó a distinguir perfiles reutilizables de perfiles de compatibilidad
+  - `wordpress.yaml` quedó marcado formalmente con `status: compatibility-profile`
+  - `project/project.yaml` dejó de duplicar preferencias reutilizables de tooling y se reforzó la regla documental de override local
+- Impacto:
+  - el runtime derivado usa ahora entradas operativas reales
+  - la taxonomía reusable/local/compatibilidad queda más precisa sin rehacer la arquitectura
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - se mantuvo compatibilidad conservando `wordpress.yaml` como perfil de compatibilidad en lugar de eliminarlo
+
+## 2026-03-13 14:17 Europe/Madrid | LOG-0030
+
+- Tipo: `validation`
+- Área: `runtime`
+- Resumen: validación final de la iteración de consolidación con regeneración de manifiestos runtime a partir de mappings
+- Motivo: comprobar que la consolidación aplicada es operativa y no solo documental
+- Archivos afectados:
+  - `.agents/runtime/codex/output/manifest.txt`
+  - `.agents/runtime/claude/output/manifest.txt`
+  - `.agents/runtime/cursor/output/manifest.txt`
+  - `.agents/runtime/chatgpt/output/manifest.txt`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la estructura esperada
+  - `validate-config` confirmó la coherencia de catálogo, compatibilidad, perfiles, proyecto y mappings runtime
+  - `sync-runtime` regeneró manifiestos incluyendo `template_dir` e `inputs` tomados desde los mappings
+  - se verificó que los manifiestos mantienen `.agents` como origen canónico y `derived-runtime` como rol del adaptador
+- Impacto:
+  - la consolidación queda cerrada con evidencia ejecutable del nuevo modelo
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - `sync-runtime` volvió a requerir ejecución fuera del sandbox para sobrescribir manifiestos derivados preexistentes
