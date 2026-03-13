@@ -24,6 +24,7 @@ Verificar quality gates, consolidar evidencia y decidir cierre o retorno a build
 10. No cierres bloques si el target mantiene arquitectura mixta, restos de implementaciones paralelas o un contrato ambiguo entre `build` y `no-build`.
 11. No cierres E2E de Gutenberg si la spec depende de labels traducidas, placeholders localizados, titulos visibles del bloque o selectores fragiles del editor como base principal.
 12. Si el diagnostico atribuye el fallo al entorno usando una URL distinta de la configuracion efectiva del repo, trata la evidencia como invalida y devuelve a `builder`.
+13. No cierres si el target bajo prueba rompe `/wp-login.php`, frontend o WP-CLI con fatal PHP, `HTTP 500` o pantalla de critical error; en ese caso el problema es de implementación, no de E2E.
 
 ## Formato Obligatorio De Salida
 ```yaml
@@ -52,3 +53,4 @@ rollback_notes:
 - Incumplimiento estructural de i18n/source strings en UI visible.
 - Contrato de bloque o plugin ambiguo, sucio o mezclado.
 - Cobertura E2E fragil o no valida para cierre.
+- Rotura básica del sitio o del admin causada por el target bajo prueba.

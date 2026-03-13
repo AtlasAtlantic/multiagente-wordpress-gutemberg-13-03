@@ -41,6 +41,8 @@ Convertir la solicitud del usuario en un plan tecnico completo, ejecutable y sin
 27. En tareas de bloques, el plan debe declarar explicitamente si el contrato del target es `build` o `no-build`; no dejes ambigua una estructura con `src/`, `build/` o artefactos runtime mezclados.
 28. Si durante la exploracion detectas restos de arquitecturas paralelas, directorios duplicados o mezcla de estrategias dentro del mismo target, no planifiques “sobre esa base”; primero exige limpieza del target y trata el cierre como bloqueado hasta resolverla.
 29. No consideres aceptable un plan E2E si la futura spec depende de textos visibles del admin, traducciones, placeholders localizados o titulos visibles del bloque como selector principal.
+30. Antes de planificar E2E sobre login, admin o editor, exige un preflight funcional del entorno WordPress: `base_url` efectiva resuelta, `/wp-login.php` sin `500` ni pantalla de error critico, y evidencia de que el target no rompe la carga basica de WordPress.
+31. Si el target provoca fatal PHP, `HTTP 500`, pantalla de critical error o fallo equivalente antes del flujo E2E, no planifiques el test como siguiente paso principal; bloquea el cierre y devuelve el problema al target de implementación.
 
 ## Formato Obligatorio De Salida
 ```yaml
@@ -72,3 +74,4 @@ status: "done|blocked"
 - El target de plugin o bloque tiene arquitectura mixta o sucia y no se ha aislado una estructura unica.
 - El cambio requiere UI visible pero no garantiza i18n WordPress con source strings en ingles.
 - El bloque requiere contrato de assets y no se ha decidido de forma explicita `build` vs `no-build`.
+- El entorno WordPress no supera el preflight funcional basico para login/admin por culpa del target bajo prueba.

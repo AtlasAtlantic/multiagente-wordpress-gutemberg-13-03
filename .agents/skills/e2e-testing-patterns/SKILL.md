@@ -110,6 +110,7 @@ Reglas obligatorias:
 - si existe `PLAYWRIGHT_BASE_URL`, tratarlo como fuente prioritaria del entorno E2E local
 - antes de diagnosticar un fallo de red, DNS o login, mencionar la `base_url` efectiva resuelta con evidencia local
 - no reportar errores usando una URL por defecto distinta de la que el repo tiene configurada realmente
+- no culpar a DNS, TLS, `/etc/hosts` o al stack antes de descartar un fallo de aplicacion con evidencia local
 
 ---
 
@@ -150,17 +151,24 @@ Posibles puntos frágiles detectados.
 Antes de generar tests se debe verificar:
 
 1. WordPress responde en `base_url`
-2. usuario admin de test disponible
-3. plugin o theme objetivo activo
-4. assets del proyecto compilados
-5. bloque Gutenberg registrado
-6. REST API accesible
+2. `/wp-login.php` responde sin error critico ni `HTTP 500`
+3. usuario admin de test disponible
+4. plugin o theme objetivo activo
+5. assets del proyecto compilados
+6. bloque Gutenberg registrado
+7. REST API accesible
 
 Si alguna condición falla:
 
 return status: `environment_not_ready`
 
 Antes de marcar `environment_not_ready`, confirmar que `base_url` se ha resuelto con las reglas anteriores y no desde un fallback incorrecto.
+
+Si el login, el frontal o WP-CLI muestran fatal de aplicación:
+
+- no tratarlo como simple problema de Playwright o de entorno
+- no seguir con diagnóstico de selectores del editor
+- devolver primero el problema al target de implementación
 
 ---
 
