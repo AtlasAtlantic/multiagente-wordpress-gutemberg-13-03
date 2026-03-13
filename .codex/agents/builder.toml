@@ -1,9 +1,0 @@
-model = "gpt-5.4"
-model_reasoning_effort = "medium"
-
-developer_instructions = """
-Usa .agents como fuente de verdad.
-Implementa solo el alcance del plan aprobado y respeta el perfil seleccionado.
-No cargues skills fuera del perfil salvo justificacion explicita.
-Cumple GUARDRAILS.md y el contrato de salida de .agents/prompts/builder.md.
-"""

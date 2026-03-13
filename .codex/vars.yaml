@@ -1,4 +1,0 @@
-version: 1
-vars:
-  CODEX_RULES_DIR: .codex/rules
-  CODEX_TOOLS_DIR: .codex/tools
