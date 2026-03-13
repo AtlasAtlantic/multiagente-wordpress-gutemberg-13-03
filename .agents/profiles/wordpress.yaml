@@ -1,33 +1,18 @@
-version: v1
+version: v2
 profile: wordpress
-description: Canonical profile for WordPress projects running on a local Docker stack.
-project_type: wordpress-docker
+kind: wordpress
+description: Legacy umbrella profile for WordPress repositories. Prefer specific WordPress profiles plus infrastructure and project context.
+project_type: wordpress
 stack:
   runtime:
     - wordpress
     - php
-    - mariadb
-    - caddy
-  orchestration:
-    - docker-compose
+  orchestration: []
   cli:
     - wp-cli
-paths:
-  app_root: wordpress
-  wp_content: wordpress/wp-content
-  plugins: wordpress/wp-content/plugins
-  themes: wordpress/wp-content/themes
-  mu_plugins: wordpress/wp-content/mu-plugins
-services:
-  db: db
-  wordpress: wordpress
-  web: caddy
-  cli: wp-cli
-tool_preferences:
-  wordpress_ops:
-    - docker compose exec wp-cli wp
-  stack_ops:
-    - docker compose
+paths: {}
+services: {}
+tool_preferences: {}
 applicable_pipelines:
   - feature
   - bugfix
@@ -36,13 +21,8 @@ applicable_pipelines:
 recommended_skills:
   - wordpress-project-setup
   - docker-wordpress-stack
-checks:
-  - name: compose_config_valid
-    command: docker compose config
-  - name: wordpress_tree_exists
-    command: test -d wordpress/wp-content
-  - name: wp_cli_service_declared
-    command: rg "^  wp-cli:" docker-compose.yml
+checks: []
 notes:
-  - prefer wp-cli for WordPress-specific inspection and operations
-  - prefer docker compose for local stack interaction
+  - prefer `wordpress-plugin`, `wordpress-theme`, `wordpress-block-theme`, or `wordpress-hybrid` for reusable modeling
+  - combine with `docker-wordpress-standard` when Docker is part of the stack
+  - keep repository-specific paths, services, and checks in `.agents/project/project.yaml`

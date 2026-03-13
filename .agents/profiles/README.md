@@ -1,23 +1,19 @@
 # Profiles
 
-This directory will contain project behavior profiles that adapt the agent layer to specific stacks.
+This directory contains reusable profiles that adapt the agent layer to WordPress project types and infrastructure patterns.
 
-Planned v1 profiles:
+Reusable profiles:
 
-- `wordpress.yaml`
+- `wordpress.yaml` (legacy umbrella compatibility profile)
+- `wordpress-plugin.yaml`
+- `wordpress-theme.yaml`
+- `wordpress-block-theme.yaml`
+- `wordpress-hybrid.yaml`
+- `docker-wordpress-standard.yaml`
 - `generic-web.yaml`
 
-Optional later profiles:
+Rules:
 
-- `plugin.yaml`
-- `laravel.yaml`
-
-Decision for v1:
-
-- `wordpress.yaml` and `generic-web.yaml` are implemented
-- `plugin.yaml` and `laravel.yaml` are deferred and do not block bootstrap
-
-Current status:
-
-- directory scaffolded
-- ready for Phase 6 implementation
+- reusable assumptions only
+- no repository-specific paths or service names
+- project activation happens in `.agents/project/project.yaml`

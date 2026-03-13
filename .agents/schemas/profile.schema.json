@@ -6,6 +6,7 @@
   "properties": {
     "version": { "type": "string" },
     "profile": { "type": "string" },
+    "kind": { "type": "string" },
     "description": { "type": "string" },
     "project_type": { "type": "string" },
     "stack": { "type": "object" },

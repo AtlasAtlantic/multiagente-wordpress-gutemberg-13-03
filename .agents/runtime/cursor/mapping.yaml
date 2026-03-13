@@ -1,11 +1,16 @@
 version: v1
 runtime: cursor
 source_of_truth: .agents
+adapter_role: derived-runtime
 inputs:
+  - ../../version.yaml
+  - ../../catalog.yaml
+  - ../../compatibility.yaml
   - ../../architecture/
   - ../../agents/
   - ../../pipelines/
   - ../../profiles/
+  - ../../project/project.yaml
 output_dir: ./output
 template_dir: ./templates
 traceability:

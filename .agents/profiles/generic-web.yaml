@@ -1,5 +1,6 @@
 version: v1
 profile: generic-web
+kind: generic
 description: Portable baseline profile for non-WordPress web projects.
 project_type: generic-web
 stack:

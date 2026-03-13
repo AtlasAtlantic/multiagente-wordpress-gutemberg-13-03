@@ -8,8 +8,9 @@ Planned v1 schemas:
 - `pipeline.schema.json`
 - `routing.schema.json`
 - `handoff.schema.json`
+- `version.schema.json`
+- `catalog.schema.json`
+- `compatibility.schema.json`
+- `project.schema.json`
 
-Current status:
-
-- directory scaffolded
-- ready for Phase 9 implementation
+These schemas validate both the reusable platform metadata and the repository-specific project context.
