@@ -23,6 +23,12 @@
 - [`LOG-0019`: gobernanza operativa documentada en `.agents/architecture/governance.md`](#2026-03-13-1237-europemadrid--log-0019)
 - [`LOG-0020`: corrección del parser de `validate-config` para listas YAML acotadas`](#2026-03-13-1237-europemadrid--log-0020)
 - [`LOG-0021`: cierre de la validación end-to-end y outputs runtime generados`](#2026-03-13-1247-europemadrid--log-0021)
+- [`LOG-0022`: corrección del perfil WordPress y desversionado de output derivado`](#2026-03-13-1247-europemadrid--log-0022)
+- [`LOG-0023`: validación real con YAML y JSON Schema en `validate-config`](#2026-03-13-1247-europemadrid--log-0023)
+- [`LOG-0024`: decisión de evolución a plataforma reusable con cuatro capas canónicas`](#2026-03-13-1335-europemadrid--log-0024)
+- [`LOG-0025`: separación entre perfiles reutilizables y contexto específico del proyecto`](#2026-03-13-1337-europemadrid--log-0025)
+- [`LOG-0026`: metadatos de plataforma, validación ampliada y runtime Codex derivado`](#2026-03-13-1340-europemadrid--log-0026)
+- [`LOG-0027`: validación final de la migración a plataforma reusable`](#2026-03-13-1342-europemadrid--log-0027)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -614,3 +620,196 @@
   - `Sí`
 - Observaciones:
   - el primer corte funcional queda cerrado con manifiestos derivados mínimos por runtime
+
+## 2026-03-13 12:47 Europe/Madrid | LOG-0022
+
+- Tipo: `update`
+- Área: `profiles`
+- Resumen: corrección del comando WP-CLI del perfil WordPress y cambio de política para no versionar output derivado
+- Motivo: alinear el perfil con el stack real de Docker y evitar trazabilidad falsa en manifiestos versionados
+- Archivos afectados:
+  - `.agents/profiles/wordpress.yaml`
+  - `.agents/runtime/.gitignore`
+  - `.agents/runtime/README.md`
+  - `.agents/architecture/governance.md`
+  - `.agents/runtime/chatgpt/output/manifest.txt`
+  - `.agents/runtime/claude/output/manifest.txt`
+  - `.agents/runtime/codex/output/manifest.txt`
+  - `.agents/runtime/cursor/output/manifest.txt`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se sustituyó `docker compose exec wp-cli wp` por `docker compose run --rm wp-cli wp`
+  - se decidió no versionar los manifiestos generados en `runtime/*/output`
+  - se actualizaron reglas de runtime y gobernanza para reflejar esa política
+- Impacto:
+  - elimina una instrucción operativa inválida y reduce deriva entre fuente canónica y outputs derivados
+- Validación:
+  - revisión manual del perfil, la política de runtime y el árbol de archivos
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - los manifiestos deberán regenerarse localmente cuando se necesiten
+
+## 2026-03-13 12:47 Europe/Madrid | LOG-0023
+
+- Tipo: `update`
+- Área: `tools`
+- Resumen: sustitución de la validación shell por validación Python real con YAML y JSON Schema
+- Motivo: eliminar la brecha entre comprobación superficial y validación estructural real
+- Archivos afectados:
+  - `.agents/tools/validate-config/run.py`
+  - `.agents/tools/validate-config/run.sh`
+  - `.agents/tools/validate-config/requirements.txt`
+  - `.agents/tools/validate-config/README.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadió un validador Python que parsea YAML y aplica JSON Schema
+  - se mantuvieron comprobaciones de referencias cruzadas entre perfiles, roles, pipelines y skills
+  - se dejó documentada la dependencia mínima de `PyYAML` y `jsonschema`
+- Impacto:
+  - convierte `validate-config` en una validación estructural real
+- Validación:
+  - revisión manual de la implementación
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el entorno local debe disponer de `PyYAML` y `jsonschema` para ejecutar la validación completa
+
+## 2026-03-13 13:35 Europe/Madrid | LOG-0024
+
+- Tipo: `decision`
+- Área: `architecture`
+- Resumen: evolución del modelo canónico desde bootstrap de proyecto a plataforma reusable con separación por capas
+- Motivo: dejar explícito que `.agents/` ya no modela solo este repo, sino una plataforma reusable para proyectos WordPress
+- Archivos afectados:
+  - `.agents/AGENTS.md`
+  - `.agents/architecture/overview.md`
+  - `.agents/architecture/principles.md`
+  - `.agents/architecture/governance.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se formalizó la separación entre `platform`, `profiles`, `project` y `runtime`
+  - se reforzó la regla de que los datos específicos del repositorio deben vivir en `.agents/project/`
+  - se actualizó la gobernanza para exigir clasificación previa, validación y sync runtime dentro del nuevo modelo
+- Impacto:
+  - aclara la arquitectura objetivo y reduce el riesgo de volver a mezclar reusable, local y derivado
+- Validación:
+  - revisión manual de coherencia entre documentos canónicos
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - esta decisión sirve de base para la migración estructural aplicada en las entradas siguientes
+
+## 2026-03-13 13:37 Europe/Madrid | LOG-0025
+
+- Tipo: `update`
+- Área: `profiles`
+- Resumen: separación del antiguo perfil WordPress acoplado al repo en perfiles reutilizables y contexto específico del proyecto
+- Motivo: evitar que rutas, servicios y checks locales sigan viviendo en un perfil reusable
+- Archivos afectados:
+  - `.agents/profiles/README.md`
+  - `.agents/profiles/wordpress.yaml`
+  - `.agents/profiles/generic-web.yaml`
+  - `.agents/profiles/wordpress-plugin.yaml`
+  - `.agents/profiles/wordpress-theme.yaml`
+  - `.agents/profiles/wordpress-block-theme.yaml`
+  - `.agents/profiles/wordpress-hybrid.yaml`
+  - `.agents/profiles/docker-wordpress-standard.yaml`
+  - `.agents/project/README.md`
+  - `.agents/project/project.yaml`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `wordpress.yaml` pasó a ser un perfil paraguas de compatibilidad sin acoplamiento local
+  - se añadieron perfiles reutilizables por tipo de proyecto WordPress e infraestructura Docker
+  - se creó `.agents/project/project.yaml` con perfiles activos, rutas, servicios, overrides y checks del repositorio actual
+- Impacto:
+  - la plataforma pasa a servir para múltiples proyectos WordPress sin arrastrar decisiones de este repo
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el `project_type` del repo actual se modeló como `wordpress-hybrid` por ser el encaje reusable menos restrictivo
+
+## 2026-03-13 13:40 Europe/Madrid | LOG-0026
+
+- Tipo: `update`
+- Área: `tools`
+- Resumen: incorporación de metadatos de plataforma, esquemas nuevos y runtime mappings alineados con el modelo derivado
+- Motivo: validar y proyectar el nuevo modelo reusable sin convertir el runtime en fuente de verdad
+- Archivos afectados:
+  - `.agents/version.yaml`
+  - `.agents/catalog.yaml`
+  - `.agents/compatibility.yaml`
+  - `.agents/schemas/README.md`
+  - `.agents/schemas/profile.schema.json`
+  - `.agents/schemas/version.schema.json`
+  - `.agents/schemas/catalog.schema.json`
+  - `.agents/schemas/compatibility.schema.json`
+  - `.agents/schemas/project.schema.json`
+  - `.agents/tools/doctor/run.sh`
+  - `.agents/tools/validate-config/README.md`
+  - `.agents/tools/validate-config/run.py`
+  - `.agents/tools/sync-runtime/run.sh`
+  - `.agents/runtime/README.md`
+  - `.agents/runtime/codex/README.md`
+  - `.agents/runtime/codex/mapping.yaml`
+  - `.agents/runtime/claude/mapping.yaml`
+  - `.agents/runtime/cursor/mapping.yaml`
+  - `.agents/runtime/chatgpt/mapping.yaml`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadieron versión, catálogo y compatibilidad como metadatos canónicos de plataforma
+  - se ampliaron los esquemas y la validación cruzada para cubrir perfiles, proyecto, catálogo, compatibilidad y runtime mappings
+  - se redefinió `runtime/codex` y el resto de mappings como adaptadores derivados que consumen también `project/project.yaml`
+  - se ajustó `sync-runtime` para emitir manifiestos con `adapter_role`, versión de plataforma, spec y perfiles activos
+- Impacto:
+  - la plataforma queda versionada, catalogada y validable con separación explícita entre canónico reusable y derivado runtime
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - el check de `sync-runtime` requirió una corrección adicional por restricciones de sandbox al escribir manifiestos existentes
+
+## 2026-03-13 13:42 Europe/Madrid | LOG-0027
+
+- Tipo: `validation`
+- Área: `runtime`
+- Resumen: validación final de la migración reusable y regeneración de los manifiestos runtime derivados
+- Motivo: comprobar que la nueva arquitectura es consistente, que el runtime sigue siendo derivado y que WordPress + Docker siguen representados
+- Archivos afectados:
+  - `.agents/runtime/codex/output/manifest.txt`
+  - `.agents/runtime/claude/output/manifest.txt`
+  - `.agents/runtime/cursor/output/manifest.txt`
+  - `.agents/runtime/chatgpt/output/manifest.txt`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la presencia de la estructura base más los nuevos metadatos y `project/`
+  - `validate-config` confirmó coherencia de perfiles, proyecto, catálogo, compatibilidad y mappings runtime
+  - `sync-runtime` regeneró los manifiestos con spec 2 y perfiles activos
+  - se verificó que los manifiestos siguen declarando `.agents` como origen y `derived-runtime` como rol del adaptador
+- Impacto:
+  - deja la migración cerrada con evidencia de validación y proyección runtime coherente
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `Sí`
+- Observaciones:
+  - `sync-runtime` tuvo que ejecutarse fuera del sandbox para sobrescribir manifiestos existentes propiedad de `wheel`
