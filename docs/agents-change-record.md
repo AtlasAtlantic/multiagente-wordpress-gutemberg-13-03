@@ -34,6 +34,12 @@
 - [`LOG-0030`: validación final de la iteración de consolidación`](#2026-03-13-1417-europemadrid--log-0030)
 - [`LOG-0031`: hardening operativo de runtime outputs y documentación de mantenimiento`](#2026-03-13-1426-europemadrid--log-0031)
 - [`LOG-0032`: validación final de cierre de plataforma`](#2026-03-13-1426-europemadrid--log-0032)
+- [`LOG-0033`: integración de skill canónica para gobierno de cambios y migración de legado`](#2026-03-13-1500-europemadrid--log-0033)
+- [`LOG-0034`: validación posterior a la integración de gobierno de cambios`](#2026-03-13-1500-europemadrid--log-0034)
+- [`LOG-0035`: migración efectiva del contenido reusable de `vass-config` a skills WordPress`](#2026-03-13-1509-europemadrid--log-0035)
+- [`LOG-0036`: validación posterior a la migración efectiva de skills WordPress`](#2026-03-13-1509-europemadrid--log-0036)
+- [`LOG-0037`: migración del estándar reusable de documentación técnica WordPress`](#2026-03-13-1512-europemadrid--log-0037)
+- [`LOG-0038`: validación posterior a la migración de documentación técnica`](#2026-03-13-1512-europemadrid--log-0038)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -972,3 +978,173 @@
   - `Sí`
 - Observaciones:
   - no se detectaron warnings nuevos durante el flujo final
+
+## 2026-03-13 15:00 Europe/Madrid | LOG-0033
+
+- Tipo: `update`
+- Área: `skills`
+- Resumen: integración de una skill canónica para gobernar cambios en `.agents/` y migraciones de legado como `vass-config`
+- Motivo: reutilizar solo la parte válida del legado sin importar su acoplamiento a `.codex`, Trello, Venus o GitLab, y dejar una capacidad reusable alineada con la arquitectura actual
+- Archivos afectados:
+  - `.agents/skills/agents-change-governance/SKILL.md`
+  - `.agents/skills/agents-change-governance/references/legacy-migration-audit.md`
+  - `.agents/skills/agents-change-governance/references/platform-change-checklist.md`
+  - `.agents/skills/agents-config-validation/SKILL.md`
+  - `.agents/architecture/governance.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se clasificó `vass-config` como skill monolítica no migrable tal cual por mezclar gobierno reusable con reglas específicas del repositorio antiguo
+  - se extrajo la capacidad reusable de auditoría, clasificación, refactor mínimo, validación y trazabilidad de cambios canónicos
+  - se creó la nueva skill `agents-change-governance` con un `SKILL.md` breve y dos referencias para mantener la carga de contexto baja
+  - se dejó fuera del ámbito canónico todo lo acoplado a `.codex`, Trello, Venus, GitLab y rutas WordPress específicas del repo antiguo
+  - se reforzó `agents-config-validation` como skill de cierre y se enlazó la nueva skill desde la gobernanza de arquitectura
+- Impacto:
+  - la plataforma gana una capacidad reusable para migrar legado hacia `.agents/` sin copiar material obsoleto o derivado
+  - la integración queda alineada con el principio de fuente única de verdad y con la gobernanza de cambios existente
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el contenido WordPress de implementación, el workflow Trello/Venus y la configuración de `.codex` se descartaron como fuentes canónicas y solo se conservaron como insumo de auditoría
+
+## 2026-03-13 15:00 Europe/Madrid | LOG-0034
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior a la integración de la nueva skill de gobierno de cambios
+- Motivo: comprobar que la incorporación de la nueva skill y los enlaces de gobernanza no introducen inconsistencias estructurales ni de runtime derivado
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó que la estructura base de `.agents/` sigue presente
+  - `validate-config` confirmó coherencia entre metadatos canónicos, perfiles, proyecto, esquemas y mappings runtime
+  - `sync-runtime` regeneró los manifiestos derivados sin introducir drift visible en archivos versionados
+- Impacto:
+  - deja evidencia ejecutable de que la migración mínima de `vass-config` quedó integrada sin romper la plataforma
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - no quedaron cambios pendientes en `runtime/*/output` tras la sincronización
+
+## 2026-03-13 15:09 Europe/Madrid | LOG-0035
+
+- Tipo: `update`
+- Área: `skills`
+- Resumen: migración efectiva del contenido reusable de `vass-config` a skills operativas de WordPress
+- Motivo: corregir una integración previa demasiado abstracta y trasladar a `.agents/` contenido útil real sobre calidad WordPress y desarrollo de bloques
+- Archivos afectados:
+  - `.agents/skills/wordpress-code-quality/SKILL.md`
+  - `.agents/skills/wordpress-code-quality/references/implementation-standards.md`
+  - `.agents/skills/wordpress-code-quality/references/verification-and-delivery.md`
+  - `.agents/skills/wordpress-block-development/SKILL.md`
+  - `.agents/skills/wordpress-block-development/references/block-architecture.md`
+  - `.agents/skills/wordpress-block-development/references/block-quality-checklist.md`
+  - `.agents/skills/wordpress-project-setup/SKILL.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se extrajo de `vass-config` el contenido reusable de análisis previo, seguridad, logging, verificación, delivery y estándares WordPress generales
+  - se creó la skill `wordpress-code-quality` para consolidar esas reglas sin depender de rutas ni tooling del repositorio antiguo
+  - se extrajo el estándar reusable de bloques WordPress y se creó la skill `wordpress-block-development`
+  - se movieron los detalles extensos a `references/` para evitar otra skill monolítica
+  - se conectó `wordpress-project-setup` con las nuevas skills para reflejar la relación correcta entre setup de proyecto e implementación WordPress
+- Impacto:
+  - la plataforma incorpora contenido práctico real procedente del legado en forma reusable y alineada con WordPress + Docker como contexto de primera clase
+  - la migración deja de ser solo metagobierno y pasa a cubrir capacidades operativas reutilizables
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - se mantuvo fuera de la migración todo lo atado a Trello, Venus, GitLab y `.codex`
+  - esta entrada corrige la insuficiencia práctica de `LOG-0033`
+
+## 2026-03-13 15:09 Europe/Madrid | LOG-0036
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior a la migración efectiva de skills WordPress
+- Motivo: comprobar que las nuevas skills y referencias no rompen la estructura canónica ni los adapters derivados
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la estructura base esperada
+  - `validate-config` confirmó coherencia estructural tras añadir las nuevas skills
+  - `sync-runtime` regeneró manifiestos derivados sin introducir discrepancias observables
+- Impacto:
+  - deja evidencia de cierre técnico tras la migración efectiva del contenido útil de `vass-config`
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - no fue necesario ajustar perfiles, schemas ni tooling para esta migración
+
+## 2026-03-13 15:12 Europe/Madrid | LOG-0037
+
+- Tipo: `update`
+- Área: `skills`
+- Resumen: migración del estándar reusable de documentación técnica WordPress desde `vass-config`
+- Motivo: integrar la parte útil de los antiguos estándares `14`, `15`, `16` y `17` sin arrastrar dependencias a Trello, HITO/CHILD ni rutas del proyecto viejo
+- Archivos afectados:
+  - `.agents/skills/wordpress-technical-documentation/SKILL.md`
+  - `.agents/skills/wordpress-technical-documentation/references/document-types.md`
+  - `.agents/skills/wordpress-technical-documentation/references/writing-rules.md`
+  - `.agents/skills/wordpress-code-quality/SKILL.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se extrajo la estructura reusable para documentación de features, bugs e improvements
+  - se creó la skill `wordpress-technical-documentation` para documentar trabajo técnico WordPress de forma portable
+  - se reescribieron las reglas de naming, documento único, secciones obligatorias y anti-patrones sin depender de trackers externos
+  - se descartó el contenido acoplado a Trello, HITO/CHILD y rutas `docs/technical/*` heredadas del repositorio antiguo
+  - se enlazó la nueva skill desde `wordpress-code-quality` para mantener la relación entre implementación y documentación duradera
+- Impacto:
+  - la plataforma añade una capability reusable para documentación técnica WordPress alineada con `.agents/`
+  - se completa una tercera parte útil de la migración de `vass-config`
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - esta migración conserva la estructura documental útil pero elimina dependencias externas no canónicas
+
+## 2026-03-13 15:12 Europe/Madrid | LOG-0038
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior a la migración de la skill de documentación técnica
+- Motivo: comprobar que la nueva skill y sus referencias no rompen la plataforma canónica ni los adapters derivados
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la presencia de la estructura base esperada
+  - `validate-config` confirmó coherencia tras añadir la nueva skill de documentación
+  - `sync-runtime` regeneró manifiestos derivados sin discrepancias observables
+- Impacto:
+  - deja evidencia de cierre técnico de la migración documental reusable
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - no fue necesario introducir tooling nuevo para esta capacidad

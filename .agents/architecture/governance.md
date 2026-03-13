@@ -8,6 +8,8 @@
 4. Regenerate runtime-derived output when the environment allows it.
 5. Review diffs between canonical changes and derived output.
 
+For migrations of legacy skills or standards, use the `agents-change-governance` skill first so the material is audited, classified, and reduced to the minimum reusable canonical change before editing.
+
 Canonical changes should be classified before editing:
 
 - `platform`: reusable architecture, agents, pipelines, skills, tools, schemas, metadata

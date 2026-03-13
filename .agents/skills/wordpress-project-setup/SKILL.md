@@ -8,6 +8,11 @@ Use this skill to adapt canonical artifacts to a WordPress project.
 - defining WordPress-specific checks
 - aligning profiles or pipelines with WordPress constraints
 
+## Pair with
+
+- `wordpress-code-quality` for implementation, verification, and delivery rules
+- `wordpress-block-development` for custom block architecture and validation
+
 ## Expected output
 
 - WordPress-aware canonical configuration
