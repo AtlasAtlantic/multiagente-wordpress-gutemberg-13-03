@@ -8,6 +8,7 @@
 - [`LOG-0004`: separación entre instrucciones y registro cronológico](#2026-03-13-1216-europemadrid--log-0004)
 - [`LOG-0005`: índice rápido convertido en enlaces internos](#2026-03-13-1219-europemadrid--log-0005)
 - [`LOG-0006`: instrucción obligatoria para que el índice use enlaces internos](#2026-03-13-1221-europemadrid--log-0006)
+- [`LOG-0007`: cierre documental de la Fase 1 en spec y checklist](#2026-03-13-1223-europemadrid--log-0007)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -148,3 +149,29 @@
   - `No`
 - Observaciones:
   - futuras entradas deberán mantener actualizado el índice con su enlace interno correspondiente
+
+## 2026-03-13 12:23 Europe/Madrid | LOG-0007
+
+- Tipo: `update`
+- Área: `docs`
+- Resumen: cierre documental de la Fase 1 mediante decisiones canónicas explícitas en la spec y actualización del checklist
+- Motivo: desbloquear la implantación de `.agents/` eliminando ambigüedades de estructura, nombres, formatos y compatibilidad
+- Archivos afectados:
+  - `docs/agents-spec-v1.md`
+  - `docs/agents-implementation-checklist.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadió a la spec una sección de decisiones canónicas de v1
+  - se fijó `.agents/skills/` como convención y se corrigió el ejemplo que usaba `.skills/`
+  - se definieron convención de nombres, formato por artefacto y criterio de compatibilidad de la spec
+  - se actualizó el checklist para marcar completadas las tareas de la Fase 1 y el inicio de la implantación
+- Impacto:
+  - deja la fase de definición inicial lista para pasar al scaffold de `.agents/`
+- Validación:
+  - revisión manual de los documentos actualizados
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el siguiente paso natural es ejecutar la Fase 2 y crear la estructura física de `.agents/`

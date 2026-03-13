@@ -1,6 +1,9 @@
 
 # Spec v1 — Arquitectura Multi‑Agente con `.agents` como Fuente de Verdad
 
+**Versión de la spec:** `v1.0`
+**Estado:** `draft-operational`
+
 ## 1. Propósito del documento
 
 Este documento define una **especificación formal (Spec v1)** para implementar una arquitectura multi‑agente portable y neutral respecto a proveedor de IA.
@@ -137,6 +140,46 @@ La carpeta `.agents/` debe poder copiarse entre repositorios y funcionar con mí
 
 ---
 
+# 3.1 Decisiones canónicas de v1
+
+Las siguientes decisiones quedan fijadas para la implementación inicial.
+
+## Fuente de verdad
+
+- `.agents/` es la única fuente de verdad de la capa multiagente.
+- los runtimes externos solo consumen artefactos derivados.
+
+## Convención de nombres
+
+- agentes: nombre corto en minúsculas y archivo markdown, por ejemplo `planner.md`
+- pipelines: nombre corto en minúsculas y archivo yaml, por ejemplo `feature.yaml`
+- perfiles: nombre corto en minúsculas y archivo yaml, por ejemplo `wordpress.yaml`
+- skills: directorio en kebab-case, por ejemplo `wordpress-project-setup/`
+- tools: directorio en kebab-case, por ejemplo `validate-config/`
+- esquemas: nombre explícito en snake_case con sufijo `.schema.json`, por ejemplo `pipeline.schema.json`
+
+## Formato canónico por artefacto
+
+- documentos narrativos y roles: Markdown
+- configuración estructural y contratos operativos: YAML
+- validación formal: JSON Schema
+- artefactos generados por runtime: formato nativo del runtime, siempre derivados desde `.agents/`
+
+## Compatibilidad de la spec
+
+- `v1.0` define la base mínima operativa
+- cambios compatibles dentro de v1 pueden añadir campos o artefactos opcionales sin romper la estructura existente
+- cambios incompatibles deben elevar la versión mayor de la spec
+- los adaptadores runtime deben declarar qué versión de la spec consumen
+
+## Alcance de la implementación inicial
+
+- `wordpress.yaml` y `generic-web.yaml` son perfiles obligatorios en v1
+- `laravel.yaml` y `plugin.yaml` pueden existir como extensión posterior o placeholder explícito, pero no bloquean el bootstrap inicial
+- el objetivo de v1 es dejar una base funcional y portable, no un framework cerrado
+
+---
+
 # 4. Roles de agentes
 
 La arquitectura define los siguientes roles estándar.
@@ -262,7 +305,7 @@ Las skills representan **capacidades reutilizables del sistema**.
 Ejemplo de estructura:
 
 ```
-.skills/
+.agents/skills/
   wordpress-block-dev/
       SKILL.md
       scripts/

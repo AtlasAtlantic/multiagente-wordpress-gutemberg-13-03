@@ -20,12 +20,12 @@ Implantar la estructura y arquitectura base de `.agents/` como fuente única de 
 
 Objetivo: fijar las decisiones mínimas que desbloquean la implantación sin dejar ambigüedades.
 
-- [ ] Confirmar `.agents/` como única fuente de verdad.
-- [ ] Fijar `.agents/skills/` como convención canónica y corregir referencias alternativas como `.skills/`.
-- [ ] Confirmar estructura mínima de carpetas y archivos de v1.
-- [ ] Definir convención de nombres para agentes, pipelines, perfiles, skills y tools.
-- [ ] Definir formato canónico por tipo de artefacto: Markdown, YAML y JSON Schema.
-- [ ] Definir versión inicial de la spec y criterio de compatibilidad futura.
+- [x] Confirmar `.agents/` como única fuente de verdad.
+- [x] Fijar `.agents/skills/` como convención canónica y corregir referencias alternativas como `.skills/`.
+- [x] Confirmar estructura mínima de carpetas y archivos de v1.
+- [x] Definir convención de nombres para agentes, pipelines, perfiles, skills y tools.
+- [x] Definir formato canónico por tipo de artefacto: Markdown, YAML y JSON Schema.
+- [x] Definir versión inicial de la spec y criterio de compatibilidad futura.
 
 Entregables esperados:
 
@@ -241,7 +241,7 @@ Entregables esperados:
 
 ## Registro de progreso
 
-- [ ] Plan documentado en `docs/agents-implementation-checklist.md`.
-- [ ] Implantación iniciada.
+- [x] Plan documentado en `docs/agents-implementation-checklist.md`.
+- [x] Implantación iniciada.
 - [ ] Primer corte funcional de `.agents/` completado.
 - [ ] Validación end-to-end completada.
