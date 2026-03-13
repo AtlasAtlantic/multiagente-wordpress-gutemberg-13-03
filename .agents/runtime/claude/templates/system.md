@@ -1,3 +1,3 @@
-# Claude Runtime Template
+# Plantilla runtime de Claude
 
-Consume canonical definitions from `.agents/` and render Claude-compatible derived instructions.
+Consume definiciones canónicas de `.agents/` y renderiza instrucciones derivadas compatibles con Claude.

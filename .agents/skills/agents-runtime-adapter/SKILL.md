@@ -1,14 +1,14 @@
 # agents-runtime-adapter
 
-Use this skill to map canonical `.agents/` definitions into runtime-specific adapters.
+Usa esta skill para mapear definiciones canónicas de `.agents/` a adaptadores específicos de runtime.
 
-## Use when
+## Cuándo usarla
 
-- adding or refining runtime mappings
-- generating derived runtime output
-- checking runtime drift against canonical sources
+- al añadir o refinar mappings runtime
+- al generar output runtime derivado
+- al comprobar drift runtime frente a fuentes canónicas
 
-## Expected output
+## Salida esperada
 
-- updates in `.agents/runtime/`
-- no canonical logic moved into runtime output
+- actualizaciones en `.agents/runtime/`
+- ninguna lógica canónica movida al output runtime

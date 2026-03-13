@@ -1,83 +1,83 @@
-# Document Types
+# Tipos de documento
 
-Use the correct structure based on the nature of the work.
+Usa la estructura correcta según la naturaleza del trabajo.
 
-## Feature document
+## Documento de feature
 
-Use for new capability or meaningful feature expansion.
+Úsalo para una capability nueva o una ampliación relevante de feature.
 
-Mandatory sections:
+Secciones obligatorias:
 
-1. Title
-2. Objective
-3. Project context
-4. Scope
-   - Includes
-   - Excludes
-5. Functional requirements
-6. Data model and relationships, if applicable
-7. Acceptance criteria
-8. Testing strategy
+1. Título
+2. Objetivo
+3. Contexto del proyecto
+4. Alcance
+   - Incluye
+   - Excluye
+5. Requisitos funcionales
+6. Modelo de datos y relaciones, si aplica
+7. Criterios de aceptación
+8. Estrategia de pruebas
 
-Optional sections:
+Secciones opcionales:
 
-- WordPress hooks or filters involved
-- Block-specific notes
-- Theme or plugin integration notes
-- Non-functional requirements
-- Update log
+- hooks o filters de WordPress implicados
+- notas específicas de bloques
+- notas de integración en theme o plugin
+- requisitos no funcionales
+- update log
 
-## Bug document
+## Documento de bug
 
-Use when documenting a defect and the verified fix.
+Úsalo al documentar un defecto y su fix verificado.
 
-Mandatory sections:
+Secciones obligatorias:
 
-1. Title
-2. Problem description
-   - Symptoms
-   - Example or failing behavior
-3. Root cause
-4. Implemented solutions
-5. Verification
-6. Important notes
-7. Related files
-8. Related commits, if applicable
+1. Título
+2. Descripción del problema
+   - Síntomas
+   - Ejemplo o comportamiento fallido
+3. Causa raíz
+4. Soluciones implementadas
+5. Verificación
+6. Notas importantes
+7. Archivos relacionados
+8. Commits relacionados, si aplica
 
-Optional sections:
+Secciones opcionales:
 
-- Impact
-- Priority
-- Workarounds
-- Discovery date or fix date
+- impacto
+- prioridad
+- workarounds
+- fecha de descubrimiento o de fix
 
-## Improvement document
+## Documento de improvement
 
-Use when evolving current behavior without framing it as a defect.
+Úsalo al evolucionar un comportamiento actual sin enmarcarlo como defecto.
 
-Mandatory sections:
+Secciones obligatorias:
 
-1. Title
-2. Objective
-3. Project context
-4. Scope
-   - Includes
-   - Excludes
-5. Current state
-6. Proposed improvements
-7. Functional requirements
-8. Acceptance criteria
-9. Testing strategy
+1. Título
+2. Objetivo
+3. Contexto del proyecto
+4. Alcance
+   - Incluye
+   - Excluye
+5. Estado actual
+6. Improvements propuestos
+7. Requisitos funcionales
+8. Criterios de aceptación
+9. Estrategia de pruebas
 
-Optional sections:
+Secciones opcionales:
 
-- Impact analysis
-- Migration considerations
-- Non-functional requirements
-- Technical considerations
+- análisis de impacto
+- consideraciones de migración
+- requisitos no funcionales
+- consideraciones técnicas
 
-## Decision rule
+## Regla de decisión
 
-- New capability: feature
-- Incorrect behavior: bug
-- Better version of acceptable current behavior: improvement
+- capability nueva: feature
+- comportamiento incorrecto: bug
+- mejor versión de un comportamiento actual aceptable: improvement

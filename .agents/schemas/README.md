@@ -1,8 +1,8 @@
 # Schemas
 
-This directory will contain JSON Schema files used to validate canonical configuration.
+Este directorio contiene archivos JSON Schema usados para validar la configuración canónica.
 
-Planned v1 schemas:
+Schemas previstos para v1:
 
 - `profile.schema.json`
 - `pipeline.schema.json`
@@ -13,4 +13,4 @@ Planned v1 schemas:
 - `compatibility.schema.json`
 - `project.schema.json`
 
-These schemas validate both the reusable platform metadata and the repository-specific project context.
+Estos schemas validan tanto los metadatos reutilizables de la plataforma como el contexto específico del proyecto.

@@ -40,6 +40,8 @@
 - [`LOG-0036`: validación posterior a la migración efectiva de skills WordPress`](#2026-03-13-1509-europemadrid--log-0036)
 - [`LOG-0037`: migración del estándar reusable de documentación técnica WordPress`](#2026-03-13-1512-europemadrid--log-0037)
 - [`LOG-0038`: validación posterior a la migración de documentación técnica`](#2026-03-13-1512-europemadrid--log-0038)
+- [`LOG-0039`: traducción segura al español de la prosa canónica de `.agents/`](#2026-03-13-1528-europemadrid--log-0039)
+- [`LOG-0040`: validación posterior a la traducción segura de `.agents/`](#2026-03-13-1528-europemadrid--log-0040)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -1148,3 +1150,106 @@
   - `No`
 - Observaciones:
   - no fue necesario introducir tooling nuevo para esta capacidad
+
+## 2026-03-13 15:28 Europe/Madrid | LOG-0039
+
+- Tipo: `update`
+- Área: `.agents`
+- Resumen: traducción segura al español de la prosa canónica de `.agents/` sin alterar identificadores ni claves estructurales
+- Motivo: adaptar la plataforma para mantenimiento en español de España sin romper compatibilidad, taxonomía ni validación
+- Archivos afectados:
+  - `.agents/AGENTS.md`
+  - `.agents/architecture/README.md`
+  - `.agents/architecture/glossary.md`
+  - `.agents/architecture/governance.md`
+  - `.agents/architecture/maintenance.md`
+  - `.agents/architecture/overview.md`
+  - `.agents/architecture/platform-definition-of-done.md`
+  - `.agents/architecture/principles.md`
+  - `.agents/agents/README.md`
+  - `.agents/agents/builder.md`
+  - `.agents/agents/fixer.md`
+  - `.agents/agents/planner.md`
+  - `.agents/agents/qa.md`
+  - `.agents/agents/reviewer.md`
+  - `.agents/pipelines/README.md`
+  - `.agents/profiles/README.md`
+  - `.agents/project/README.md`
+  - `.agents/schemas/README.md`
+  - `.agents/skills/README.md`
+  - `.agents/skills/agents-architecture-design/SKILL.md`
+  - `.agents/skills/agents-bootstrap-architecture/SKILL.md`
+  - `.agents/skills/agents-change-governance/SKILL.md`
+  - `.agents/skills/agents-change-governance/references/legacy-migration-audit.md`
+  - `.agents/skills/agents-change-governance/references/platform-change-checklist.md`
+  - `.agents/skills/agents-config-validation/SKILL.md`
+  - `.agents/skills/agents-runtime-adapter/SKILL.md`
+  - `.agents/skills/docker-wordpress-stack/SKILL.md`
+  - `.agents/skills/project-doctor/SKILL.md`
+  - `.agents/skills/project-scaffold-generator/SKILL.md`
+  - `.agents/skills/wordpress-block-development/SKILL.md`
+  - `.agents/skills/wordpress-block-development/references/block-architecture.md`
+  - `.agents/skills/wordpress-block-development/references/block-quality-checklist.md`
+  - `.agents/skills/wordpress-code-quality/SKILL.md`
+  - `.agents/skills/wordpress-code-quality/references/implementation-standards.md`
+  - `.agents/skills/wordpress-code-quality/references/verification-and-delivery.md`
+  - `.agents/skills/wordpress-project-setup/SKILL.md`
+  - `.agents/skills/wordpress-technical-documentation/SKILL.md`
+  - `.agents/skills/wordpress-technical-documentation/references/document-types.md`
+  - `.agents/skills/wordpress-technical-documentation/references/writing-rules.md`
+  - `.agents/tools/README.md`
+  - `.agents/tools/doctor/README.md`
+  - `.agents/tools/scaffold/README.md`
+  - `.agents/tools/sync-runtime/README.md`
+  - `.agents/tools/validate-config/README.md`
+  - `.agents/runtime/README.md`
+  - `.agents/runtime/chatgpt/README.md`
+  - `.agents/runtime/claude/README.md`
+  - `.agents/runtime/codex/README.md`
+  - `.agents/runtime/cursor/README.md`
+  - `.agents/runtime/chatgpt/templates/system.md`
+  - `.agents/runtime/claude/templates/system.md`
+  - `.agents/runtime/codex/templates/system.md`
+  - `.agents/runtime/cursor/templates/system.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se tradujo al español de España la prosa descriptiva, operativa y documental de la plataforma canónica
+  - se mantuvieron estables los slugs, rutas, nombres de skill, nombres de directorio, claves YAML/JSON y comandos
+  - se actualizaron frontmatters descriptivos de skills sin renombrar las skills canónicas
+  - se evitó tocar manifests derivados y artefactos estructurales no humanos para no introducir roturas
+- Impacto:
+  - la plataforma queda mantenible en español sin alterar contratos técnicos ni compatibilidad
+  - la lectura operativa de arquitectura, roles, skills y runtime adapters queda homogeneizada
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - se preservó deliberadamente el naming canónico en inglés para minimizar riesgo y drift
+
+## 2026-03-13 15:28 Europe/Madrid | LOG-0040
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior a la traducción segura de `.agents/`
+- Motivo: comprobar que la localización de la prosa canónica no rompe estructura, validación ni runtime derivado
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó que la estructura base sigue presente
+  - `validate-config` confirmó coherencia entre metadatos canónicos, perfiles, proyecto, schemas y mappings runtime
+  - `sync-runtime` regeneró manifests derivados sin errores
+- Impacto:
+  - deja evidencia de que la traducción no ha roto la plataforma ni sus adaptadores derivados
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el cambio se limitó a localización de contenido humano y mantuvo intacta la estructura técnica

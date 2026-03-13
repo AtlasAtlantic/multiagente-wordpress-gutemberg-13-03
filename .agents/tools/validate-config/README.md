@@ -1,9 +1,9 @@
-# Validate Config Tool
+# Tool Validate Config
 
-Performs basic structural and cross-reference validation for canonical configuration.
+Realiza validación básica estructural y de referencias cruzadas para la configuración canónica.
 
-Current behavior:
+Comportamiento actual:
 
-- parses YAML canonically
-- validates supported files against JSON Schema
-- checks cross-references between profiles, project context, pipelines, roles, skills, catalog, compatibility, and runtime mappings
+- parsea YAML de forma canónica
+- valida archivos soportados contra JSON Schema
+- comprueba referencias cruzadas entre perfiles, contexto de proyecto, pipelines, roles, skills, catálogo, compatibilidad y mappings runtime

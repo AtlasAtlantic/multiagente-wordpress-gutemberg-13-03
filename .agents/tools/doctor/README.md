@@ -1,3 +1,3 @@
-# Doctor Tool
+# Tool Doctor
 
-Runs structural health checks for `.agents/`.
+Ejecuta checks de salud estructural para `.agents/`.

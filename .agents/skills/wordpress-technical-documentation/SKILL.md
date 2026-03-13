@@ -1,47 +1,47 @@
 ---
 name: wordpress-technical-documentation
-description: Create or update reusable technical documentation for WordPress features, bugs, and improvements. Use when documenting implementation intent, root cause, acceptance criteria, or verification without coupling docs to project-specific trackers.
+description: Crear o actualizar documentación técnica reusable para features, bugs e improvements de WordPress. Usar al documentar intención de implementación, causa raíz, criterios de aceptación o verificación sin acoplar la documentación a trackers específicos del proyecto.
 ---
 
 # wordpress-technical-documentation
 
-Use this skill when WordPress work needs durable technical documentation inside the repository.
+Usa esta skill cuando el trabajo de WordPress necesite documentación técnica duradera dentro del repositorio.
 
-## Use when
+## Cuándo usarla
 
-- writing or updating feature specifications
-- documenting a bug and its fix
-- defining an improvement plan without mixing it with bug documentation
-- updating technical notes after implementation changes
-- normalizing repository documentation structure and naming
+- al escribir o actualizar especificaciones de feature
+- al documentar un bug y su fix
+- al definir un plan de improvement sin mezclarlo con documentación de bug
+- al actualizar notas técnicas tras cambios de implementación
+- al normalizar estructura y naming de documentación del repositorio
 
-## Workflow
+## Flujo de trabajo
 
-1. Check whether the repository already has a document for the same issue or work item.
-2. Reuse the same document when it already exists; avoid fragmentation.
-3. Pick the correct template family from `references/document-types.md`.
-4. Write in English unless a canonical repository rule explicitly says otherwise.
-5. Close with verification notes, related files, and any remaining gaps.
+1. Comprueba si el repositorio ya tiene un documento para el mismo issue o elemento de trabajo.
+2. Reutiliza el mismo documento cuando ya exista; evita la fragmentación.
+3. Elige la familia de plantillas correcta desde `references/document-types.md`.
+4. Escribe en español de España salvo que una regla canónica del repositorio diga explícitamente lo contrario.
+5. Cierra con notas de verificación, archivos relacionados y cualquier hueco restante.
 
-## Rules
+## Reglas
 
-- Keep one document per feature, bug, or improvement topic.
-- Use lowercase kebab-case file names for new Markdown files.
-- Keep documents technical and repository-local; do not depend on Trello, Venus, or runtime-specific tooling.
-- Distinguish clearly between:
-  - feature documentation
-  - bug documentation
-  - improvement documentation
-- Include scope boundaries and verification criteria.
-- When the work changes existing behavior, explain current state before describing the target state.
+- Mantén un documento por tema de feature, bug o improvement.
+- Usa nombres de archivo Markdown en lowercase kebab-case para archivos nuevos.
+- Mantén la documentación técnica y local al repositorio; no dependas de Trello, Venus ni tooling específico de runtime.
+- Distingue con claridad entre:
+  - documentación de feature
+  - documentación de bug
+  - documentación de improvement
+- Incluye límites de alcance y criterios de verificación.
+- Cuando el trabajo cambie comportamiento existente, explica el estado actual antes de describir el estado objetivo.
 
-## References
+## Referencias
 
-- Read `references/document-types.md` for mandatory sections by document type.
-- Read `references/writing-rules.md` for naming, update flow, and anti-patterns.
+- Lee `references/document-types.md` para las secciones obligatorias por tipo de documento.
+- Lee `references/writing-rules.md` para naming, flujo de actualización y anti-patrones.
 
-## Expected output
+## Salida esperada
 
-- a single coherent technical document per topic
-- documentation with explicit purpose, scope, and verification
-- reduced ambiguity for future implementation and maintenance
+- un único documento técnico coherente por tema
+- documentación con propósito, alcance y verificación explícitos
+- menos ambigüedad para implementación y mantenimiento futuros

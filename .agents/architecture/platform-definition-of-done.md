@@ -1,16 +1,16 @@
-# Platform Definition Of Done
+# Definition of Done de la plataforma
 
-A change in `.agents/` is done only when all of the following are true:
+Un cambio en `.agents/` solo está terminado cuando todo lo siguiente es cierto:
 
-- `sh .agents/tools/doctor/run.sh` passes
-- `sh .agents/tools/validate-config/run.sh` passes
-- `sh .agents/tools/sync-runtime/run.sh` passes
-- no canonical logic has been moved outside `.agents/`
-- runtime output remains derived from canonical inputs
-- reusable profiles are not mixed with project-local context
-- `project/project.yaml` contains only local context or explicit overrides
-- catalog and compatibility remain consistent with the files on disk
-- runtime mappings remain consistent with what `sync-runtime` consumes
-- `docs/agents-change-record.md` is updated in the same line of work
+- `sh .agents/tools/doctor/run.sh` pasa
+- `sh .agents/tools/validate-config/run.sh` pasa
+- `sh .agents/tools/sync-runtime/run.sh` pasa
+- no se ha movido lógica canónica fuera de `.agents/`
+- el output runtime sigue derivando de inputs canónicos
+- los perfiles reutilizables no se mezclan con contexto local del proyecto
+- `project/project.yaml` contiene solo contexto local u overrides explícitos
+- catálogo y compatibilidad siguen siendo consistentes con los archivos en disco
+- los mappings runtime siguen siendo consistentes con lo que consume `sync-runtime`
+- `docs/agents-change-record.md` se actualiza dentro de la misma línea de trabajo
 
-If any item above fails, the change is not complete.
+Si alguno de los puntos anteriores falla, el cambio no está completo.

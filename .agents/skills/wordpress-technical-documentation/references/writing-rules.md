@@ -1,31 +1,31 @@
-# Writing Rules
+# Reglas de redacción
 
-These rules adapt the reusable parts of the legacy documentation standards.
+Estas reglas adaptan las partes reutilizables de los estándares antiguos de documentación.
 
 ## Naming
 
-- Use lowercase kebab-case for new Markdown file names.
-- Keep file names descriptive and stable.
-- Prefer repository-local identifiers or descriptive names over external tracker IDs when portability matters.
+- Usa lowercase kebab-case para nombres de archivo Markdown nuevos.
+- Mantén nombres de archivo descriptivos y estables.
+- Prioriza identificadores locales del repositorio o nombres descriptivos frente a IDs de trackers externos cuando importe la portabilidad.
 
-## Update flow
+## Flujo de actualización
 
-- If a document already exists for the same topic, update it instead of creating another one.
-- Reflect code changes in the corresponding technical document when behavior, interfaces, or operational expectations changed.
-- Keep documentation aligned with the current repository structure, not with paths inherited from an older project.
+- Si ya existe un documento para el mismo tema, actualízalo en lugar de crear otro.
+- Refleja en el documento técnico correspondiente los cambios de código cuando haya cambiado comportamiento, interfaces o expectativas operativas.
+- Mantén la documentación alineada con la estructura actual del repositorio, no con rutas heredadas de un proyecto antiguo.
 
-## Content rules
+## Reglas de contenido
 
-- Write in English unless canonical repository policy says otherwise.
-- Explain what the system does, why it exists, and how it should be verified.
-- Keep scope explicit with clear exclusions.
-- Prefer concise examples over long narrative prose.
-- When documenting implementation details, reference the relevant WordPress patterns, hooks, or components.
+- Escribe en español de España salvo que la política canónica del repositorio diga lo contrario.
+- Explica qué hace el sistema, por qué existe y cómo debe verificarse.
+- Mantén el alcance explícito con exclusiones claras.
+- Prioriza ejemplos concisos frente a prosa narrativa larga.
+- Al documentar detalles de implementación, referencia los patrones, hooks o componentes WordPress relevantes.
 
-## Anti-patterns
+## Anti-patrones
 
-- Duplicating documents for the same topic
-- Depending on Trello, HITO/CHILD, Venus, or external board structure
-- Mixing feature, bug, and improvement semantics in one document
-- Leaving verification undefined
-- Using vague titles such as `update`, `changes`, or `fixes`
+- duplicar documentos para el mismo tema
+- depender de Trello, HITO/CHILD, Venus o estructura externa de tablero
+- mezclar semánticas de feature, bug e improvement en un mismo documento
+- dejar la verificación sin definir
+- usar títulos vagos como `update`, `changes` o `fixes`

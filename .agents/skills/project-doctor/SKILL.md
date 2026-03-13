@@ -1,14 +1,14 @@
 # project-doctor
 
-Use this skill to assess the health of the canonical agent layer.
+Usa esta skill para evaluar la salud de la capa canónica de agentes.
 
-## Use when
+## Cuándo usarla
 
-- checking structure integrity
-- checking missing required artifacts
-- preparing final verification for a phase
+- al comprobar la integridad estructural
+- al comprobar artefactos requeridos ausentes
+- al preparar la verificación final de una fase
 
-## Expected output
+## Salida esperada
 
-- health report
-- blocking issues and recommended fixes
+- informe de salud
+- problemas bloqueantes y fixes recomendados

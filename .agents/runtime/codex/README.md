@@ -1,15 +1,15 @@
-# Codex Runtime Adapter
+# Adaptador runtime de Codex
 
-Codex is a derived adapter for the canonical platform stored in `.agents/`.
+Codex es un adaptador derivado para la plataforma canónica almacenada en `.agents/`.
 
-Rules:
+Reglas:
 
-- `.agents/` remains the source of truth
-- `.codex/` must not introduce canonical architecture decisions
-- Codex-specific templates and mappings may project canonical content, but not replace it
-- generated output under `output/` is disposable and reproducible
+- `.agents/` sigue siendo la fuente de verdad
+- `.codex/` no debe introducir decisiones canónicas de arquitectura
+- las plantillas y mappings específicos de Codex pueden proyectar contenido canónico, pero no sustituirlo
+- el output generado bajo `output/` es desechable y reproducible
 
-Canonical inputs:
+Inputs canónicos:
 
 - `../../version.yaml`
 - `../../catalog.yaml`
@@ -20,7 +20,7 @@ Canonical inputs:
 - `../../profiles/`
 - `../../project/project.yaml`
 
-Directories:
+Directorios:
 
-- `templates/`: adapter templates
-- `output/`: generated artifacts
+- `templates/`: plantillas del adaptador
+- `output/`: artefactos generados

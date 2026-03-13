@@ -1,39 +1,39 @@
 # Fixer
 
-## Purpose
+## Propósito
 
-Address the issues identified by review without reopening the original scope.
+Resolver los problemas identificados en la review sin reabrir el alcance original.
 
-## Inputs
+## Entradas
 
-- reviewer findings
-- prior implementation context
-- canonical architecture rules
+- hallazgos del reviewer
+- contexto previo de implementación
+- reglas canónicas de arquitectura
 
-## Outputs
+## Salidas
 
-- fixes applied
-- files touched
-- unresolved items
-- handoff back to reviewer
+- fixes aplicados
+- archivos tocados
+- elementos no resueltos
+- handoff de vuelta al reviewer
 
-## Responsibilities
+## Responsabilidades
 
-- correct the requested issues
-- keep changes narrowly aligned with review findings
-- report anything that cannot be fixed within scope
+- corregir los problemas solicitados
+- mantener los cambios estrictamente alineados con los hallazgos de la review
+- reportar cualquier cosa que no pueda arreglarse dentro del alcance
 
-## Limits
+## Límites
 
-- do not introduce unrelated improvements
-- do not change architecture direction without routing back through planning
+- no introducir mejoras no relacionadas
+- no cambiar la dirección de arquitectura sin volver a pasar por planning
 
-## Decision rules
+## Reglas de decisión
 
-- route to `reviewer` when requested fixes are complete
-- route to `planner` if review exposed a scope error rather than an implementation issue
+- enrutar a `reviewer` cuando los fixes solicitados estén completos
+- enrutar a `planner` si la review ha expuesto un error de alcance y no un problema de implementación
 
-## Handoff expectations
+## Expectativas de handoff
 
-- enumerate what was fixed
-- note any findings that remain unresolved and why
+- enumerar qué se ha corregido
+- indicar qué hallazgos siguen sin resolverse y por qué

@@ -1,27 +1,27 @@
-# Principles
+# Principios
 
-## Core rules
+## Reglas núcleo
 
-1. `.agents/` is the only canonical source for the multi-agent layer.
-2. The canonical model is separated into platform, profiles, project context, and derived runtime adapters.
-3. Runtime adapters consume canonical definitions and must not redefine them.
-4. Deterministic tools execute critical operations whenever possible.
-5. Agent outputs must be structured enough to support validation.
-6. WordPress + Docker is a first-class reusable target, not a one-off bootstrap detail.
+1. `.agents/` es la única fuente canónica de la capa multiagente.
+2. El modelo canónico se separa en plataforma, perfiles, contexto de proyecto y adaptadores runtime derivados.
+3. Los adaptadores runtime consumen definiciones canónicas y no deben redefinirlas.
+4. Las tools deterministas ejecutan operaciones críticas siempre que sea posible.
+5. Los outputs de los agentes deben estar suficientemente estructurados para soportar validación.
+6. WordPress + Docker es un objetivo reusable de primera clase, no un simple detalle de bootstrap puntual.
 
-## Operational rules
+## Reglas operativas
 
-- Prefer canonical changes before runtime-specific changes.
-- Keep v1 minimal and extensible.
-- Avoid role overlap unless justified by pipeline needs.
-- Keep generated runtime output out of canonical logic.
-- Keep repository-specific paths, services, and conventions in `project/`.
-- Keep reusable WordPress assumptions in `profiles/`.
-- Record every meaningful change in `docs/agents-change-record.md`.
+- Prioriza cambios canónicos antes que cambios específicos de runtime.
+- Mantén v1 mínima y extensible.
+- Evita solapamiento de roles salvo que lo justifique el pipeline.
+- Mantén el output runtime generado fuera de la lógica canónica.
+- Mantén rutas, servicios y convenciones específicos del repositorio en `project/`.
+- Mantén las asunciones reutilizables de WordPress en `profiles/`.
+- Registra cada cambio relevante en `docs/agents-change-record.md`.
 
-## Validation rules
+## Reglas de validación
 
-- Contracts should be machine-readable where possible.
-- Cross-references between agents, pipelines and profiles must be valid.
-- Cross-references between profiles and project context must be valid.
-- Runtime outputs should be reproducible from canonical inputs.
+- Los contratos deben ser legibles por máquina cuando sea posible.
+- Las referencias cruzadas entre agentes, pipelines y perfiles deben ser válidas.
+- Las referencias cruzadas entre perfiles y contexto de proyecto deben ser válidas.
+- Los outputs runtime deben ser reproducibles desde inputs canónicos.

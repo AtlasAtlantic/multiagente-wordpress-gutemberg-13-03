@@ -1,3 +1,3 @@
-# ChatGPT Runtime Template
+# Plantilla runtime de ChatGPT
 
-Consume canonical definitions from `.agents/` and render ChatGPT-compatible derived project instructions.
+Consume definiciones canónicas de `.agents/` y renderiza instrucciones derivadas del proyecto compatibles con ChatGPT.

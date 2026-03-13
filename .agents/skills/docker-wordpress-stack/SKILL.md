@@ -1,13 +1,13 @@
 # docker-wordpress-stack
 
-Use this skill to align the agent layer with a local Docker-based WordPress stack.
+Usa esta skill para alinear la capa de agentes con un stack local de WordPress sobre Docker.
 
-## Use when
+## Cuándo usarla
 
-- defining service names
-- selecting command preferences
-- creating deterministic Docker or WP-CLI checks
+- al definir nombres de servicios
+- al seleccionar preferencias de comandos
+- al crear checks deterministas de Docker o WP-CLI
 
-## Expected output
+## Salida esperada
 
-- stack-aware profiles, tools or checks
+- perfiles, tools o checks conscientes del stack

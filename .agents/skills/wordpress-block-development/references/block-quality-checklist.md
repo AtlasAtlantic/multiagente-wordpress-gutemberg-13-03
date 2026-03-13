@@ -1,41 +1,41 @@
-# Block Quality Checklist
+# Checklist de calidad de bloques
 
-Use this reference while implementing or reviewing a WordPress block.
+Usa esta referencia al implementar o revisar un bloque WordPress.
 
-## Data and editor rules
+## Reglas de datos y editor
 
-- Use `@wordpress/data` and `@wordpress/core-data` before custom fetch layers.
-- Keep `useSelect` focused to avoid unnecessary rerenders.
-- Preload or cache data when the editor would otherwise refetch heavily.
-- Keep inspector controls aligned with the supported editing model.
+- Usa `@wordpress/data` y `@wordpress/core-data` antes que capas custom de fetch.
+- Mantén `useSelect` enfocado para evitar rerenders innecesarios.
+- Precarga o cachea datos cuando el editor, de otro modo, vaya a refetchear en exceso.
+- Mantén los inspector controls alineados con el modelo de edición soportado.
 
-## Frontend behavior
+## Comportamiento frontend
 
-- Do not default to React on the frontend.
-- Use `view.js` only when the block needs client interaction.
-- Consider the Interactivity API for richer interactive behavior when the repository supports it.
-- Load scripts conditionally whenever possible.
+- No tomes React como opción por defecto en frontend.
+- Usa `view.js` solo cuando el bloque necesite interacción en cliente.
+- Considera la Interactivity API para comportamiento interactivo más rico cuando el repositorio la soporte.
+- Carga scripts de forma condicional siempre que sea posible.
 
-## Accessibility
+## Accesibilidad
 
-- Ensure semantic heading and landmark structure.
-- Keep controls keyboard accessible.
-- Preserve visible focus states.
-- Validate labels, names, and announcements for interactive UI.
+- Asegura estructura semántica de headings y landmarks.
+- Mantén los controles accesibles por teclado.
+- Preserva estados de foco visibles.
+- Valida labels, nombres y announcements de la UI interactiva.
 
-## Security
+## Seguridad
 
-- Escape and sanitize SSR output.
-- Validate REST input and capabilities on custom endpoints.
-- Avoid unsafe DOM insertion patterns on the frontend.
+- Escapa y sanitiza el output SSR.
+- Valida entrada REST y capacidades en endpoints custom.
+- Evita patrones inseguros de inserción en DOM en frontend.
 
-## Verification checklist
+## Checklist de verificación
 
-- Block appears in the inserter
-- Block can be configured in the editor
-- Attributes persist correctly
-- Frontend render matches the intended output
-- Styles load in the correct contexts
-- No new PHP errors in debug log
-- No new console errors for editor or frontend
-- SSR/static decision is still justified
+- El bloque aparece en el inserter
+- El bloque puede configurarse en el editor
+- Los atributos persisten correctamente
+- El render frontend coincide con el resultado esperado
+- Los estilos cargan en los contextos correctos
+- No hay errores nuevos de PHP en el debug log
+- No hay errores nuevos de consola en editor o frontend
+- La decisión entre SSR y estático sigue estando justificada

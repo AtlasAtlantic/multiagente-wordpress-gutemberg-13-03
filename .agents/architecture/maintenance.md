@@ -1,8 +1,8 @@
-# Platform Maintenance
+# Mantenimiento de la plataforma
 
-## What Counts As Platform
+## Qué cuenta como plataforma
 
-Reusable platform artifacts are the canonical pieces that should work across repositories:
+Los artefactos reutilizables de plataforma son las piezas canónicas que deben funcionar entre repositorios:
 
 - `architecture/`
 - `agents/`
@@ -15,67 +15,67 @@ Reusable platform artifacts are the canonical pieces that should work across rep
 - `catalog.yaml`
 - `compatibility.yaml`
 
-Modify platform artifacts when the change is reusable across multiple projects. Do not move repository-local behavior here.
+Modifica artefactos de plataforma cuando el cambio sea reusable entre varios proyectos. No muevas aquí comportamiento local del repositorio.
 
-## What Counts As A Reusable Profile
+## Qué cuenta como perfil reusable
 
-Reusable profiles live under `profiles/`.
+Los perfiles reutilizables viven en `profiles/`.
 
-Create a new profile when:
+Crea un perfil nuevo cuando:
 
-- a WordPress project type has stable behavior that can be reused
-- an infrastructure pattern is shared across projects
-- the new behavior cannot be expressed as a local override in `project/project.yaml`
+- un tipo de proyecto WordPress tenga comportamiento estable y reusable
+- un patrón de infraestructura se comparta entre proyectos
+- el nuevo comportamiento no pueda expresarse como override local en `project/project.yaml`
 
-Modify an existing profile when:
+Modifica un perfil existente cuando:
 
-- the behavior already belongs to that reusable type
-- the change should affect every project that activates that profile
+- el comportamiento ya pertenezca a ese tipo reusable
+- el cambio deba afectar a todos los proyectos que activen ese perfil
 
-Do not add repository-specific paths, service names, or one-off checks to reusable profiles.
+No añadas rutas específicas del repositorio, nombres de servicios ni checks puntuales a perfiles reutilizables.
 
-## What Counts As Project Context
+## Qué cuenta como contexto de proyecto
 
-Project context lives in `project/project.yaml`.
+El contexto de proyecto vive en `project/project.yaml`.
 
-It may contain only:
+Solo puede contener:
 
-- repository-local paths
-- local service names
-- active profiles
-- project-only checks
-- explicit local overrides
+- rutas locales del repositorio
+- nombres de servicios locales
+- perfiles activos
+- checks exclusivos del proyecto
+- overrides locales explícitos
 
-It must not contain reusable behavior that already belongs in platform metadata or reusable profiles.
+No debe contener comportamiento reusable que ya pertenezca a metadatos de plataforma o a perfiles reutilizables.
 
-## What Counts As Derived Runtime
+## Qué cuenta como runtime derivado
 
-Derived runtime artifacts live under `runtime/*`.
+Los artefactos runtime derivados viven en `runtime/*`.
 
-Rules:
+Reglas:
 
-- `mapping.yaml` and templates are adapter definitions, still canonical
-- `output/` is always derived
-- `output/` must be regenerated with `sh .agents/tools/sync-runtime/run.sh`
-- generated runtime files must never be edited manually
-- runtime adapters must never redefine platform behavior outside `.agents/`
+- `mapping.yaml` y las plantillas son definiciones del adaptador y siguen siendo canónicas
+- `output/` siempre es derivado
+- `output/` debe regenerarse con `sh .agents/tools/sync-runtime/run.sh`
+- los archivos runtime generados nunca deben editarse manualmente
+- los adaptadores runtime nunca deben redefinir comportamiento de plataforma fuera de `.agents/`
 
-## How To Evolve The Platform
+## Cómo evolucionar la plataforma
 
-When adding profiles:
+Al añadir perfiles:
 
-- prefer extending an existing reusable profile if the behavior is already covered
-- create a new profile only when the behavior is a stable reusable variant
-- update `catalog.yaml`, `compatibility.yaml`, schemas, and validation if the taxonomy changes
+- prefiere extender un perfil reusable existente si el comportamiento ya está cubierto
+- crea un perfil nuevo solo cuando el comportamiento sea una variante reusable estable
+- actualiza `catalog.yaml`, `compatibility.yaml`, schemas y validación si cambia la taxonomía
 
-When deprecating profiles:
+Al deprecar perfiles:
 
-- keep the file while compatibility is needed
-- mark it explicitly with a status such as `compatibility-profile` or `deprecated`
-- remove it from primary reusable profile lists before deleting it completely
+- mantén el archivo mientras siga siendo necesaria la compatibilidad
+- márcalo explícitamente con un estado como `compatibility-profile` o `deprecated`
+- elimínalo de las listas principales de perfiles reutilizables antes de borrarlo por completo
 
-When changing catalog or compatibility:
+Al cambiar catálogo o compatibilidad:
 
-- keep taxonomy consistent between `project_types`, reusable profiles, compatibility profiles, and infrastructure profiles
-- ensure `validate-config` still covers every declared category
-- rerun `doctor`, `validate-config`, and `sync-runtime`
+- mantén la taxonomía consistente entre `project_types`, perfiles reutilizables, perfiles de compatibilidad y perfiles de infraestructura
+- asegúrate de que `validate-config` siga cubriendo cada categoría declarada
+- vuelve a ejecutar `doctor`, `validate-config` y `sync-runtime`

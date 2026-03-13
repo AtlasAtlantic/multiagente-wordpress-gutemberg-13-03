@@ -1,65 +1,65 @@
-# Legacy Migration Audit
+# Auditoría de migración de legado
 
-Use this reference when reviewing old skills, rules, or playbooks before integrating them into `.agents/`.
+Usa esta referencia al revisar skills, reglas o playbooks antiguos antes de integrarlos en `.agents/`.
 
-## Audit questions
+## Preguntas de auditoría
 
-Answer these explicitly for each legacy artifact or content block:
+Respóndelas explícitamente para cada artefacto o bloque de contenido legado:
 
-1. What is the real purpose?
-2. Is that purpose still useful in the current platform?
-3. Does it have a single responsibility?
-4. Is it coupled to the old repository, toolchain, or workflow?
-5. Is it reusable across WordPress + Docker projects?
-6. Does it duplicate a current skill, tool, profile, or architectural rule?
-7. Is the structure clear enough to keep?
-8. Does it need refactor before reuse?
-9. Should it remain one skill or be split?
-10. Does it belong in a skill, tooling, architecture docs, or nowhere?
+1. ¿Cuál es su propósito real?
+2. ¿Sigue siendo útil ese propósito en la plataforma actual?
+3. ¿Tiene una sola responsabilidad?
+4. ¿Está acoplado al repositorio, toolchain o workflow antiguo?
+5. ¿Es reusable entre proyectos WordPress + Docker?
+6. ¿Duplica una skill, tool, profile o regla arquitectónica actual?
+7. ¿La estructura es lo bastante clara como para conservarla?
+8. ¿Necesita refactor antes de reutilizarse?
+9. ¿Debe seguir siendo una única skill o dividirse?
+10. ¿Pertenece a una skill, a tooling, a documentación de arquitectura o a ninguna parte?
 
-## Classification rules
+## Reglas de clasificación
 
-Classify each legacy block into one of these outcomes:
+Clasifica cada bloque legado en uno de estos resultados:
 
-- `migrar-sin-cambios`: only if it is already canonical, reusable, and aligned with current naming and scope
-- `migrar-con-refactor`: reusable idea, but content or structure must change before landing in `.agents/`
-- `dividir-en-varias-skills`: one legacy skill mixes independent responsibilities
-- `fusionar-con-skill-existente`: the capability already exists and only needs to be strengthened
-- `descartar`: repository-specific, obsolete, or incompatible with current platform rules
-- `mover-a-documentacion`: useful rationale or reference, but not operational enough for a skill
-- `mover-a-tooling`: deterministic execution belongs in `.agents/tools/`, not in prose
+- `migrar-sin-cambios`: solo si ya es canónico, reusable y está alineado con el naming y el alcance actuales
+- `migrar-con-refactor`: la idea es reusable, pero el contenido o la estructura deben cambiar antes de entrar en `.agents/`
+- `dividir-en-varias-skills`: una skill antigua mezcla responsabilidades independientes
+- `fusionar-con-skill-existente`: la capability ya existe y solo necesita reforzarse
+- `descartar`: es específico del repositorio, obsoleto o incompatible con las reglas actuales de la plataforma
+- `mover-a-documentacion`: aporta racional o referencia útil, pero no es lo bastante operativo para una skill
+- `mover-a-tooling`: la ejecución determinista pertenece a `.agents/tools/`, no a prosa
 
-## Keep vs reject
+## Qué conservar y qué rechazar
 
-Keep only content that is:
+Conserva solo contenido que sea:
 
-- canonical to `.agents/`
-- reusable across repositories
-- compatible with the current platform vocabulary
-- specific enough to guide action
-- small enough to remain maintainable
+- canónico de `.agents/`
+- reusable entre repositorios
+- compatible con el vocabulario actual de la plataforma
+- lo bastante específico como para guiar la acción
+- lo bastante acotado como para seguir siendo mantenible
 
-Reject or rewrite content that:
+Rechaza o reescribe contenido que:
 
-- treats `.codex/`, `CLAUDE.md`, `.cursor/`, or runtime outputs as source of truth
-- hardcodes Trello, GitLab, Venus, or other project-local workflow decisions
-- points to missing skills or repo-specific paths
-- mixes WordPress business implementation rules with platform governance
-- duplicates checks already covered by `doctor`, `validate-config`, or `sync-runtime`
+- trate `.codex/`, `CLAUDE.md`, `.cursor/` o los outputs runtime como fuente de verdad
+- codifique Trello, GitLab, Venus u otras decisiones de workflow locales del proyecto
+- apunte a skills inexistentes o a rutas específicas del repo
+- mezcle reglas de implementación WordPress de negocio con gobernanza de plataforma
+- duplique checks ya cubiertos por `doctor`, `validate-config` o `sync-runtime`
 
-## Migration heuristics
+## Heurísticas de migración
 
-- Prefer extracting principles over copying documents.
-- Replace repo-local paths with canonical `.agents/` paths.
-- Replace runtime-specific governance with platform-first governance.
-- Move detailed, optional guidance into `references/` instead of bloating `SKILL.md`.
-- If the legacy material contains executable steps that must be reliable, move them into `.agents/tools/`.
+- Prioriza extraer principios en lugar de copiar documentos.
+- Sustituye rutas locales del repo por rutas canónicas de `.agents/`.
+- Sustituye gobernanza específica de runtime por gobernanza platform-first.
+- Mueve la guía detallada y opcional a `references/` en lugar de inflar `SKILL.md`.
+- Si el material legado contiene pasos ejecutables que deban ser fiables, muévelos a `.agents/tools/`.
 
-## Decision pattern for old monolithic skills
+## Patrón de decisión para skills monolíticas antiguas
 
-If a legacy skill is a mixed index of standards:
+Si una skill legada es un índice mixto de estándares:
 
-1. Identify the smallest reusable capability it actually provides.
-2. Separate reusable guidance from local operating procedure.
-3. Keep the reusable core as one skill only if the purpose remains singular.
-4. Drop the rest, or relocate it to documentation/tooling when that is the correct layer.
+1. Identifica la capability reusable más pequeña que realmente aporta.
+2. Separa la guía reusable del procedimiento operativo local.
+3. Mantén el núcleo reusable como una sola skill solo si el propósito sigue siendo singular.
+4. Descarta el resto o reubícalo en documentación/tooling cuando esa sea la capa correcta.

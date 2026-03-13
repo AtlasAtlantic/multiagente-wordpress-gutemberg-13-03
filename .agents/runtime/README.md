@@ -1,17 +1,17 @@
 # Runtime
 
-This directory contains runtime adapters derived from the canonical model in `.agents/`.
+Este directorio contiene adaptadores runtime derivados del modelo canónico de `.agents/`.
 
-Rules:
+Reglas:
 
-- runtime directories must not redefine canonical behavior
-- `.agents/version.yaml`, `.agents/catalog.yaml`, `.agents/compatibility.yaml`, and `.agents/project/project.yaml` are canonical inputs when relevant
-- generated output belongs under each runtime's `output/`
-- templates and mappings are adapter-specific, but sourced from `.agents/`
-- generated output is derived and should not be treated as canonical
-- generated manifests are meant to be regenerated on demand and are not versioned
+- los directorios runtime no deben redefinir comportamiento canónico
+- `.agents/version.yaml`, `.agents/catalog.yaml`, `.agents/compatibility.yaml` y `.agents/project/project.yaml` son inputs canónicos cuando corresponda
+- el output generado pertenece al `output/` de cada runtime
+- las plantillas y mappings son específicos del adaptador, pero nacen de `.agents/`
+- el output generado es derivado y no debe tratarse como canónico
+- los manifests generados están pensados para regenerarse bajo demanda y no versionarse
 
-Planned runtimes:
+Runtimes previstos:
 
 - `codex/`
 - `claude/`

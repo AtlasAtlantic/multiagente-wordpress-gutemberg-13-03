@@ -1,54 +1,54 @@
-# Platform Change Checklist
+# Checklist de cambio de plataforma
 
-Use this reference when modifying canonical `.agents/` artifacts.
+Usa esta referencia al modificar artefactos canónicos de `.agents/`.
 
-## Before editing
+## Antes de editar
 
-- Read the current architecture and the nearest existing skill/tool first.
-- State the intended scope in terms of canonical areas: `architecture`, `skills`, `tools`, `profiles`, `runtime`, `schemas`, `docs`.
-- Prefer minimal, localized edits.
-- Avoid introducing a new skill if an existing one can absorb the change cleanly.
+- Lee primero la arquitectura actual y la skill/tool existente más cercana.
+- Declara el alcance previsto en términos de áreas canónicas: `architecture`, `skills`, `tools`, `profiles`, `runtime`, `schemas`, `docs`.
+- Prioriza ediciones mínimas y localizadas.
+- Evita introducir una skill nueva si una existente puede absorber el cambio limpiamente.
 
-## Editing rules
+## Reglas de edición
 
-- `.agents/` is the source of truth; runtime adapters are derived.
-- Do not move canonical logic into runtime output.
-- Do not import repository-specific workflow assumptions into reusable skills.
-- Keep one clear purpose per skill.
-- Use `references/` for detailed guidance and keep `SKILL.md` short.
+- `.agents/` es la fuente de verdad; los adaptadores runtime son derivados.
+- No muevas lógica canónica al output runtime.
+- No importes a skills reutilizables supuestos de workflow específicos del repositorio.
+- Mantén un propósito claro por skill.
+- Usa `references/` para la guía detallada y mantén `SKILL.md` corto.
 
-## Validation closure
+## Cierre de validación
 
-Run these checks after canonical changes whenever the environment allows it:
+Ejecuta estos checks después de cambios canónicos siempre que el entorno lo permita:
 
 1. `sh .agents/tools/doctor/run.sh`
 2. `sh .agents/tools/validate-config/run.sh`
 3. `sh .agents/tools/sync-runtime/run.sh`
 
-Also verify:
+Además, verifica:
 
-- cross-references still resolve
-- no duplicate capability was introduced
-- derived runtime output still reflects canonical inputs
+- que las referencias cruzadas siguen resolviendo
+- que no se ha introducido ninguna capability duplicada
+- que el output runtime derivado sigue reflejando los inputs canónicos
 
-## Traceability closure
+## Cierre de trazabilidad
 
-Every meaningful change must be recorded in `docs/agents-change-record.md`.
+Todo cambio relevante debe registrarse en `docs/agents-change-record.md`.
 
-Each entry should capture:
+Cada entrada debe recoger:
 
-- why the change was made
-- which canonical files changed
-- whether derived runtime artifacts changed
-- which validations ran
-- any remaining risks or follow-up
+- por qué se hizo el cambio
+- qué archivos canónicos cambiaron
+- si cambiaron artefactos runtime derivados
+- qué validaciones se ejecutaron
+- cualquier riesgo restante o follow-up
 
-## Recommended delivery pattern
+## Patrón de entrega recomendado
 
-1. Audit legacy material.
-2. Classify each content block.
-3. Define the minimal integration plan.
-4. Edit canonical files.
-5. Update change record.
-6. Run validation.
-7. Report residual gaps precisely if validation cannot complete.
+1. Auditar material legado.
+2. Clasificar cada bloque de contenido.
+3. Definir el plan mínimo de integración.
+4. Editar archivos canónicos.
+5. Actualizar el registro de cambios.
+6. Ejecutar validación.
+7. Reportar con precisión los huecos residuales si la validación no puede completarse.

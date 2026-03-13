@@ -1,13 +1,13 @@
 # project-scaffold-generator
 
-Use this skill to generate repeatable scaffolds for canonical artifacts.
+Usa esta skill para generar scaffolds repetibles de artefactos canónicos.
 
-## Use when
+## Cuándo usarla
 
-- adding new agents, pipelines, profiles or skills
-- creating missing base files
-- standardizing repository layout
+- al añadir nuevos agentes, pipelines, profiles o skills
+- al crear archivos base ausentes
+- al estandarizar la estructura del repositorio
 
-## Expected output
+## Salida esperada
 
-- reproducible scaffold output with canonical naming
+- output de scaffold reproducible con naming canónico

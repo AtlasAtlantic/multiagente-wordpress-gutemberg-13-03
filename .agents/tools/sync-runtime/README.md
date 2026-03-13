@@ -1,3 +1,3 @@
-# Sync Runtime Tool
+# Tool Sync Runtime
 
-Generates minimal derived runtime output from canonical sources.
+Genera output runtime derivado mínimo a partir de fuentes canónicas.

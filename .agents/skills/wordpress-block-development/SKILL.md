@@ -1,47 +1,47 @@
 ---
 name: wordpress-block-development
-description: Build or review modern WordPress blocks using portable standards for `block.json`, SSR vs static decisions, registration, data access, security, accessibility, and frontend behavior.
+description: Construir o revisar bloques modernos de WordPress usando estándares portables para `block.json`, decisiones SSR frente a estático, registro, acceso a datos, seguridad, accesibilidad y comportamiento frontend.
 ---
 
 # wordpress-block-development
 
-Use this skill for custom block work in themes or plugins.
+Usa esta skill para trabajo de bloques custom en themes o plugins.
 
-## Use when
+## Cuándo usarla
 
-- creating or modifying a custom block
-- deciding between static and server-rendered blocks
-- reviewing `block.json`, block registration, or build output
-- adding editor UI, block data access, frontend interactivity, patterns, or templates
-- validating accessibility, security, and performance of a block implementation
+- al crear o modificar un bloque custom
+- al decidir entre bloques estáticos o server-rendered
+- al revisar `block.json`, el registro del bloque o el output de build
+- al añadir UI de editor, acceso a datos del bloque, interactividad frontend, patterns o templates
+- al validar accesibilidad, seguridad y rendimiento de una implementación de bloque
 
-## Workflow
+## Flujo de trabajo
 
-1. Read the existing block or neighboring block implementations in the repository.
-2. Decide static vs SSR before coding.
-3. Treat `block.json` as the metadata source of truth.
-4. Register from build artifacts when the project has a build step.
-5. Keep editor, frontend, and server responsibilities separated.
-6. Close with editor + frontend verification.
+1. Lee el bloque existente o implementaciones vecinas de bloques en el repositorio.
+2. Decide estático frente a SSR antes de codificar.
+3. Trata `block.json` como fuente de verdad de metadatos.
+4. Registra desde artefactos de build cuando el proyecto tenga paso de build.
+5. Mantén separadas las responsabilidades de editor, frontend y servidor.
+6. Cierra con verificación de editor y frontend.
 
-## Rules
+## Reglas
 
-- Default to WordPress Block API conventions and official packages.
-- Prefer SSR when the block depends on runtime data, SEO, permissions, or shared rendering logic.
-- Prefer static blocks for stable editorial markup.
-- Keep attributes minimal and migration-safe.
-- Use `@wordpress/data` and `@wordpress/core-data` before ad-hoc fetch logic.
-- Load frontend JS only when the block actually needs interaction.
-- Treat accessibility and escaping as required, not optional.
+- Toma como base las convenciones de la WordPress Block API y los paquetes oficiales.
+- Prioriza SSR cuando el bloque dependa de datos runtime, SEO, permisos o lógica compartida de renderizado.
+- Prioriza bloques estáticos para marcado editorial estable.
+- Mantén los atributos mínimos y seguros para migración.
+- Usa `@wordpress/data` y `@wordpress/core-data` antes que lógica ad hoc de fetch.
+- Carga JS frontend solo cuando el bloque necesite realmente interacción.
+- Trata accesibilidad y escaping como requisitos, no como opcionales.
 
-## References
+## Referencias
 
-- Read `references/block-architecture.md` for structure, registration, and rendering rules.
-- Read `references/block-quality-checklist.md` for data, interactivity, accessibility, security, and validation.
+- Lee `references/block-architecture.md` para reglas de estructura, registro y renderizado.
+- Lee `references/block-quality-checklist.md` para datos, interactividad, accesibilidad, seguridad y validación.
 
-## Expected output
+## Salida esperada
 
-- a block implementation aligned with WordPress block architecture
-- a justified SSR vs static decision
-- metadata and registration consistent with the repository build model
-- explicit editor and frontend verification evidence
+- una implementación de bloque alineada con la arquitectura de bloques de WordPress
+- una decisión justificada entre SSR y estático
+- metadatos y registro consistentes con el modelo de build del repositorio
+- evidencia explícita de verificación de editor y frontend

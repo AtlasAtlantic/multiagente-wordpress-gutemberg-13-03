@@ -1,14 +1,14 @@
 # Skills
 
-This directory will contain reusable capabilities packaged as operational workflows.
+Este directorio contiene capacidades reutilizables empaquetadas como flujos operativos.
 
-Naming convention:
+Convención de nombres:
 
-- one directory per skill
-- skill directories use kebab-case
-- each skill must contain `SKILL.md`
+- un directorio por skill
+- los directorios de skill usan kebab-case
+- cada skill debe contener `SKILL.md`
 
-Current status:
+Estado actual:
 
-- directory scaffolded
-- ready for Phase 7 implementation
+- directorio scaffoldeado
+- listo para la implementación de la Fase 7

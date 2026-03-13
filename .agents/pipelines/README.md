@@ -1,15 +1,15 @@
 # Pipelines
 
-This directory will contain reusable workflows for common work types.
+Este directorio contiene flujos de trabajo reutilizables para tipos comunes de trabajo.
 
-Planned v1 pipelines:
+Pipelines previstos para v1:
 
 - `feature.yaml`
 - `bugfix.yaml`
 - `refactor.yaml`
 - `audit.yaml`
 
-Current status:
+Estado actual:
 
-- directory scaffolded
-- ready for Phase 5 implementation
+- directorio scaffoldeado
+- listo para la implementación de la Fase 5

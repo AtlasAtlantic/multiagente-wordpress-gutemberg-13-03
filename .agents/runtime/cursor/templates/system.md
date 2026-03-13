@@ -1,3 +1,3 @@
-# Cursor Runtime Template
+# Plantilla runtime de Cursor
 
-Consume canonical definitions from `.agents/` and render Cursor-compatible derived rules.
+Consume definiciones canónicas de `.agents/` y renderiza reglas derivadas compatibles con Cursor.

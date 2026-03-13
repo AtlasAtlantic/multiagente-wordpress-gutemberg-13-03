@@ -1,3 +1,3 @@
-# Codex Runtime Template
+# Plantilla runtime de Codex
 
-Consume canonical definitions from `.agents/` and render Codex-specific instructions as derived output.
+Consume definiciones canónicas de `.agents/` y renderiza instrucciones específicas de Codex como output derivado.

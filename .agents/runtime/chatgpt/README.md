@@ -1,13 +1,13 @@
-# ChatGPT Runtime Adapter
+# Adaptador runtime de ChatGPT
 
-This adapter will map canonical `.agents/` definitions to ChatGPT-compatible runtime artifacts.
+Este adaptador mapea definiciones canónicas de `.agents/` a artefactos runtime compatibles con ChatGPT.
 
-Directories:
+Directorios:
 
-- `templates/`: adapter templates
-- `output/`: generated artifacts
+- `templates/`: plantillas del adaptador
+- `output/`: artefactos generados
 
-Current status:
+Estado actual:
 
-- scaffolded
-- ready for Phase 10 implementation
+- scaffoldeado
+- listo para la implementación de la Fase 10

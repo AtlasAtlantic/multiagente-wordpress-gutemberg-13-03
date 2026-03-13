@@ -1,3 +1,3 @@
-# Scaffold Tool
+# Tool Scaffold
 
-Creates canonical placeholders for supported artifact types.
+Crea placeholders canónicos para tipos de artefacto soportados.

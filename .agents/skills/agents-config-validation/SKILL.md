@@ -1,19 +1,19 @@
 # agents-config-validation
 
-Use this skill to validate canonical configuration and cross-references.
+Usa esta skill para validar la configuración canónica y las referencias cruzadas.
 
-## Use when
+## Cuándo usarla
 
-- validating profiles, pipelines or routing
-- checking required files exist
-- checking cross-link consistency
-- closing a canonical `.agents/` change after edits are applied
+- al validar perfiles, pipelines o routing
+- al comprobar que existen los archivos requeridos
+- al comprobar la consistencia de enlaces cruzados
+- al cerrar un cambio canónico en `.agents/` después de aplicar ediciones
 
-## Pair with
+## Combinar con
 
-- `agents-change-governance` when the task includes legacy migration, classification, or change-traceability work
+- `agents-change-governance` cuando la tarea incluya migración de legado, clasificación o trabajo de trazabilidad de cambios
 
-## Expected output
+## Salida esperada
 
-- validation report
-- actionable failures when integrity checks fail
+- informe de validación
+- fallos accionables cuando fallen los checks de integridad

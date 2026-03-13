@@ -1,44 +1,44 @@
-# WordPress Verification And Delivery
+# Verificación y entrega WordPress
 
-Use this reference to choose a verification strategy and keep change sets reviewable.
+Usa esta referencia para elegir una estrategia de verificación y mantener change sets revisables.
 
-## Verification strategy
+## Estrategia de verificación
 
-Choose the strongest available option:
+Elige la opción más fuerte disponible:
 
-1. Automated tests when infrastructure already exists
-2. Focused manual verification in WordPress when tests do not exist
-3. Both, when the risk justifies it
+1. tests automatizados cuando ya exista infraestructura
+2. verificación manual enfocada en WordPress cuando no existan tests
+3. ambas, cuando el riesgo lo justifique
 
-## If automated tests exist
+## Si existen tests automatizados
 
-- Start with a failing test when adding new behavior.
-- Keep tests focused on one behavior each.
-- Prefer fast, targeted execution over broad suite runs.
-- For browser tests, run the affected spec or a narrow grep, not the entire suite.
+- Empieza con un test en rojo al añadir comportamiento nuevo.
+- Mantén los tests enfocados en un único comportamiento cada uno.
+- Prioriza ejecución rápida y dirigida frente a suites amplias.
+- Para tests de navegador, ejecuta la spec afectada o un grep estrecho, no la suite completa.
 
-## If automated tests do not exist
+## Si no existen tests automatizados
 
-Manual verification is required:
+La verificación manual es obligatoria:
 
-1. Establish a baseline before editing.
-2. Verify immediately after each meaningful change.
-3. Check both admin and frontend when relevant.
-4. Review the WordPress debug log.
-5. Check console errors when JS or blocks are involved.
-6. Note any gaps you could not verify.
+1. Establece una línea base antes de editar.
+2. Verifica inmediatamente después de cada cambio significativo.
+3. Comprueba admin y frontend cuando corresponda.
+4. Revisa el WordPress debug log.
+5. Revisa errores de consola cuando haya JS o bloques implicados.
+6. Deja constancia de cualquier hueco que no hayas podido verificar.
 
-## Change-set discipline
+## Disciplina del change set
 
-- Keep the change focused on one problem or one feature slice.
-- Avoid mixing feature work with unrelated formatting or refactors.
-- Aim for a PR or delivery unit that is easy to review quickly.
-- If the diff becomes broad, split it before closing the work.
+- Mantén el cambio enfocado en un problema o en un slice de feature.
+- Evita mezclar trabajo de feature con formato o refactors no relacionados.
+- Busca un PR o unidad de entrega que sea fácil de revisar con rapidez.
+- Si el diff se amplía demasiado, divídelo antes de cerrar el trabajo.
 
-## Suggested closure checklist
+## Checklist sugerido de cierre
 
-- Relevant quality checks passed
-- Manual verification or automated tests executed
-- Debug log reviewed where applicable
-- Risks and limitations documented
-- Public interface or operator-facing docs updated if behavior changed
+- han pasado los checks de calidad relevantes
+- se ha ejecutado verificación manual o tests automatizados
+- se ha revisado el debug log cuando aplica
+- se han documentado riesgos y limitaciones
+- se ha actualizado la documentación de interfaz pública u operativa si cambió el comportamiento

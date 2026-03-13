@@ -1,41 +1,41 @@
 ---
 name: agents-change-governance
-description: Govern canonical `.agents/` changes and legacy migrations. Use when auditing old skills, classifying reusable content, applying minimal platform-safe refactors, and closing with traceable validation.
+description: Gobernar cambios canónicos en `.agents/` y migraciones de legado. Usar al auditar skills antiguas, clasificar contenido reusable, aplicar refactors mínimos seguros para la plataforma y cerrar con validación trazable.
 ---
 
 # agents-change-governance
 
-Use this skill to evolve `.agents/` without importing legacy material blindly.
+Usa esta skill para evolucionar `.agents/` sin importar material legado a ciegas.
 
-## Use when
+## Cuándo usarla
 
-- auditing skills or rules from legacy repositories
-- migrating reusable guidance into the current `.agents/` platform
-- changing canonical architecture, skills, tools, or validation flows
-- deciding whether legacy content should be refactored, merged, moved, or discarded
+- al auditar skills o reglas de repositorios legados
+- al migrar guías reutilizables a la plataforma actual de `.agents/`
+- al cambiar arquitectura canónica, skills, tools o flujos de validación
+- al decidir si contenido legado debe refactorizarse, fusionarse, moverse o descartarse
 
-## Workflow
+## Flujo de trabajo
 
-1. Read the current canonical context first:
+1. Leer primero el contexto canónico actual:
    - `.agents/AGENTS.md`
-   - relevant files in `.agents/architecture/`
-   - current skills in `.agents/skills/`
+   - archivos relevantes en `.agents/architecture/`
+   - skills actuales en `.agents/skills/`
    - `docs/agents-change-log.md`
    - `docs/agents-change-record.md`
-2. Audit the legacy material against the current platform before editing anything.
-3. Keep only reusable content that belongs inside canonical `.agents/`.
-4. Prefer improving an existing skill before creating a new one.
-5. When a new skill is justified, keep it single-purpose and move detailed guidance into `references/`.
-6. Close with explicit validation evidence and mandatory traceability updates.
+2. Auditar el material legado frente a la plataforma actual antes de editar nada.
+3. Mantener solo el contenido reusable que pertenezca al `.agents/` canónico.
+4. Priorizar mejorar una skill existente antes de crear una nueva.
+5. Cuando esté justificada una skill nueva, mantener una sola responsabilidad y mover la guía detallada a `references/`.
+6. Cerrar con evidencia explícita de validación y actualización obligatoria de trazabilidad.
 
-## References
+## Referencias
 
-- For classification rules and migration decisions, read `references/legacy-migration-audit.md`.
-- For execution guardrails, validation, and change recording, read `references/platform-change-checklist.md`.
+- Para reglas de clasificación y decisiones de migración, leer `references/legacy-migration-audit.md`.
+- Para guardrails de ejecución, validación y registro de cambios, leer `references/platform-change-checklist.md`.
 
-## Expected output
+## Salida esperada
 
-- a justified migration decision
-- minimal canonical edits in `.agents/`
-- updated change traceability in `docs/agents-change-record.md`
-- validation evidence or a precise explanation of why a check could not run
+- una decisión de migración justificada
+- ediciones canónicas mínimas en `.agents/`
+- trazabilidad de cambios actualizada en `docs/agents-change-record.md`
+- evidencia de validación o una explicación precisa de por qué no pudo ejecutarse un check

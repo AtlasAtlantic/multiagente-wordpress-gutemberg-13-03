@@ -1,45 +1,45 @@
-# Overview
+# Visión general
 
-## Purpose
+## Propósito
 
-This architecture defines a reusable multi-agent platform for WordPress projects, with Docker as a first-class operating context.
+Esta arquitectura define una plataforma multiagente reusable para proyectos WordPress, con Docker como contexto operativo de primera clase.
 
-## Canonical model
+## Modelo canónico
 
-The canonical model is composed of four explicit layers:
+El modelo canónico se compone de cuatro capas explícitas:
 
-- `platform`: architecture, roles, pipelines, skills, tools, schemas, and platform metadata
-- `profiles`: reusable WordPress and infrastructure variants
-- `project`: repository-specific context that activates profiles and local overrides
-- `runtime`: derived adapters that consume canonical inputs
+- `platform`: arquitectura, roles, pipelines, skills, tools, schemas y metadatos de plataforma
+- `profiles`: variantes reutilizables de WordPress e infraestructura
+- `project`: contexto específico del repositorio que activa perfiles y overrides locales
+- `runtime`: adaptadores derivados que consumen inputs canónicos
 
-The canonical artifacts stored in those layers are composed of:
+Los artefactos canónicos almacenados en esas capas incluyen:
 
-- agent roles
+- roles de agente
 - pipelines
-- profiles
-- project context
+- perfiles
+- contexto de proyecto
 - skills
 - tools
-- runtime adapters
-- validation schemas
+- adaptadores runtime
+- esquemas de validación
 
-## Base workflow
+## Flujo base
 
-The default workflow is:
+El flujo por defecto es:
 
 `planner -> builder -> reviewer -> fixer -> qa`
 
-This sequence is the default for feature work and the reference pattern for the rest of the system.
+Esta secuencia es el valor por defecto para trabajo de feature y el patrón de referencia para el resto del sistema.
 
-## Separation of concerns
+## Separación de responsabilidades
 
-- `architecture/` defines the rules
-- `agents/` defines the roles
-- `pipelines/` defines execution flow
-- `profiles/` defines reusable project adaptation
-- `project/` defines repository-local context
-- `skills/` defines reusable capability
-- `tools/` defines deterministic execution
-- `runtime/` defines derived adapter projection
-- `schemas/` defines formal validation
+- `architecture/` define las reglas
+- `agents/` define los roles
+- `pipelines/` define el flujo de ejecución
+- `profiles/` define la adaptación reusable por proyecto
+- `project/` define el contexto local del repositorio
+- `skills/` define capacidades reutilizables
+- `tools/` define la ejecución determinista
+- `runtime/` define la proyección derivada del adaptador
+- `schemas/` define la validación formal

@@ -1,14 +1,14 @@
 # agents-bootstrap-architecture
 
-Use this skill to create or expand the canonical `.agents/` structure.
+Usa esta skill para crear o ampliar la estructura canónica de `.agents/`.
 
-## Use when
+## Cuándo usarla
 
-- bootstrapping a new project
-- adding canonical directories or files
-- normalizing structure drift
+- al hacer bootstrap de un proyecto nuevo
+- al añadir directorios o archivos canónicos
+- al normalizar drift estructural
 
-## Expected output
+## Salida esperada
 
-- required directories created
-- base files created in the correct canonical path
+- directorios requeridos creados
+- archivos base creados en la ruta canónica correcta

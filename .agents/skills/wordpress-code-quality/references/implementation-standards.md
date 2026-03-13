@@ -1,63 +1,63 @@
-# WordPress Implementation Standards
+# Estándares de implementación WordPress
 
-This reference distills the reusable parts of the legacy standards for WordPress themes and plugins.
+Esta referencia destila las partes reutilizables de los estándares antiguos para themes y plugins de WordPress.
 
-## Pre-implementation analysis
+## Análisis previo a la implementación
 
-Before writing code:
+Antes de escribir código:
 
-1. Find similar classes, hooks, blocks, templates, or helpers already present.
-2. Inspect naming, hook registration, dependency style, return types, and error handling.
-3. Reuse existing patterns unless there is a documented reason to diverge.
-4. Check whether WordPress core already provides the behavior you need.
+1. Encuentra clases, hooks, bloques, templates o helpers similares que ya existan.
+2. Inspecciona naming, registro de hooks, estilo de dependencias, tipos de retorno y gestión de errores.
+3. Reutiliza patrones existentes salvo que haya un motivo documentado para desviarse.
+4. Comprueba si WordPress core ya proporciona el comportamiento que necesitas.
 
-## Coding standards
+## Estándares de código
 
-- Use `declare(strict_types=1);` when the repository already follows typed PHP.
-- Keep one responsibility per class or module.
-- Prefer `final` classes when inheritance is not needed.
-- Match class names to file names and keep structure PSR-4 compatible when the project uses autoloading.
-- Use hooks and filters instead of direct execution where WordPress lifecycle integration is required.
-- Register theme support in `after_setup_theme`.
-- Register runtime behavior in the correct hook instead of eager execution.
+- Usa `declare(strict_types=1);` cuando el repositorio ya siga PHP tipado.
+- Mantén una responsabilidad por clase o módulo.
+- Prioriza clases `final` cuando no haga falta herencia.
+- Haz coincidir nombres de clase con nombres de archivo y mantén una estructura compatible con PSR-4 cuando el proyecto use autoloading.
+- Usa hooks y filters en lugar de ejecución directa cuando se requiera integración con el ciclo de vida de WordPress.
+- Registra theme support en `after_setup_theme`.
+- Registra comportamiento runtime en el hook correcto en lugar de ejecución ansiosa.
 
-## Security rules
+## Reglas de seguridad
 
-- Sanitize at input with the narrowest appropriate helper.
-- Escape at output with the narrowest appropriate helper.
-- Use `wp_kses_post()` only when HTML is intentionally allowed.
-- Require nonces for forms, AJAX, and privileged state changes.
-- Require capability checks before edits, deletes, or configuration changes.
-- Prefer WordPress APIs for posts, metadata, users, taxonomies, and options.
-- Avoid raw SQL. If it is necessary, require `$wpdb->prepare()`.
-- Validate file paths, existence, and readability before file operations.
+- Sanitiza en entrada con el helper más estrecho y adecuado.
+- Escapa en salida con el helper más estrecho y adecuado.
+- Usa `wp_kses_post()` solo cuando se permita HTML de forma intencional.
+- Exige nonces en formularios, AJAX y cambios de estado privilegiados.
+- Exige checks de capacidad antes de ediciones, borrados o cambios de configuración.
+- Prioriza APIs de WordPress para posts, metadatos, usuarios, taxonomías y options.
+- Evita raw SQL. Si es necesario, exige `$wpdb->prepare()`.
+- Valida rutas de archivo, existencia y legibilidad antes de operaciones con archivos.
 
-## Error handling and logging
+## Gestión de errores y logging
 
-- Do not commit `var_dump`, `print_r`, `dd`, or equivalent debug code.
-- Prefer structured `error_log()` messages gated by `WP_DEBUG_LOG` in development-oriented flows.
-- Include stable context keys such as `post_id`, `user_id`, `hook_name`, or `file_path`.
-- Never log secrets, tokens, passwords, or sensitive personal data.
-- Do not catch exceptions just to continue silently.
-- If you catch, either:
-  - add meaningful context and rethrow, or
-  - convert to a domain-appropriate error path with logging
-- Use `is_wp_error()` checks on WordPress API results that can fail.
-- Keep user-facing failure messages generic; keep internals in logs.
+- No comitees `var_dump`, `print_r`, `dd` ni código equivalente de debug.
+- Prioriza mensajes estructurados de `error_log()` condicionados por `WP_DEBUG_LOG` en flujos orientados a desarrollo.
+- Incluye claves de contexto estables como `post_id`, `user_id`, `hook_name` o `file_path`.
+- No loguees nunca secretos, tokens, contraseñas ni datos personales sensibles.
+- No captures excepciones solo para continuar en silencio.
+- Si capturas, o bien:
+  - añades contexto útil y relanzas, o
+  - conviertes el error en una ruta apropiada de dominio con logging
+- Usa checks de `is_wp_error()` sobre resultados de APIs de WordPress que puedan fallar.
+- Mantén genéricos los mensajes de fallo de cara al usuario; los detalles internos, a logs.
 
-## Common WordPress preferences
+## Preferencias comunes en WordPress
 
-- Use `WP_Query`, `get_posts()`, and core APIs before custom SQL.
-- Use text domains consistently for translatable strings.
-- Use `after_setup_theme`, `init`, `wp_enqueue_scripts`, `admin_enqueue_scripts`, and similar lifecycle hooks intentionally.
-- Load assets only where needed.
+- Usa `WP_Query`, `get_posts()` y APIs core antes que SQL custom.
+- Usa text domains de forma consistente para cadenas traducibles.
+- Usa `after_setup_theme`, `init`, `wp_enqueue_scripts`, `admin_enqueue_scripts` y hooks similares de forma intencional.
+- Carga assets solo donde se necesiten.
 
-## Anti-patterns
+## Anti-patrones
 
-- Direct output without escaping
-- Nonce-free privileged actions
-- Capability-free admin actions
-- Swallowed exceptions
-- Raw SQL with interpolated values
-- File includes without validation
-- New patterns introduced without checking existing repository conventions
+- salida directa sin escape
+- acciones privilegiadas sin nonce
+- acciones de administración sin checks de capacidad
+- excepciones tragadas
+- raw SQL con valores interpolados
+- includes de archivos sin validación
+- patrones nuevos introducidos sin comprobar convenciones existentes del repositorio

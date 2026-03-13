@@ -1,13 +1,13 @@
 # agents-architecture-design
 
-Use this skill to define or refine canonical architecture artifacts.
+Usa esta skill para definir o refinar artefactos de arquitectura canónica.
 
-## Use when
+## Cuándo usarla
 
-- defining principles, routing or state
-- refining contracts between roles
-- clarifying guardrails
+- al definir principios, routing o estado
+- al refinar contratos entre roles
+- al aclarar guardrails
 
-## Expected output
+## Salida esperada
 
-- updated artifacts in `.agents/architecture/`
+- artefactos actualizados en `.agents/architecture/`

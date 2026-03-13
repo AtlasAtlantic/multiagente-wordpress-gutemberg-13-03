@@ -1,8 +1,8 @@
-# Agents
+# Agentes
 
-This directory will contain the canonical role definitions for the base agent system.
+Este directorio contiene las definiciones canónicas de roles del sistema base de agentes.
 
-Planned v1 roles:
+Roles previstos para v1:
 
 - `planner.md`
 - `builder.md`
@@ -10,7 +10,7 @@ Planned v1 roles:
 - `fixer.md`
 - `qa.md`
 
-Current status:
+Estado actual:
 
-- directory scaffolded
-- ready for Phase 4 implementation
+- directorio scaffoldeado
+- listo para la implementación de la Fase 4

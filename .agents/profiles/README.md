@@ -1,8 +1,8 @@
-# Profiles
+# Perfiles
 
-This directory contains reusable profiles that adapt the agent layer to WordPress project types and infrastructure patterns.
+Este directorio contiene perfiles reutilizables que adaptan la capa de agentes a tipos de proyecto WordPress y patrones de infraestructura.
 
-Reusable profiles:
+Perfiles reutilizables:
 
 - `wordpress-plugin.yaml`
 - `wordpress-theme.yaml`
@@ -11,12 +11,12 @@ Reusable profiles:
 - `docker-wordpress-standard.yaml`
 - `generic-web.yaml`
 
-Compatibility profiles:
+Perfiles de compatibilidad:
 
 - `wordpress.yaml`
 
-Rules:
+Reglas:
 
-- reusable assumptions only
-- no repository-specific paths or service names
-- project activation happens in `.agents/project/project.yaml`
+- solo asunciones reutilizables
+- sin rutas ni nombres de servicios específicos del repositorio
+- la activación del proyecto ocurre en `.agents/project/project.yaml`

@@ -1,47 +1,47 @@
-# `.agents/` Source of Truth
+# Fuente de verdad de `.agents/`
 
-## Purpose
+## Propósito
 
-This directory is the canonical source of truth for the multi-agent layer of this project and the reusable WordPress platform it carries.
+Este directorio es la fuente de verdad canónica de la capa multiagente de este proyecto y de la plataforma reusable de WordPress que incorpora.
 
-It defines:
+Define:
 
-- platform architecture
-- agent roles
-- reusable pipelines
-- reusable profiles
-- project context
+- arquitectura de plataforma
+- roles de agente
+- pipelines reutilizables
+- perfiles reutilizables
+- contexto del proyecto
 - skills
-- agent tools
-- runtime adapters
-- validation schemas
+- herramientas del agente
+- adaptadores runtime
+- esquemas de validación
 
-## Rules
+## Reglas
 
-- Anything outside `.agents/` is derived, contextual, or runtime-specific.
-- Runtime-specific outputs must not redefine canonical behavior.
-- Changes to this directory must be reflected in `docs/agents-change-record.md`.
-- Validation and sync flows must treat `.agents/` as the upstream source.
-- The canonical model is layered as `platform`, `profiles`, `project`, and `runtime`.
-- Repository-specific paths, services, and overrides belong in `project/`, not in reusable profiles.
+- Todo lo que quede fuera de `.agents/` es derivado, contextual o específico de un runtime.
+- Los outputs específicos de runtime no deben redefinir el comportamiento canónico.
+- Los cambios en este directorio deben reflejarse en `docs/agents-change-record.md`.
+- Los flujos de validación y sincronización deben tratar `.agents/` como origen upstream.
+- El modelo canónico se organiza en `platform`, `profiles`, `project` y `runtime`.
+- Las rutas, servicios y overrides específicos del repositorio pertenecen a `project/`, no a los perfiles reutilizables.
 
-## Initial scope
+## Alcance inicial
 
-This platform targets reusable WordPress + Docker work across projects and prepares canonical projections for:
+Esta plataforma está orientada a trabajo reusable de WordPress + Docker entre proyectos y prepara proyecciones canónicas para:
 
 - Codex
 - Claude
 - Cursor
 - ChatGPT
 
-## Directory map
+## Mapa de directorios
 
-- `architecture/`: canonical principles and contracts
-- `agents/`: role definitions
-- `pipelines/`: standard workflows
-- `profiles/`: reusable project-type and infrastructure behavior
-- `project/`: repository-specific context and active profiles
-- `skills/`: reusable capabilities
-- `tools/`: deterministic tooling for the agent layer
-- `runtime/`: runtime adapter definitions and generated outputs
-- `schemas/`: formal validation rules
+- `architecture/`: principios y contratos canónicos
+- `agents/`: definiciones de roles
+- `pipelines/`: flujos de trabajo estándar
+- `profiles/`: comportamiento reutilizable por tipo de proyecto e infraestructura
+- `project/`: contexto específico del repositorio y perfiles activos
+- `skills/`: capacidades reutilizables
+- `tools/`: tooling determinista para la capa de agentes
+- `runtime/`: definiciones de adaptadores runtime y outputs generados
+- `schemas/`: reglas formales de validación

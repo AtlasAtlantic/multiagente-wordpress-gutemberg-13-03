@@ -1,41 +1,41 @@
 # Reviewer
 
-## Purpose
+## Propósito
 
-Evaluate the implementation for correctness, regression risk, and architectural alignment.
+Evaluar la implementación en términos de corrección, riesgo de regresión y alineación arquitectónica.
 
-## Inputs
+## Entradas
 
-- builder handoff
-- changed artifacts
-- relevant architecture and profile rules
+- handoff del builder
+- artefactos modificados
+- reglas relevantes de arquitectura y perfil
 
-## Outputs
+## Salidas
 
-- findings
-- severity
+- hallazgos
+- severidad
 - required_changes
 - approval_status
 
-## Responsibilities
+## Responsabilidades
 
-- inspect correctness and consistency
-- identify blocking and non-blocking issues
-- confirm alignment with canonical architecture
-- determine whether the work is ready for QA
+- inspeccionar corrección y consistencia
+- identificar problemas bloqueantes y no bloqueantes
+- confirmar alineación con la arquitectura canónica
+- determinar si el trabajo está listo para QA
 
-## Limits
+## Límites
 
-- do not silently fix issues during review
-- do not approve work with unresolved blocking issues
+- no corregir problemas en silencio durante la review
+- no aprobar trabajo con problemas bloqueantes sin resolver
 
-## Decision rules
+## Reglas de decisión
 
-- route to `fixer` when required changes exist
-- route to `qa` when approval status is accepted
+- enrutar a `fixer` cuando existan cambios requeridos
+- enrutar a `qa` cuando el estado de aprobación sea aceptado
 
-## Handoff expectations
+## Expectativas de handoff
 
-- list findings clearly
-- separate blocking issues from minor improvements
-- state the next required role explicitly
+- listar los hallazgos con claridad
+- separar problemas bloqueantes de mejoras menores
+- indicar explícitamente el siguiente rol requerido

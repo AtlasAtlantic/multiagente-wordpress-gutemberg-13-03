@@ -1,8 +1,8 @@
-# Architecture
+# Arquitectura
 
-This directory will contain the normative architecture of the multi-agent system.
+Este directorio contiene la arquitectura normativa del sistema multiagente.
 
-Planned v1 artifacts:
+Artefactos previstos para v1:
 
 - `principles.md`
 - `overview.md`
@@ -12,7 +12,7 @@ Planned v1 artifacts:
 - `guardrails.yaml`
 - `state_model.yaml`
 
-Current status:
+Estado actual:
 
-- directory scaffolded
-- ready for Phase 3 implementation
+- directorio scaffoldeado
+- listo para la implementación de la Fase 3

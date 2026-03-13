@@ -1,15 +1,15 @@
 # Tools
 
-This directory will contain deterministic tooling for the agent layer.
+Este directorio contiene tooling determinista para la capa de agentes.
 
-Planned v1 tools:
+Tools previstas para v1:
 
 - `doctor/`
 - `validate-config/`
 - `sync-runtime/`
 - `scaffold/`
 
-Current status:
+Estado actual:
 
-- directory scaffolded
-- ready for Phase 8 implementation
+- directorio scaffoldeado
+- listo para la implementación de la Fase 8

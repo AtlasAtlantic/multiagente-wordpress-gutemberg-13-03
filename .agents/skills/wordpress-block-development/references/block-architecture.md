@@ -1,34 +1,34 @@
-# Block Architecture
+# Arquitectura de bloques
 
-This reference condenses the reusable architecture rules from the legacy block standards.
+Esta referencia condensa las reglas reutilizables de arquitectura procedentes de los estándares antiguos de bloques.
 
-## Core decisions
+## Decisiones núcleo
 
-- Use the WordPress Block API as the baseline.
-- Keep `block.json` as the metadata source of truth.
-- If the repository compiles assets, register blocks from `build/`, not `src/`.
-- Separate editor-only logic, frontend logic, and server rendering.
+- Usa la WordPress Block API como base.
+- Mantén `block.json` como fuente de verdad de metadatos.
+- Si el repositorio compila assets, registra bloques desde `build/`, no desde `src/`.
+- Separa la lógica exclusiva del editor, la lógica frontend y el renderizado en servidor.
 
-## Static vs SSR
+## Estático frente a SSR
 
-Prefer SSR when:
+Prioriza SSR cuando:
 
-- the block depends on posts, taxonomies, users, settings, or external data
-- the rendered HTML should stay indexable and consistent
-- permissions or server-side business rules affect rendering
-- one canonical render path should be shared across contexts
+- el bloque dependa de posts, taxonomías, usuarios, settings o datos externos
+- el HTML renderizado deba seguir siendo indexable y consistente
+- los permisos o reglas de negocio server-side afecten al render
+- deba compartirse una única ruta canónica de render entre contextos
 
-Prefer static when:
+Prioriza estático cuando:
 
-- the block is editorial and self-contained
-- markup does not depend on runtime data
-- the block does not need server-side decisions
+- el bloque sea editorial y autocontenido
+- el marcado no dependa de datos runtime
+- el bloque no necesite decisiones server-side
 
-If unsure and runtime data is involved, prefer SSR.
+Si hay duda y entran en juego datos runtime, prioriza SSR.
 
-## Expected structure
+## Estructura esperada
 
-Typical source layout:
+Estructura típica de fuentes:
 
 - `block.json`
 - `index.js`
@@ -39,24 +39,24 @@ Typical source layout:
 - `editor.*`
 - `view.js` only when frontend interaction exists
 
-Related artifacts may also include:
+Los artefactos relacionados también pueden incluir:
 
 - patterns
 - templates
 - template parts
 
-## Registration rules
+## Reglas de registro
 
-- Register blocks on `init`.
-- Point `register_block_type()` at the directory containing `block.json`.
-- In built projects, point registration to built artifacts.
-- Use render callbacks for SSR blocks.
-- Enqueue frontend scripts conditionally when interaction depends on attributes or context.
+- Registra bloques en `init`.
+- Haz que `register_block_type()` apunte al directorio que contiene `block.json`.
+- En proyectos con build, apunta el registro a artefactos compilados.
+- Usa render callbacks para bloques SSR.
+- Encola scripts frontend de forma condicional cuando la interacción dependa de atributos o contexto.
 
-## Metadata guidance
+## Guía de metadatos
 
-- Keep `name` namespaced and kebab-case.
-- Use only the `supports` flags the design actually allows.
-- Disable HTML editing when editorial freedom is not intended.
-- Keep attributes minimal, serializable, and forward-compatible.
-- Avoid storing large objects or REST payloads in attributes.
+- Mantén `name` con namespace y en kebab-case.
+- Usa solo los flags de `supports` que el diseño permita realmente.
+- Desactiva la edición HTML cuando no se quiera libertad editorial.
+- Mantén atributos mínimos, serializables y compatibles hacia adelante.
+- Evita almacenar objetos grandes o payloads REST en los atributos.

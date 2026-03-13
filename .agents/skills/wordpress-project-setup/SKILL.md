@@ -1,18 +1,18 @@
 # wordpress-project-setup
 
-Use this skill to adapt canonical artifacts to a WordPress project.
+Usa esta skill para adaptar artefactos canónicos a un proyecto WordPress.
 
-## Use when
+## Cuándo usarla
 
-- configuring WordPress paths
-- defining WordPress-specific checks
-- aligning profiles or pipelines with WordPress constraints
+- al configurar rutas WordPress
+- al definir checks específicos de WordPress
+- al alinear profiles o pipelines con restricciones de WordPress
 
-## Pair with
+## Combinar con
 
-- `wordpress-code-quality` for implementation, verification, and delivery rules
-- `wordpress-block-development` for custom block architecture and validation
+- `wordpress-code-quality` para reglas de implementación, verificación y entrega
+- `wordpress-block-development` para arquitectura y validación de bloques custom
 
-## Expected output
+## Salida esperada
 
-- WordPress-aware canonical configuration
+- configuración canónica adaptada a WordPress

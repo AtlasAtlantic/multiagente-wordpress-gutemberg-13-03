@@ -1,10 +1,10 @@
-# Project Context
+# Contexto del proyecto
 
-This directory contains repository-specific canonical context.
+Este directorio contiene el contexto canónico específico del repositorio.
 
-Rules:
+Reglas:
 
-- use it for active profiles, local paths, service names, and overrides
-- do not duplicate reusable WordPress assumptions that already live in `profiles/`
-- do not duplicate reusable tool preferences or stack defaults unless a local override is required
-- runtime adapters may consume this context, but must not redefine it
+- úsalo para perfiles activos, rutas locales, nombres de servicios y overrides
+- no dupliques asunciones reutilizables de WordPress que ya vivan en `profiles/`
+- no dupliques preferencias reutilizables de tools o defaults del stack salvo que se requiera un override local
+- los adaptadores runtime pueden consumir este contexto, pero no redefinirlo
