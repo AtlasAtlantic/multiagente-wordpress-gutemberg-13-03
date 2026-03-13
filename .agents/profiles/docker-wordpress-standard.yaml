@@ -1,0 +1,33 @@
+version: v2
+profile: docker-wordpress-standard
+kind: infrastructure
+description: Reusable infrastructure profile for a standard Docker-based WordPress stack.
+project_type: docker-wordpress-standard
+stack:
+  runtime:
+    - wordpress
+    - php
+    - mariadb
+    - caddy
+  orchestration:
+    - docker-compose
+  cli:
+    - wp-cli
+paths: {}
+services: {}
+tool_preferences:
+  wordpress_ops:
+    - docker compose run --rm wp-cli wp
+  stack_ops:
+    - docker compose
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+  - audit
+recommended_skills:
+  - docker-wordpress-stack
+checks: []
+notes:
+  - reusable Docker assumptions belong here
+  - service names and local mount paths belong in `.agents/project/project.yaml`

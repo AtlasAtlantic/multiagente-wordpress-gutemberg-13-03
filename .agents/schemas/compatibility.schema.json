@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents Platform Compatibility",
+  "type": "object",
+  "required": ["runtimes", "project_types", "infrastructure_profiles", "compatibility_profiles", "requirements"],
+  "properties": {
+    "runtimes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["supported", "role"],
+        "properties": {
+          "supported": { "type": "boolean" },
+          "role": { "type": "string" }
+        }
+      }
+    },
+    "project_types": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "infrastructure_profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "compatibility_profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "optional_capabilities": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

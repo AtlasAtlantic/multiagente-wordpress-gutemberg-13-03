@@ -1,0 +1,25 @@
+version: v2
+profile: wordpress-plugin
+kind: wordpress
+description: Reusable profile for WordPress plugin projects.
+project_type: wordpress-plugin
+stack:
+  runtime:
+    - wordpress
+    - php
+  orchestration: []
+  cli:
+    - wp-cli
+paths: {}
+services: {}
+tool_preferences: {}
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+recommended_skills:
+  - wordpress-project-setup
+checks: []
+notes:
+  - use for repositories centered on one or more plugins
+  - pair with infrastructure profiles such as `docker-wordpress-standard` when needed

@@ -1,0 +1,30 @@
+runtimes:
+  codex:
+    supported: true
+    role: derived-adapter
+  claude:
+    supported: true
+    role: derived-adapter
+  cursor:
+    supported: true
+    role: derived-adapter
+  chatgpt:
+    supported: true
+    role: derived-adapter
+project_types:
+  generic-web: true
+  wordpress-plugin: true
+  wordpress-theme: true
+  wordpress-block-theme: true
+  wordpress-hybrid: true
+infrastructure_profiles:
+  - docker-wordpress-standard
+compatibility_profiles:
+  - wordpress
+optional_capabilities:
+  docker: true
+  wp_cli: true
+requirements:
+  docker: optional
+  wp_cli: recommended
+  yaml_schema_validation: required

@@ -1,0 +1,25 @@
+version: v2
+profile: wordpress-theme
+kind: wordpress
+description: Reusable profile for classic WordPress themes.
+project_type: wordpress-theme
+stack:
+  runtime:
+    - wordpress
+    - php
+  orchestration: []
+  cli:
+    - wp-cli
+paths: {}
+services: {}
+tool_preferences: {}
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+recommended_skills:
+  - wordpress-project-setup
+checks: []
+notes:
+  - use for classic themes or child themes
+  - pair with project context for actual theme paths and local conventions

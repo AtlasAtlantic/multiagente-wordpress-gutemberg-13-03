@@ -4,13 +4,16 @@ This directory contains reusable profiles that adapt the agent layer to WordPres
 
 Reusable profiles:
 
-- `wordpress.yaml` (legacy umbrella compatibility profile)
 - `wordpress-plugin.yaml`
 - `wordpress-theme.yaml`
 - `wordpress-block-theme.yaml`
 - `wordpress-hybrid.yaml`
 - `docker-wordpress-standard.yaml`
 - `generic-web.yaml`
+
+Compatibility profiles:
+
+- `wordpress.yaml`
 
 Rules:
 

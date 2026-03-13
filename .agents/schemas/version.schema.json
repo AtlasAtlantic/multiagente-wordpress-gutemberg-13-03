@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents Platform Version",
+  "type": "object",
+  "required": ["platform_name", "platform_version", "spec_version", "status", "source_of_truth"],
+  "properties": {
+    "platform_name": { "type": "string" },
+    "platform_version": { "type": "string" },
+    "spec_version": { "type": ["string", "integer"] },
+    "status": { "type": "string" },
+    "source_of_truth": { "type": "string" }
+  }
+}

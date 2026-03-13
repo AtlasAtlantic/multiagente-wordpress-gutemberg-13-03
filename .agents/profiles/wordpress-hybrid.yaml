@@ -1,0 +1,27 @@
+version: v2
+profile: wordpress-hybrid
+kind: wordpress
+description: Reusable profile for repositories combining plugin, theme, or block-level work.
+project_type: wordpress-hybrid
+stack:
+  runtime:
+    - wordpress
+    - php
+  orchestration: []
+  cli:
+    - wp-cli
+paths: {}
+services: {}
+tool_preferences: {}
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+  - audit
+recommended_skills:
+  - wordpress-project-setup
+  - docker-wordpress-stack
+checks: []
+notes:
+  - use when the repository spans multiple WordPress domains
+  - keep local structure decisions in `.agents/project/project.yaml`

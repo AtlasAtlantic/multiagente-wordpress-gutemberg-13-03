@@ -1,27 +1,22 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Agent Profile",
+  "title": "Agents Project Context",
   "type": "object",
-  "required": ["version", "profile", "description", "applicable_pipelines"],
+  "required": ["version", "project_name", "project_type", "active_profiles"],
   "properties": {
     "version": { "type": "string" },
-    "profile": { "type": "string" },
-    "kind": { "type": "string" },
-    "status": { "type": "string" },
-    "description": { "type": "string" },
+    "project_name": { "type": "string" },
     "project_type": { "type": "string" },
+    "active_profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
     "stack": { "type": "object" },
+    "conventions": { "type": "object" },
     "paths": { "type": "object" },
     "services": { "type": "object" },
+    "project_overrides": { "type": "object" },
     "tool_preferences": { "type": "object" },
-    "applicable_pipelines": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-    "recommended_skills": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
     "checks": {
       "type": "array",
       "items": {

@@ -1,7 +1,0 @@
-runtime=cursor
-adapter_role=derived-runtime
-source=.agents
-revision=3d33fd8
-platform_version=2.0.0
-spec=2
-active_profiles=wordpress-hybrid,docker-wordpress-standard

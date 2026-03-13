@@ -1,0 +1,40 @@
+version: v2
+project_name: wordpress-ai-multiagent-base
+project_type: wordpress-hybrid
+active_profiles:
+  - wordpress-hybrid
+  - docker-wordpress-standard
+stack:
+  php: "8.2"
+  wordpress: "latest"
+  runtime: docker
+conventions:
+  changelog_instructions: docs/agents-change-log.md
+  change_record: docs/agents-change-record.md
+paths:
+  app_root: wordpress
+  wp_content: wordpress/wp-content
+  plugins: wordpress/wp-content/plugins
+  themes: wordpress/wp-content/themes
+  mu_plugins: wordpress/wp-content/mu-plugins
+services:
+  db: db
+  wordpress: wordpress
+  web: caddy
+  cli: wp-cli
+project_overrides:
+  docker_service_wordpress: wordpress
+  docker_service_db: db
+  docker_service_web: caddy
+  wp_cli_mode: docker-run
+checks:
+  - name: compose_config_valid
+    command: docker compose config
+  - name: wordpress_tree_exists
+    command: test -d wordpress/wp-content
+  - name: wp_cli_service_declared
+    command: rg "^  wp-cli:" docker-compose.yml
+notes:
+  - this repository activates the reusable hybrid WordPress profile and the standard Docker infrastructure profile
+  - local paths, service names, and project-only checks are intentionally kept here to avoid leaking repo specifics into reusable profiles
+  - reusable tool preferences must stay in active profiles unless a repo-specific override is strictly needed

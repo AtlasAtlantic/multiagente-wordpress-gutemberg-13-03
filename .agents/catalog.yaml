@@ -1,0 +1,27 @@
+agents:
+  - planner
+  - builder
+  - reviewer
+  - fixer
+  - qa
+pipelines:
+  - feature
+  - bugfix
+  - refactor
+  - audit
+profiles:
+  reusable:
+    - generic-web
+    - wordpress-plugin
+    - wordpress-theme
+    - wordpress-block-theme
+    - wordpress-hybrid
+    - docker-wordpress-standard
+  compatibility:
+    - wordpress
+domains:
+  - platform
+  - wordpress
+  - docker
+  - quality
+  - runtime

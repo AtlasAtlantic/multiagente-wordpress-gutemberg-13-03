@@ -1,0 +1,26 @@
+version: v2
+profile: wordpress-block-theme
+kind: wordpress
+description: Reusable profile for block-theme and Gutenberg-oriented projects.
+project_type: wordpress-block-theme
+stack:
+  runtime:
+    - wordpress
+    - php
+    - node
+  orchestration: []
+  cli:
+    - wp-cli
+paths: {}
+services: {}
+tool_preferences: {}
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+recommended_skills:
+  - wordpress-project-setup
+checks: []
+notes:
+  - use when block templates, theme.json, and asset builds are central
+  - keep project-specific build commands in `.agents/project/project.yaml`

@@ -1,6 +1,7 @@
 version: v2
 profile: wordpress
 kind: wordpress
+status: compatibility-profile
 description: Legacy umbrella profile for WordPress repositories. Prefer specific WordPress profiles plus infrastructure and project context.
 project_type: wordpress
 stack:
@@ -23,6 +24,7 @@ recommended_skills:
   - docker-wordpress-stack
 checks: []
 notes:
+  - status is `compatibility-profile`
   - prefer `wordpress-plugin`, `wordpress-theme`, `wordpress-block-theme`, or `wordpress-hybrid` for reusable modeling
   - combine with `docker-wordpress-standard` when Docker is part of the stack
   - keep repository-specific paths, services, and checks in `.agents/project/project.yaml`
