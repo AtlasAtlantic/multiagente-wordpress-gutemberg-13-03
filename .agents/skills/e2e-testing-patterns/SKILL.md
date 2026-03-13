@@ -318,6 +318,12 @@ Si ocurre cualquiera de esos casos, la salida correcta no es "solo faltan ajusta
 - explicar qué dependencia de locale o versión la invalida
 - redefinir la estrategia con helpers o selectores estables antes de darla por buena
 
+Regla adicional de invalidez:
+
+- si el plugin o bloque bajo prueba usa literales fuente visibles no ingleses o no internacionalizados, no declarar el flujo E2E como correctamente cerrado
+- en ese caso, el problema no es solo del test; la implementación también bloquea un cierre sólido
+- no aceptar diagnósticos que culpen al entorno o al stack antes de comprobar esta clase de incumplimientos estructurales
+
 estado final observable > interacción interna del editor.
 
 Smells que obligan a replantear el test:

@@ -87,6 +87,11 @@ If the plugin adds or modifies visible UI text:
 - source strings in code must be written in English
 - do not use Spanish or another locale as the source literal in PHP, JS, settings pages, notices, or admin UI
 
+This is a closure rule, not just a style preference:
+
+- a plugin change with visible source strings in Spanish or another locale is not valid for closure
+- a plugin change with visible strings not passed through WordPress i18n is not valid for closure
+
 Examples:
 
 - PHP: `__( 'Settings saved.', 'text-domain' )`

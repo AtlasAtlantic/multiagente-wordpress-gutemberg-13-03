@@ -191,6 +191,12 @@ If the block defines visible text in editor UI, inspector controls, placeholders
 - source strings in code must be written in English
 - do not use Spanish or another locale as the source literal in JS, PHP, `block.json`-related UI strings, or block defaults intended for display
 
+This is a closure rule, not just a style preference:
+
+- a block is not valid for closure if visible source strings are written in Spanish or another locale
+- a block is not valid for closure if visible UI strings bypass WordPress i18n
+- if the implementation does not leave stable, language-independent hooks for testing, E2E closure must be considered incomplete
+
 Examples:
 
 - JS: `__( 'Block title', 'text-domain' )`
