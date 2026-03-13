@@ -43,6 +43,12 @@ Guidelines:
 - Prefer a dedicated loader/class to register hooks.
 - Keep admin-only code behind `is_admin()` (or admin hooks) to reduce frontend overhead.
 
+Closure rules for structure:
+
+- a plugin target is not valid for closure if it keeps parallel architectures active at once (for example `includes/` legacy plus new `src/` runtime without a clear migration boundary)
+- a plugin target is not valid for closure if old bootstrap paths, duplicate registrars, or stale implementation roots remain after the change
+- if the plugin ships visible functionality or assets, the runtime contract must be explicit and clean before E2E or QA closure
+
 See:
 - `references/structure.md`
 

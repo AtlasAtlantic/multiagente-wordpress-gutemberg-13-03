@@ -37,6 +37,10 @@ Convertir la solicitud del usuario en un plan tecnico completo, ejecutable y sin
 23. En esas tareas, no permitas una spec que dependa simultaneamente del locale del admin, del inserter visual, de selectores internos de Gutenberg y de permalinks bonitos salvo que el objetivo del test sea precisamente validar esas capas.
 24. Si el target usa build de bloques, el plan debe comprobar que la salida compilada y `block.json` forman un contrato coherente y consumible por WordPress; si hay build, no dejes ambiguo el uso de `src/` frente a `build/`.
 25. Antes de proponer E2E de bloques Gutenberg, exige en el plan evidencia o pasos para validar: plugin/theme activo, build ejecutable si aplica, registro cliente del bloque y registro server-side cuando el bloque sea dinamico.
+26. En tareas de plugin o bloques con UI visible, el plan debe incluir como condicion de cierre: source strings visibles en ingles y paso por i18n estándar de WordPress; si no puede cumplirse, marca `status: blocked`.
+27. En tareas de bloques, el plan debe declarar explicitamente si el contrato del target es `build` o `no-build`; no dejes ambigua una estructura con `src/`, `build/` o artefactos runtime mezclados.
+28. Si durante la exploracion detectas restos de arquitecturas paralelas, directorios duplicados o mezcla de estrategias dentro del mismo target, no planifiques “sobre esa base”; primero exige limpieza del target y trata el cierre como bloqueado hasta resolverla.
+29. No consideres aceptable un plan E2E si la futura spec depende de textos visibles del admin, traducciones, placeholders localizados o titulos visibles del bloque como selector principal.
 
 ## Formato Obligatorio De Salida
 ```yaml
@@ -65,3 +69,6 @@ status: "done|blocked"
 ## Condiciones De Bloqueo
 - Falta contexto no inferible del repositorio.
 - Requisitos en conflicto que afectan decisiones principales.
+- El target de plugin o bloque tiene arquitectura mixta o sucia y no se ha aislado una estructura unica.
+- El cambio requiere UI visible pero no garantiza i18n WordPress con source strings en ingles.
+- El bloque requiere contrato de assets y no se ha decidido de forma explicita `build` vs `no-build`.

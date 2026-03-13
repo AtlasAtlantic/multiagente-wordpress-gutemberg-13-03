@@ -43,3 +43,27 @@ Reglas de uso:
 
 - Se crea esta bitácora para registrar futuros cambios de configuración de Codex de forma cronológica.
 - A partir de este punto, los cambios de configuración Codex deben añadir aquí una nueva entrada.
+
+### 2026-03-13
+
+#### 4. Endurecimiento del pipeline y skills para bloques Gutenberg y E2E
+
+- Se endurecieron las skills de desarrollo y testing para bloquear cierres falsos en plugins, bloques y block themes.
+- Se dejó explícito que no son cerrables:
+  - source strings visibles no ingleses
+  - ausencia de i18n estándar de WordPress
+  - targets sucios o con arquitecturas paralelas
+  - contratos ambiguos entre `build` y `no-build`
+  - specs E2E de Gutenberg frágiles por dependencia de locale, labels o placeholders del admin
+- Se reforzó el pipeline en:
+  - `.agents/prompts/planner.md`
+  - `.agents/prompts/reviewer.md`
+  - `.agents/prompts/qa.md`
+- Se reforzaron las skills en:
+  - `.agents/skills/wp-plugin-development/SKILL.md`
+  - `.agents/skills/wp-block-development/SKILL.md`
+  - `.agents/skills/wp-block-themes/SKILL.md`
+  - `.agents/skills/e2e-testing-patterns/SKILL.md`
+- Se actualizó la documentación de arquitectura para reflejar estos bloqueos de cierre.
+- Validación ejecutada:
+  - `./.agents/tools/agents-doctor.sh`

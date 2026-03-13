@@ -92,6 +92,13 @@ Operational rules for that contract:
 - do not place compiled artifacts outside the plugin/theme target
 - do not compile into the same folder that contains block source files
 
+Closure rules for block structure:
+
+- a block task is not valid for closure if `build` vs `no-build` remains ambiguous
+- a block task is not valid for closure if the target mixes parallel runtime layouts without a single declared contract
+- a block task is not valid for closure if stale directories, duplicate block roots, or leftover implementation strategies remain in the target after the change
+- if the target is intentionally `no-build`, that decision must still be explicit and the runtime files consumed by WordPress must be unambiguous
+
 ### 1) Create a new block (if needed)
 
 If you are creating a new block, prefer scaffolding rather than hand-rolling structure:
@@ -256,6 +263,7 @@ Before closing block work, verify the block contract end-to-end:
    - `frontend-render-smoke`
    - `editor-registration-smoke`
    - `dynamic-block-render-smoke`
+6. the target does not retain parallel architectures or stale block roots that would make the contract ambiguous
 
 ## Verification
 

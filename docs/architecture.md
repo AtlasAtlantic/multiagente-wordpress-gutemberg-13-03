@@ -23,6 +23,7 @@ Este template empaqueta la configuracion reusable del repo para crear proyectos 
 - `builder` ejecuta checks y `qa` decide sobre gates con esa evidencia
 - `skill-discovery-index` vive en `./.agents/generated/skill-discovery-index.json` como artefacto derivado para discovery y shortlist
 - `skill-discovery-index` no decide ejecucion, no selecciona perfil y no sustituye `multiagent.yaml`
+- para plugins, bloques y block themes con UI visible, el cierre debe bloquearse si hay source strings no ingleses, i18n ausente, target sucio, contrato `build/no-build` ambiguo o E2E de Gutenberg fragil por dependencia de locale
 
 ## Compatibilidad de rutas
 
