@@ -1,0 +1,27 @@
+version: v1
+global:
+  - do_not_treat_runtime_files_as_canonical
+  - do_not_expand_scope_without_documenting_it
+  - do_not_skip_validation_when_contracts_exist
+  - do_not_write_runtime_output_into_canonical_paths
+roles:
+  planner:
+    - must_define_scope
+    - must_define_risks
+    - must_define_validation_plan
+  builder:
+    - must_follow_approved_scope
+    - must_prefer_deterministic_tools
+    - must_report_files_touched
+  reviewer:
+    - must_report_findings
+    - must_separate_blocking_and_non_blocking_issues
+  fixer:
+    - must_only_address_review_findings
+  qa:
+    - must_report_checks_executed
+    - must_report_blocking_issues
+project_context:
+  wordpress_docker:
+    - prefer_wp_cli_for_wordpress_operations
+    - prefer_docker_compose_for_local_stack_actions

@@ -1,0 +1,52 @@
+version: v1
+required:
+  - role_from
+  - role_to
+  - objective
+  - scope
+  - files_touched
+  - repo_findings
+  - risks
+  - verification_plan
+  - status
+fields:
+  role_from:
+    type: string
+  role_to:
+    type: string
+  objective:
+    type: string
+  assumptions:
+    type: array
+    items: string
+    required: false
+  scope:
+    type: array
+    items: string
+  files_touched:
+    type: array
+    items: string
+  repo_findings:
+    type: array
+    items: string
+  commands_run:
+    type: array
+    items: string
+    required: false
+  risks:
+    type: array
+    items: string
+  verification_plan:
+    type: array
+    items: string
+  artifacts:
+    type: array
+    items: string
+    required: false
+  status:
+    type: string
+    allowed:
+      - in_progress
+      - blocked
+      - ready_for_next_role
+      - done

@@ -1,0 +1,31 @@
+version: v1
+pipeline: feature
+description: Standard pipeline for new feature work.
+preconditions:
+  - objective_defined
+  - applicable_profile_selected
+steps:
+  - role: planner
+    produces: plan_handoff
+  - role: builder
+    requires:
+      - plan_handoff
+    produces: implementation_handoff
+  - role: reviewer
+    requires:
+      - implementation_handoff
+    produces: review_handoff
+  - role: fixer
+    optional: true
+    requires:
+      - review_handoff
+    when: changes_requested
+    produces: fix_handoff
+  - role: qa
+    requires:
+      - review_handoff
+    when: approved
+    produces: qa_report
+stop_conditions:
+  - scope_blocked
+  - failing_required_checks

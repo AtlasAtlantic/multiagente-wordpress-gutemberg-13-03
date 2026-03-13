@@ -1,0 +1,48 @@
+version: v1
+profile: wordpress
+description: Canonical profile for WordPress projects running on a local Docker stack.
+project_type: wordpress-docker
+stack:
+  runtime:
+    - wordpress
+    - php
+    - mariadb
+    - caddy
+  orchestration:
+    - docker-compose
+  cli:
+    - wp-cli
+paths:
+  app_root: wordpress
+  wp_content: wordpress/wp-content
+  plugins: wordpress/wp-content/plugins
+  themes: wordpress/wp-content/themes
+  mu_plugins: wordpress/wp-content/mu-plugins
+services:
+  db: db
+  wordpress: wordpress
+  web: caddy
+  cli: wp-cli
+tool_preferences:
+  wordpress_ops:
+    - docker compose exec wp-cli wp
+  stack_ops:
+    - docker compose
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+  - audit
+recommended_skills:
+  - wordpress-project-setup
+  - docker-wordpress-stack
+checks:
+  - name: compose_config_valid
+    command: docker compose config
+  - name: wordpress_tree_exists
+    command: test -d wordpress/wp-content
+  - name: wp_cli_service_declared
+    command: rg "^  wp-cli:" docker-compose.yml
+notes:
+  - prefer wp-cli for WordPress-specific inspection and operations
+  - prefer docker compose for local stack interaction

@@ -1,0 +1,31 @@
+version: v1
+pipeline: refactor
+description: Pipeline for structural changes without intended behavior change.
+preconditions:
+  - current_behavior_understood
+  - refactor_scope_defined
+steps:
+  - role: planner
+    produces: refactor_plan
+  - role: builder
+    requires:
+      - refactor_plan
+    produces: refactor_change
+  - role: reviewer
+    requires:
+      - refactor_change
+    produces: refactor_review
+  - role: fixer
+    optional: true
+    requires:
+      - refactor_review
+    when: changes_requested
+    produces: refactor_fix
+  - role: qa
+    requires:
+      - refactor_review
+    when: approved
+    produces: refactor_qa
+stop_conditions:
+  - behavior_change_detected_without_approval
+  - architecture_regression_detected

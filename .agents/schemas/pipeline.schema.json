@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Pipeline",
+  "type": "object",
+  "required": ["version", "pipeline", "steps"],
+  "properties": {
+    "version": { "type": "string" },
+    "pipeline": { "type": "string" },
+    "description": { "type": "string" },
+    "preconditions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "produces"],
+        "properties": {
+          "role": { "type": "string" },
+          "requires": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "produces": { "type": "string" },
+          "optional": { "type": "boolean" },
+          "when": { "type": "string" }
+        }
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

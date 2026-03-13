@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Handoff",
+  "type": "object",
+  "required": [
+    "role_from",
+    "role_to",
+    "objective",
+    "scope",
+    "files_touched",
+    "repo_findings",
+    "risks",
+    "verification_plan",
+    "status"
+  ],
+  "properties": {
+    "role_from": { "type": "string" },
+    "role_to": { "type": "string" },
+    "objective": { "type": "string" },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "scope": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "files_touched": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "repo_findings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "commands_run": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verification_plan": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["in_progress", "blocked", "ready_for_next_role", "done"]
+    }
+  }
+}

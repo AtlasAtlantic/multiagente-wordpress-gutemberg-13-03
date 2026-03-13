@@ -1,0 +1,31 @@
+version: v1
+pipeline: bugfix
+description: Pipeline for targeted corrections with explicit regression review.
+preconditions:
+  - bug_reproduced_or_described
+  - affected_area_identified
+steps:
+  - role: planner
+    produces: bugfix_plan
+  - role: builder
+    requires:
+      - bugfix_plan
+    produces: bugfix_change
+  - role: reviewer
+    requires:
+      - bugfix_change
+    produces: bugfix_review
+  - role: fixer
+    optional: true
+    requires:
+      - bugfix_review
+    when: changes_requested
+    produces: bugfix_fix
+  - role: qa
+    requires:
+      - bugfix_review
+    when: approved
+    produces: bugfix_qa
+stop_conditions:
+  - issue_not_reproducible
+  - regression_risk_unresolved

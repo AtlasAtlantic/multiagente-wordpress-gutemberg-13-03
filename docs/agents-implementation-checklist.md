@@ -6,15 +6,15 @@ Implantar la estructura y arquitectura base de `.agents/` como fuente única de 
 
 ## Criterios de cierre global
 
-- [ ] Existe `.agents/` con estructura base operativa.
-- [ ] La arquitectura canónica está documentada y versionada.
-- [ ] Los agentes base tienen contratos claros de entrada y salida.
-- [ ] Los pipelines mínimos están definidos.
-- [ ] El perfil WordPress está aterrizado al stack real del proyecto.
-- [ ] Hay skills y tools base para operar la capa IA.
-- [ ] Los esquemas validan la consistencia mínima.
-- [ ] Los adaptadores runtime se generan como derivados, no como origen.
-- [ ] Existe un flujo claro para validar cambios y evitar deriva.
+- [x] Existe `.agents/` con estructura base operativa.
+- [x] La arquitectura canónica está documentada y versionada.
+- [x] Los agentes base tienen contratos claros de entrada y salida.
+- [x] Los pipelines mínimos están definidos.
+- [x] El perfil WordPress está aterrizado al stack real del proyecto.
+- [x] Hay skills y tools base para operar la capa IA.
+- [x] Los esquemas validan la consistencia mínima.
+- [x] Los adaptadores runtime se generan como derivados, no como origen.
+- [x] Existe un flujo claro para validar cambios y evitar deriva.
 
 ## Fase 1. Cierre de decisiones de Spec v1
 
@@ -36,16 +36,16 @@ Entregables esperados:
 
 Objetivo: materializar la estructura inicial para que el sistema exista físicamente en el repositorio.
 
-- [ ] Crear `.agents/AGENTS.md`.
-- [ ] Crear `.agents/architecture/`.
-- [ ] Crear `.agents/agents/`.
-- [ ] Crear `.agents/pipelines/`.
-- [ ] Crear `.agents/profiles/`.
-- [ ] Crear `.agents/skills/`.
-- [ ] Crear `.agents/tools/`.
-- [ ] Crear `.agents/runtime/`.
-- [ ] Crear `.agents/schemas/`.
-- [ ] Añadir contenido base funcional a cada ruta, evitando directorios vacíos sin propósito.
+- [x] Crear `.agents/AGENTS.md`.
+- [x] Crear `.agents/architecture/`.
+- [x] Crear `.agents/agents/`.
+- [x] Crear `.agents/pipelines/`.
+- [x] Crear `.agents/profiles/`.
+- [x] Crear `.agents/skills/`.
+- [x] Crear `.agents/tools/`.
+- [x] Crear `.agents/runtime/`.
+- [x] Crear `.agents/schemas/`.
+- [x] Añadir contenido base funcional a cada ruta, evitando directorios vacíos sin propósito.
 
 Entregables esperados:
 
@@ -56,16 +56,16 @@ Entregables esperados:
 
 Objetivo: convertir la visión arquitectónica en contratos explícitos.
 
-- [ ] Crear `.agents/architecture/principles.md`.
-- [ ] Crear `.agents/architecture/overview.md`.
-- [ ] Crear `.agents/architecture/glossary.md`.
-- [ ] Crear `.agents/architecture/routing.yaml`.
-- [ ] Crear `.agents/architecture/handoff_schema.yaml`.
-- [ ] Crear `.agents/architecture/guardrails.yaml`.
-- [ ] Crear `.agents/architecture/state_model.yaml`.
-- [ ] Definir reglas de routing entre roles.
-- [ ] Definir estados válidos y transiciones mínimas.
-- [ ] Definir guardrails operativos y límites de actuación.
+- [x] Crear `.agents/architecture/principles.md`.
+- [x] Crear `.agents/architecture/overview.md`.
+- [x] Crear `.agents/architecture/glossary.md`.
+- [x] Crear `.agents/architecture/routing.yaml`.
+- [x] Crear `.agents/architecture/handoff_schema.yaml`.
+- [x] Crear `.agents/architecture/guardrails.yaml`.
+- [x] Crear `.agents/architecture/state_model.yaml`.
+- [x] Definir reglas de routing entre roles.
+- [x] Definir estados válidos y transiciones mínimas.
+- [x] Definir guardrails operativos y límites de actuación.
 
 Entregables esperados:
 
@@ -75,16 +75,16 @@ Entregables esperados:
 
 Objetivo: dejar descritos los roles estándar y sus contratos operativos.
 
-- [ ] Crear `.agents/agents/planner.md`.
-- [ ] Crear `.agents/agents/builder.md`.
-- [ ] Crear `.agents/agents/reviewer.md`.
-- [ ] Crear `.agents/agents/fixer.md`.
-- [ ] Crear `.agents/agents/qa.md`.
-- [ ] Definir responsabilidades por rol.
-- [ ] Definir entradas esperadas por rol.
-- [ ] Definir salidas esperadas por rol.
-- [ ] Definir límites, restricciones y reglas de decisión.
-- [ ] Definir artefactos de handoff esperados por rol.
+- [x] Crear `.agents/agents/planner.md`.
+- [x] Crear `.agents/agents/builder.md`.
+- [x] Crear `.agents/agents/reviewer.md`.
+- [x] Crear `.agents/agents/fixer.md`.
+- [x] Crear `.agents/agents/qa.md`.
+- [x] Definir responsabilidades por rol.
+- [x] Definir entradas esperadas por rol.
+- [x] Definir salidas esperadas por rol.
+- [x] Definir límites, restricciones y reglas de decisión.
+- [x] Definir artefactos de handoff esperados por rol.
 
 Entregables esperados:
 
@@ -94,14 +94,14 @@ Entregables esperados:
 
 Objetivo: formalizar flujos reutilizables para tipos de trabajo comunes.
 
-- [ ] Crear `.agents/pipelines/feature.yaml`.
-- [ ] Crear `.agents/pipelines/bugfix.yaml`.
-- [ ] Crear `.agents/pipelines/refactor.yaml`.
-- [ ] Crear `.agents/pipelines/audit.yaml`.
-- [ ] Definir pasos y dependencias por pipeline.
-- [ ] Definir precondiciones de entrada.
-- [ ] Definir salidas y criterios de paso a la siguiente etapa.
-- [ ] Definir bloqueos y condiciones de stop.
+- [x] Crear `.agents/pipelines/feature.yaml`.
+- [x] Crear `.agents/pipelines/bugfix.yaml`.
+- [x] Crear `.agents/pipelines/refactor.yaml`.
+- [x] Crear `.agents/pipelines/audit.yaml`.
+- [x] Definir pasos y dependencias por pipeline.
+- [x] Definir precondiciones de entrada.
+- [x] Definir salidas y criterios de paso a la siguiente etapa.
+- [x] Definir bloqueos y condiciones de stop.
 
 Entregables esperados:
 
@@ -111,12 +111,12 @@ Entregables esperados:
 
 Objetivo: aterrizar la arquitectura a contextos de proyecto concretos, con prioridad en WordPress.
 
-- [ ] Crear `.agents/profiles/wordpress.yaml`.
-- [ ] Crear `.agents/profiles/generic-web.yaml`.
-- [ ] Evaluar si `plugin.yaml` y `laravel.yaml` entran en v1 o quedan como placeholders explícitos.
-- [ ] Modelar stack WordPress + Docker del proyecto actual.
-- [ ] Referenciar uso de WP-CLI, servicios Docker y rutas relevantes.
-- [ ] Definir checks reproducibles asociados al perfil WordPress.
+- [x] Crear `.agents/profiles/wordpress.yaml`.
+- [x] Crear `.agents/profiles/generic-web.yaml`.
+- [x] Evaluar si `plugin.yaml` y `laravel.yaml` entran en v1 o quedan como placeholders explícitos.
+- [x] Modelar stack WordPress + Docker del proyecto actual.
+- [x] Referenciar uso de WP-CLI, servicios Docker y rutas relevantes.
+- [x] Definir checks reproducibles asociados al perfil WordPress.
 
 Entregables esperados:
 
@@ -127,16 +127,16 @@ Entregables esperados:
 
 Objetivo: crear capacidades reutilizables para operar el sistema y el contexto WordPress + Docker.
 
-- [ ] Crear skill `agents-bootstrap-architecture`.
-- [ ] Crear skill `agents-architecture-design`.
-- [ ] Crear skill `agents-runtime-adapter`.
-- [ ] Crear skill `agents-config-validation`.
-- [ ] Crear skill `wordpress-project-setup`.
-- [ ] Crear skill `docker-wordpress-stack`.
-- [ ] Crear skill `project-scaffold-generator`.
-- [ ] Crear skill `project-doctor`.
-- [ ] Añadir `SKILL.md` en cada skill.
-- [ ] Añadir `scripts/` o `resources/` solo cuando aporten valor real.
+- [x] Crear skill `agents-bootstrap-architecture`.
+- [x] Crear skill `agents-architecture-design`.
+- [x] Crear skill `agents-runtime-adapter`.
+- [x] Crear skill `agents-config-validation`.
+- [x] Crear skill `wordpress-project-setup`.
+- [x] Crear skill `docker-wordpress-stack`.
+- [x] Crear skill `project-scaffold-generator`.
+- [x] Crear skill `project-doctor`.
+- [x] Añadir `SKILL.md` en cada skill.
+- [x] Añadir `scripts/` o `resources/` solo cuando aporten valor real.
 
 Entregables esperados:
 
@@ -146,14 +146,14 @@ Entregables esperados:
 
 Objetivo: mover la ejecución crítica a herramientas repetibles y auditables.
 
-- [ ] Crear `.agents/tools/doctor/`.
-- [ ] Crear `.agents/tools/validate-config/`.
-- [ ] Crear `.agents/tools/sync-runtime/`.
-- [ ] Crear `.agents/tools/scaffold/`.
-- [ ] Implementar validación estructural de `.agents/`.
-- [ ] Implementar validación de YAML y JSON Schema.
-- [ ] Implementar generación de outputs runtime.
-- [ ] Implementar scaffold mínimo para nuevos artefactos.
+- [x] Crear `.agents/tools/doctor/`.
+- [x] Crear `.agents/tools/validate-config/`.
+- [x] Crear `.agents/tools/sync-runtime/`.
+- [x] Crear `.agents/tools/scaffold/`.
+- [x] Implementar validación estructural de `.agents/`.
+- [x] Implementar validación de YAML y JSON Schema.
+- [x] Implementar generación de outputs runtime.
+- [x] Implementar scaffold mínimo para nuevos artefactos.
 
 Entregables esperados:
 
@@ -163,13 +163,13 @@ Entregables esperados:
 
 Objetivo: impedir deriva y ambigüedad mediante validación formal.
 
-- [ ] Crear `.agents/schemas/profile.schema.json`.
-- [ ] Crear `.agents/schemas/pipeline.schema.json`.
-- [ ] Crear `.agents/schemas/routing.schema.json`.
-- [ ] Crear `.agents/schemas/handoff.schema.json`.
-- [ ] Validar referencias cruzadas entre pipelines y agentes.
-- [ ] Validar referencias cruzadas entre perfiles y skills.
-- [ ] Validar consistencia de routing y handoffs.
+- [x] Crear `.agents/schemas/profile.schema.json`.
+- [x] Crear `.agents/schemas/pipeline.schema.json`.
+- [x] Crear `.agents/schemas/routing.schema.json`.
+- [x] Crear `.agents/schemas/handoff.schema.json`.
+- [x] Validar referencias cruzadas entre pipelines y agentes.
+- [x] Validar referencias cruzadas entre perfiles y skills.
+- [x] Validar consistencia de routing y handoffs.
 
 Entregables esperados:
 
@@ -179,15 +179,15 @@ Entregables esperados:
 
 Objetivo: proyectar la arquitectura canónica a runtimes concretos sin convertirlos en origen de verdad.
 
-- [ ] Crear `.agents/runtime/codex/`.
-- [ ] Crear `.agents/runtime/claude/`.
-- [ ] Crear `.agents/runtime/cursor/`.
-- [ ] Crear `.agents/runtime/chatgpt/`.
-- [ ] Añadir `mapping.yaml` por runtime.
-- [ ] Añadir `templates/` por runtime.
-- [ ] Añadir `output/` por runtime.
-- [ ] Definir trazabilidad entre fuente canónica y artefacto derivado.
-- [ ] Generar una primera salida mínima por runtime.
+- [x] Crear `.agents/runtime/codex/`.
+- [x] Crear `.agents/runtime/claude/`.
+- [x] Crear `.agents/runtime/cursor/`.
+- [x] Crear `.agents/runtime/chatgpt/`.
+- [x] Añadir `mapping.yaml` por runtime.
+- [x] Añadir `templates/` por runtime.
+- [x] Añadir `output/` por runtime.
+- [x] Definir trazabilidad entre fuente canónica y artefacto derivado.
+- [x] Generar una primera salida mínima por runtime.
 
 Entregables esperados:
 
@@ -197,11 +197,11 @@ Entregables esperados:
 
 Objetivo: definir cómo se cambia, valida y sincroniza la arquitectura sin deriva.
 
-- [ ] Documentar flujo de cambios sobre `.agents/`.
-- [ ] Documentar flujo de validación antes de aceptar cambios.
-- [ ] Documentar regeneración de adaptadores runtime.
-- [ ] Documentar revisión de diffs y control de trazabilidad.
-- [ ] Definir convención para evolucionar la spec sin romper proyectos.
+- [x] Documentar flujo de cambios sobre `.agents/`.
+- [x] Documentar flujo de validación antes de aceptar cambios.
+- [x] Documentar regeneración de adaptadores runtime.
+- [x] Documentar revisión de diffs y control de trazabilidad.
+- [x] Definir convención para evolucionar la spec sin romper proyectos.
 
 Entregables esperados:
 
@@ -211,12 +211,12 @@ Entregables esperados:
 
 Objetivo: verificar que la base implantada es operativa, no solo documental.
 
-- [ ] Ejecutar validación estructural completa de `.agents/`.
-- [ ] Ejecutar validación de esquemas.
-- [ ] Generar outputs runtime desde la fuente canónica.
-- [ ] Comprobar que el perfil WordPress refleja el stack real del proyecto.
-- [ ] Revisar huecos, incoherencias o sobreingeniería.
-- [ ] Cerrar ajustes finales de v1.
+- [x] Ejecutar validación estructural completa de `.agents/`.
+- [x] Ejecutar validación de esquemas.
+- [x] Generar outputs runtime desde la fuente canónica.
+- [x] Comprobar que el perfil WordPress refleja el stack real del proyecto.
+- [x] Revisar huecos, incoherencias o sobreingeniería.
+- [x] Cerrar ajustes finales de v1.
 
 Entregables esperados:
 
@@ -243,5 +243,5 @@ Entregables esperados:
 
 - [x] Plan documentado en `docs/agents-implementation-checklist.md`.
 - [x] Implantación iniciada.
-- [ ] Primer corte funcional de `.agents/` completado.
-- [ ] Validación end-to-end completada.
+- [x] Primer corte funcional de `.agents/` completado.
+- [x] Validación end-to-end completada.

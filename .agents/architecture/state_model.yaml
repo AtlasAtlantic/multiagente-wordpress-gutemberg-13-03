@@ -1,0 +1,31 @@
+version: v1
+states:
+  - planned
+  - in_progress
+  - in_review
+  - changes_requested
+  - in_qa
+  - blocked
+  - done
+transitions:
+  - from: planned
+    to: in_progress
+    by: builder
+  - from: in_progress
+    to: in_review
+    by: reviewer
+  - from: in_review
+    to: changes_requested
+    by: reviewer
+  - from: changes_requested
+    to: in_review
+    by: fixer
+  - from: in_review
+    to: in_qa
+    by: reviewer
+  - from: in_qa
+    to: done
+    by: qa
+  - from: in_qa
+    to: blocked
+    by: qa

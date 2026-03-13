@@ -1,0 +1,27 @@
+version: v1
+pipeline: audit
+description: Pipeline for inspection-oriented work that may end with findings instead of code changes.
+preconditions:
+  - audit_scope_defined
+steps:
+  - role: planner
+    produces: audit_plan
+  - role: reviewer
+    requires:
+      - audit_plan
+    produces: audit_findings
+  - role: fixer
+    optional: true
+    requires:
+      - audit_findings
+    when: remediation_requested
+    produces: audit_fix
+  - role: qa
+    optional: true
+    requires:
+      - audit_fix
+    when: remediation_completed
+    produces: audit_validation
+stop_conditions:
+  - insufficient_evidence
+  - unresolved_blocking_finding

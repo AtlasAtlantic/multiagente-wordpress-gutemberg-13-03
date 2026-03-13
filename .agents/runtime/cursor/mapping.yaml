@@ -1,0 +1,13 @@
+version: v1
+runtime: cursor
+source_of_truth: .agents
+inputs:
+  - ../../architecture/
+  - ../../agents/
+  - ../../pipelines/
+  - ../../profiles/
+output_dir: ./output
+template_dir: ./templates
+traceability:
+  include_revision: true
+  include_spec_version: true

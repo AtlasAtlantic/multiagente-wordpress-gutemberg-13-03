@@ -1,0 +1,20 @@
+version: v1
+profile: generic-web
+description: Portable baseline profile for non-WordPress web projects.
+project_type: generic-web
+stack:
+  runtime: []
+  orchestration: []
+  cli: []
+paths: {}
+services: {}
+tool_preferences: {}
+applicable_pipelines:
+  - feature
+  - bugfix
+  - refactor
+  - audit
+recommended_skills: []
+checks: []
+notes:
+  - extend this profile in projects without WordPress-specific assumptions

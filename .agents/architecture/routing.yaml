@@ -1,0 +1,35 @@
+version: v1
+default_pipeline: feature
+roles:
+  planner:
+    can_route_to:
+      - builder
+    failure_route: reviewer
+  builder:
+    can_route_to:
+      - reviewer
+    failure_route: planner
+  reviewer:
+    can_route_to:
+      - fixer
+      - qa
+    approve_route: qa
+    reject_route: fixer
+  fixer:
+    can_route_to:
+      - reviewer
+    failure_route: planner
+  qa:
+    can_route_to: []
+    pass_state: done
+    fail_route: fixer
+rules:
+  - name: planner_starts_pipeline
+    when: pipeline_starts
+    route_to: planner
+  - name: review_required_before_qa
+    when: builder_completed
+    route_to: reviewer
+  - name: qa_only_after_approval
+    when: review_approved
+    route_to: qa
