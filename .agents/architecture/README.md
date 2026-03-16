@@ -2,7 +2,7 @@
 
 Este directorio contiene la arquitectura normativa del sistema multiagente.
 
-Artefactos previstos para v1:
+Artefactos canónicos actuales:
 
 - `principles.md`
 - `overview.md`
@@ -12,7 +12,8 @@ Artefactos previstos para v1:
 - `guardrails.yaml`
 - `state_model.yaml`
 
-Estado actual:
+Propósito:
 
-- directorio scaffoldeado
-- listo para la implementación de la Fase 3
+- definir principios, contratos y límites del sistema
+- modelar routing, handoffs, estados y guardrails
+- servir de referencia normativa para agentes, pipelines, perfiles, skills y runtime adapters

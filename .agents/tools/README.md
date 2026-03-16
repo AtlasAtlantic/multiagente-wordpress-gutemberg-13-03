@@ -2,14 +2,16 @@
 
 Este directorio contiene tooling determinista para la capa de agentes.
 
-Tools previstas para v1:
+Tools canónicas actuales:
 
 - `doctor/`
 - `validate-config/`
 - `sync-runtime/`
 - `scaffold/`
 
-Estado actual:
+Propósito:
 
-- directorio scaffoldeado
-- listo para la implementación de la Fase 8
+- ejecutar checks repetibles sobre la estructura canónica
+- validar configuración y referencias cruzadas
+- regenerar output runtime derivado
+- crear scaffolds básicos de artefactos canónicos

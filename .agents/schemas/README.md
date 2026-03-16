@@ -2,7 +2,7 @@
 
 Este directorio contiene archivos JSON Schema usados para validar la configuración canónica.
 
-Schemas previstos para v1:
+Schemas canónicos actuales:
 
 - `profile.schema.json`
 - `pipeline.schema.json`
@@ -14,3 +14,8 @@ Schemas previstos para v1:
 - `project.schema.json`
 
 Estos schemas validan tanto los metadatos reutilizables de la plataforma como el contexto específico del proyecto.
+
+Propósito:
+
+- formalizar contratos mínimos de configuración
+- reducir deriva estructural entre catálogo, perfiles, proyecto, pipelines y runtime

@@ -2,7 +2,7 @@
 
 Este directorio contiene las definiciones canónicas de roles del sistema base de agentes.
 
-Roles previstos para v1:
+Roles canónicos actuales:
 
 - `planner.md`
 - `builder.md`
@@ -10,7 +10,7 @@ Roles previstos para v1:
 - `fixer.md`
 - `qa.md`
 
-Estado actual:
+Propósito:
 
-- directorio scaffoldeado
-- listo para la implementación de la Fase 4
+- definir responsabilidades, entradas, salidas y límites por rol
+- dar soporte a los pipelines canónicos de feature, bugfix, refactor y audit

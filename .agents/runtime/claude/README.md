@@ -7,7 +7,8 @@ Directorios:
 - `templates/`: plantillas del adaptador
 - `output/`: artefactos generados
 
-Estado actual:
+Reglas:
 
-- scaffoldeado
-- listo para la implementación de la Fase 10
+- consume definición canónica desde `.agents/`
+- no redefine comportamiento canónico
+- trata `output/` como artefacto derivado y regenerable

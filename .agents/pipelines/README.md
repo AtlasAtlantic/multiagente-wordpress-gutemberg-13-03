@@ -2,14 +2,14 @@
 
 Este directorio contiene flujos de trabajo reutilizables para tipos comunes de trabajo.
 
-Pipelines previstos para v1:
+Pipelines canónicos actuales:
 
 - `feature.yaml`
 - `bugfix.yaml`
 - `refactor.yaml`
 - `audit.yaml`
 
-Estado actual:
+Propósito:
 
-- directorio scaffoldeado
-- listo para la implementación de la Fase 5
+- definir secuencias reutilizables entre roles
+- formalizar precondiciones, pasos y condiciones de stop

@@ -44,6 +44,10 @@
 - [`LOG-0040`: validación posterior a la traducción segura de `.agents/`](#2026-03-13-1528-europemadrid--log-0040)
 - [`LOG-0041`: alineación de `recommended_skills` con las skills reales de WordPress`](#2026-03-16-1331-europemadrid--log-0041)
 - [`LOG-0042`: validación posterior al ajuste de `recommended_skills`](#2026-03-16-1331-europemadrid--log-0042)
+- [`LOG-0043`: creación de hoja de ruta operativa para mejora de skills`](#2026-03-16-1338-europemadrid--log-0043)
+- [`LOG-0044`: ampliación de la hoja de ruta con URLs de skills externas de referencia`](#2026-03-16-1338-europemadrid--log-0044)
+- [`LOG-0045`: limpieza de README con humo de scaffold en `.agents/`](#2026-03-16-1345-europemadrid--log-0045)
+- [`LOG-0046`: validación posterior a la limpieza de README de `.agents/`](#2026-03-16-1345-europemadrid--log-0046)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -1310,3 +1314,112 @@
   - `No`
 - Observaciones:
   - el cambio no requirió tocar schemas ni tooling adicional
+
+## 2026-03-16 13:38 Europe/Madrid | LOG-0043
+
+- Tipo: `create`
+- Área: `docs`
+- Resumen: creación de una hoja de ruta operativa para la mejora progresiva de skills de `.agents/`
+- Motivo: disponer de un plan marcable y trazable para sanear, validar, ampliar y gobernar el catálogo de skills sin perder foco ni introducir deriva
+- Archivos afectados:
+  - `docs/agents-skills-improvement-roadmap.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se creó un documento de hoja de ruta con fases, backlog, dependencias, riesgos y criterios de cierre
+  - se incluyeron checkboxes para marcar trabajo ya realizado y tareas pendientes
+  - se priorizaron mejoras inmediatas como endurecimiento de validación, limpieza de humo documental y auditoría de skills externas relevantes
+  - se dejó un registro explícito de iteraciones y regla de uso para futuras actualizaciones
+- Impacto:
+  - habilita una evolución ordenada del sistema de skills
+  - reduce el riesgo de mejoras oportunistas sin secuencia ni trazabilidad
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - al ser un cambio exclusivamente documental no fue necesario ejecutar validación estructural
+
+## 2026-03-16 13:38 Europe/Madrid | LOG-0044
+
+- Tipo: `update`
+- Área: `docs`
+- Resumen: ampliación de la hoja de ruta de skills con URLs de referencia para skills externas candidatas
+- Motivo: hacer la hoja de ruta más operativa y permitir auditorías futuras sin depender de búsqueda manual adicional
+- Archivos afectados:
+  - `docs/agents-skills-improvement-roadmap.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadió una sección específica de skills externas de referencia con sus URLs
+  - se incorporaron las URLs directamente en las fases y en el backlog de tareas donde aplican
+  - se dejó explícita la regla de no instalar ni migrar skills externas sin auditoría previa
+- Impacto:
+  - la hoja de ruta pasa de ser solo secuencia de trabajo a documento accionable con fuentes concretas
+  - se reduce el riesgo de perder contexto sobre qué skill externa se está evaluando en cada fase
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - cambio puramente documental, sin impacto en estructura canónica ni tooling
+
+## 2026-03-16 13:45 Europe/Madrid | LOG-0045
+
+- Tipo: `update`
+- Área: `docs`
+- Resumen: limpieza de README con humo de scaffold en `.agents/` y marcaje de la tarea correspondiente en la hoja de ruta
+- Motivo: eliminar documentación obsoleta que seguía describiendo la plataforma como pendiente de fases ya completadas
+- Archivos afectados:
+  - `.agents/architecture/README.md`
+  - `.agents/agents/README.md`
+  - `.agents/pipelines/README.md`
+  - `.agents/tools/README.md`
+  - `.agents/runtime/chatgpt/README.md`
+  - `.agents/runtime/claude/README.md`
+  - `.agents/runtime/cursor/README.md`
+  - `.agents/schemas/README.md`
+  - `docs/agents-skills-improvement-roadmap.md`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se sustituyó lenguaje de “scaffold” y “Fase X” por descripciones del propósito y estado real de cada bloque
+  - se mantuvieron intactas las rutas y referencias estructurales
+  - se marcó como completada la tarea de limpieza de README en la hoja de ruta de mejora de skills
+- Impacto:
+  - la documentación de plataforma refleja mejor el estado actual del sistema
+  - se reduce humo documental y confusión para mantenimiento futuro
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el cambio es documental, pero afecta a la interpretación operativa de la plataforma
+
+## 2026-03-16 13:45 Europe/Madrid | LOG-0046
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior a la limpieza de README de `.agents/`
+- Motivo: comprobar que la actualización documental no introduce inconsistencias en la estructura canónica ni en runtime derivado
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la estructura base esperada
+  - `validate-config` confirmó coherencia de metadatos, perfiles, proyecto, schemas y mappings runtime
+  - `sync-runtime` regeneró output derivado sin incidencias
+- Impacto:
+  - deja evidencia de que la limpieza documental no altera el comportamiento de la plataforma
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - sin cambios funcionales en tooling o configuración canónica
