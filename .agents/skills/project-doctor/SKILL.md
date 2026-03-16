@@ -1,3 +1,8 @@
+---
+name: project-doctor
+description: Evaluar la salud de la capa canónica de agentes. Usar al revisar integridad estructural, artefactos ausentes y verificación final de una fase.
+---
+
 # project-doctor
 
 Usa esta skill para evaluar la salud de la capa canónica de agentes.

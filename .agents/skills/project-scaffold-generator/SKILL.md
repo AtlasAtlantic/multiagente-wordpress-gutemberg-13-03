@@ -1,3 +1,8 @@
+---
+name: project-scaffold-generator
+description: Generar scaffolds repetibles de artefactos canónicos. Usar al añadir agentes, pipelines, profiles o skills, crear archivos base ausentes y estandarizar la estructura del repositorio.
+---
+
 # project-scaffold-generator
 
 Usa esta skill para generar scaffolds repetibles de artefactos canónicos.

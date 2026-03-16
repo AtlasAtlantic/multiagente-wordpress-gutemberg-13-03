@@ -1,3 +1,8 @@
+---
+name: agents-bootstrap-architecture
+description: Crear o ampliar la estructura canónica de `.agents/`. Usar en bootstrap de proyectos, alta de directorios o archivos canónicos y normalización de drift estructural.
+---
+
 # agents-bootstrap-architecture
 
 Usa esta skill para crear o ampliar la estructura canónica de `.agents/`.

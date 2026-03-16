@@ -1,3 +1,8 @@
+---
+name: agents-config-validation
+description: Validar configuración canónica y referencias cruzadas. Usar al revisar perfiles, pipelines, routing, archivos requeridos y cierre de cambios en `.agents/`.
+---
+
 # agents-config-validation
 
 Usa esta skill para validar la configuración canónica y las referencias cruzadas.

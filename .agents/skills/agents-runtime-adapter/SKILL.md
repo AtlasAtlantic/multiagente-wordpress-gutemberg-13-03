@@ -1,3 +1,8 @@
+---
+name: agents-runtime-adapter
+description: Mapear definiciones canónicas de `.agents/` a adaptadores específicos de runtime. Usar al añadir mappings runtime, generar output derivado o comprobar drift frente a fuentes canónicas.
+---
+
 # agents-runtime-adapter
 
 Usa esta skill para mapear definiciones canónicas de `.agents/` a adaptadores específicos de runtime.

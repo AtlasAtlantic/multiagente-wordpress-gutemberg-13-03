@@ -1,3 +1,8 @@
+---
+name: wordpress-project-setup
+description: Adaptar artefactos canónicos a un proyecto WordPress. Usar al configurar rutas WordPress, checks específicos y alineación de profiles o pipelines con restricciones de WordPress.
+---
+
 # wordpress-project-setup
 
 Usa esta skill para adaptar artefactos canónicos a un proyecto WordPress.
