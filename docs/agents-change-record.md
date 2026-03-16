@@ -42,6 +42,8 @@
 - [`LOG-0038`: validación posterior a la migración de documentación técnica`](#2026-03-13-1512-europemadrid--log-0038)
 - [`LOG-0039`: traducción segura al español de la prosa canónica de `.agents/`](#2026-03-13-1528-europemadrid--log-0039)
 - [`LOG-0040`: validación posterior a la traducción segura de `.agents/`](#2026-03-13-1528-europemadrid--log-0040)
+- [`LOG-0041`: alineación de `recommended_skills` con las skills reales de WordPress`](#2026-03-16-1331-europemadrid--log-0041)
+- [`LOG-0042`: validación posterior al ajuste de `recommended_skills`](#2026-03-16-1331-europemadrid--log-0042)
 
 ## 2026-03-13 00:00 Europe/Madrid | LOG-0001
 
@@ -1253,3 +1255,58 @@
   - `No`
 - Observaciones:
   - el cambio se limitó a localización de contenido humano y mantuvo intacta la estructura técnica
+
+## 2026-03-16 13:31 Europe/Madrid | LOG-0041
+
+- Tipo: `update`
+- Área: `profiles`
+- Resumen: alineación de `recommended_skills` en perfiles WordPress con las skills reales disponibles en la plataforma
+- Motivo: reducir deriva entre los perfiles reutilizables y las capabilities WordPress ya incorporadas en `.agents/skills/`
+- Archivos afectados:
+  - `.agents/profiles/wordpress-block-theme.yaml`
+  - `.agents/profiles/wordpress-hybrid.yaml`
+  - `.agents/profiles/wordpress-plugin.yaml`
+  - `.agents/profiles/wordpress-theme.yaml`
+  - `.agents/profiles/wordpress.yaml`
+  - `docs/agents-change-record.md`
+- Detalle:
+  - se añadieron `wordpress-code-quality` y `wordpress-technical-documentation` a los perfiles WordPress donde faltaban
+  - se añadió `wordpress-block-development` a los perfiles donde el trabajo con bloques forma parte natural del dominio recomendado
+  - se mantuvo `docker-wordpress-stack` solo en perfiles donde la recomendación de infraestructura seguía teniendo sentido
+  - no se cambió el comportamiento funcional de la plataforma, solo su metadato de recomendación
+- Impacto:
+  - los perfiles reflejan mejor las skills actualmente disponibles y reutilizables
+  - se reduce el humo documental entre modelado reusable y catálogo efectivo de capacidades
+- Validación:
+  - `No ejecutada`
+- Fuente de verdad afectada:
+  - `Sí`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - este ajuste corrige una incoherencia de metadatos, no una rotura estructural
+
+## 2026-03-16 13:31 Europe/Madrid | LOG-0042
+
+- Tipo: `validation`
+- Área: `tools`
+- Resumen: validación posterior al ajuste de `recommended_skills`
+- Motivo: comprobar que la alineación de recomendaciones en perfiles no introduce inconsistencias en configuración ni runtime derivado
+- Archivos afectados:
+  - `docs/agents-change-record.md`
+- Detalle:
+  - `doctor` confirmó la estructura base esperada
+  - `validate-config` confirmó que todos los `recommended_skills` referencian skills existentes y coherentes
+  - `sync-runtime` regeneró outputs derivados sin incidencias
+- Impacto:
+  - deja evidencia ejecutable de que el ajuste de metadatos es seguro
+- Validación:
+  - `sh .agents/tools/doctor/run.sh`
+  - `sh .agents/tools/validate-config/run.sh`
+  - `sh .agents/tools/sync-runtime/run.sh`
+- Fuente de verdad afectada:
+  - `No`
+- Artefactos derivados afectados:
+  - `No`
+- Observaciones:
+  - el cambio no requirió tocar schemas ni tooling adicional

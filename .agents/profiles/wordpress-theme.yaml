@@ -19,6 +19,8 @@ applicable_pipelines:
   - refactor
 recommended_skills:
   - wordpress-project-setup
+  - wordpress-code-quality
+  - wordpress-technical-documentation
 checks: []
 notes:
   - use for classic themes or child themes

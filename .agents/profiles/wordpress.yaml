@@ -21,6 +21,9 @@ applicable_pipelines:
   - audit
 recommended_skills:
   - wordpress-project-setup
+  - wordpress-code-quality
+  - wordpress-block-development
+  - wordpress-technical-documentation
   - docker-wordpress-stack
 checks: []
 notes:
